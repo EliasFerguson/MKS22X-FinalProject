@@ -7,7 +7,7 @@ int threshold = 25;
 
 void setup() {
   size(640, 480);
-
+  imageMode(CENTER);
   String[] cameras = Capture.list();
   curr = new PImage(640, 480);
   prev = new PImage(640, 480);
