@@ -1,14 +1,16 @@
 import processing.video.*;
 
 Capture cam;
-PImage background;
+PImage curr, prev;
 int threshold = 25;
+
 
 void setup() {
   size(640, 480);
 
   String[] cameras = Capture.list();
-
+  curr = new PImage(640, 480);
+  prev = new PImage(640, 480);
   if (cameras.length == 0) {
     println("No available camera(s).");
     exit();
@@ -24,11 +26,19 @@ void setup() {
 }
 
 void draw() {
- 
   if (cam.available()) {
     cam.read();
+    prev = curr;
+    curr = cam;
   }
-  image(cam, 0, 0);
-  }
+  reverseImage();
+ }
+ void reverseImage() {
+  pushMatrix();
+  scale(-1, 1);
+  image(curr, -curr.width/2, curr.height/2);
+  popMatrix();
+ }
+  
   
  
