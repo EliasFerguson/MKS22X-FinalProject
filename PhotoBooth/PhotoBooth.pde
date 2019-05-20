@@ -1,12 +1,16 @@
 import processing.video.*;
-
+import controlP5.*s;
 Capture cam;
 PImage curr, prev;
 int threshold = 25;
-
+ControlP5 control;
+Bang takePic;
 
 void setup() {
-  size(640, 480);
+  control = new ControlP5(this);
+  control.addBang("takePic");
+  size(640, 580);
+  fill(255);
   imageMode(CENTER);
   String[] cameras = Capture.list();
   curr = new PImage(640, 480);
