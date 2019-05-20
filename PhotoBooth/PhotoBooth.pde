@@ -20,6 +20,7 @@ void setup() {
     cam = new Capture(this, 640, 480);
     cam.start();
   }
+
 }
 
 void draw() {
