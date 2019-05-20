@@ -4,7 +4,7 @@ Capture live;
 boolean onScreen;
 PImage curr, prev;
 void setup() {
-  size(700, 500);
+  size(640, 480);
   onScreen = true;
   imageMode(CENTER);
   live = new Capture(this);
