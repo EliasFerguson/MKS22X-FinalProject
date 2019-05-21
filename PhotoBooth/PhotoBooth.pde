@@ -4,7 +4,7 @@ Capture cam;
 PImage curr, prev;
 int threshold = 25;
 ControlP5 control;
-ControlEvent controlEvent;
+ControlEvent event;
 Bang takePic;
 
 void setup() {
@@ -47,7 +47,11 @@ void draw() {
    println("bang worked");
  }
  void controlEvents() {
-   
+   if (event.isController()) {
+    if (event.isFrom("takePic")) {
+     takePicture(); 
+    }
+   }
  }
  void reverseImage() {
   pushMatrix();
