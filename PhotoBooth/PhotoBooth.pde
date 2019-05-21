@@ -4,7 +4,6 @@ Capture cam;
 PImage curr, prev;
 int threshold = 25;
 
-
 void setup() {
   size(640, 480);
   imageMode(CENTER);
@@ -31,11 +30,13 @@ void draw() {
     prev = curr;
     curr = cam;
   }
-  reverseImage();
+  
   if (key == '1') {
     // EDGE DETECT
-    image(grayscale(cam, threshold), 0, 0);
+    image(grayscale(cam), 0, 0);
+    
   }
+  reverseImage();
 }
 
 void reverseImage() {
@@ -53,6 +54,29 @@ PImage grayscale(PImage original) {
     }
   }
   return(Image);
+}
+
+
+float edginess(int x, int y, PImage Image) {
+  if ((x == 0) && (y == 0)) {
+    return(abs(red(Image.get(x, y+1)) + red(Image.get(x+1, y))));
+  }
+  if ((x == Image.width) && (y == Image.height)) {
+    return(abs(red(Image.get(x, y-1)) + red(Image.get(x-1, y))));
+  }
+  if (x == 0) {
+    return(abs(red(Image.get(x, y-1)) - red(Image.get(x, y+1))) + red(Image.get(x+1, y)));
+  }
+  if (y == 0) {
+    return(abs(red(Image.get(x-1, y)) - red(Image.get(x, y+1))) + red(Image.get(x+1, y)));
+  }
+  if (x == Image.width) {
+    return(abs(red(Image.get(x, y-1)) - red(Image.get(x, y+1))) + red(Image.get(x-1, y)));
+  }
+  if (y == Image.height) {
+    return(abs(red(Image.get(x-1, y)) - red(Image.get(x+1, y))) + red(Image.get(x, y-1)));
+  }
+  return(abs(red(Image.get(x-1, y)) - red(Image.get(x+1, y))) + abs(red(Image.get(x, y-1)) - red(Image.get(x, y+1))));
 }
 
 void thresholdChange(){
