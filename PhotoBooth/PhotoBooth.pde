@@ -22,7 +22,6 @@ void setup() {
     cam = new Capture(this, 640, 480);
     cam.start();
   }
-
 }
 
 void draw() {
@@ -32,14 +31,21 @@ void draw() {
     curr = cam;
   }
   reverseImage();
- }
- 
- void reverseImage() {
+}
+
+void reverseImage() {
   pushMatrix();
   scale(-1, 1);
   image(curr, -curr.width/2, curr.height/2);
   popMatrix();
- }
-  
-  
- 
+}
+
+PImage grayscale(PImage original) {
+  PImage Image = new PImage(original.width, original.height);
+  for (int y=0; y<original.height; y++) {
+    for (int x=0; x<original.width; x++) {
+      Image.set(x, y, color((red(original.get(x, y)) + green(original.get(x, y)) + blue(original.get(x, y)))/3));
+    }
+  }
+  return(Image);
+}
