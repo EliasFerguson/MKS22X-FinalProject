@@ -1,5 +1,5 @@
 import processing.video.*;
-import controlP5.*s;
+import controlP5.*;
 Capture cam;
 PImage curr, prev;
 int threshold = 25;
@@ -8,7 +8,11 @@ Bang takePic;
 
 void setup() {
   control = new ControlP5(this);
-  control.addBang("takePic");
+  control.addBang("takePic")
+    .setSize(60, 40)
+    .setPosition(290, 500)
+    .setLabel("Take Picture")
+    ; 
   size(640, 580);
   fill(255);
   imageMode(CENTER);
@@ -36,6 +40,9 @@ void draw() {
     curr = cam;
   }
   reverseImage();
+ }
+ void takePicture() {
+   
  }
  void reverseImage() {
   pushMatrix();
