@@ -25,12 +25,17 @@ void setup() {
 }
 
 void draw() {
+  thresholdChange();
   if (cam.available()) {
     cam.read();
     prev = curr;
     curr = cam;
   }
   reverseImage();
+  if (key == '1') {
+    // EDGE DETECT
+    image(grayscale(cam, threshold), 0, 0);
+  }
 }
 
 void reverseImage() {
@@ -48,4 +53,15 @@ PImage grayscale(PImage original) {
     }
   }
   return(Image);
+}
+
+void thresholdChange(){
+  if (keyCode == UP){
+    threshold += 5;
+    keyCode = LEFT;
+  }
+  if (keyCode == DOWN){
+    threshold -= 5;
+    keyCode = RIGHT;
+  }
 }
