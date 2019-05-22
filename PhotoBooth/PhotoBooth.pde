@@ -52,7 +52,8 @@ void draw() {
    }
  }
  public void takePic() {
-   println("WORKS");
+   cam.stop();
+   curr.save("PhotoBooth.jpg");
  }
  void reverseImage() {
   pushMatrix();
