@@ -54,6 +54,7 @@ void draw() {
  public void takePic() {
    cam.stop();
    curr.save("PhotoBooth.jpg");
+   cam.start();
  }
  void reverseImage() {
   pushMatrix();
