@@ -5,7 +5,6 @@ PImage curr, prev;
 int threshold = 25;
 ControlP5 control;
 int picNum;
-Bang takePic;
 
 void setup() {
   picNum = 1;
@@ -56,7 +55,7 @@ void draw() {
  public void takePic() {
    cam.stop();
    PImage toBeSaved = prev.copy();
-   toBeSaved.save("PhotoBooth" + picNum + ".jpg");
+   toBeSaved.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
    cam.start();
    picNum++;
  }
