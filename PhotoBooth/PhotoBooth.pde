@@ -5,7 +5,7 @@ PImage curr, prev;
 int threshold = 25;
 ControlP5 control;
 int picNum;
-//Bang takePic;
+Bang takePic;
 
 void setup() {
   picNum = 1;
