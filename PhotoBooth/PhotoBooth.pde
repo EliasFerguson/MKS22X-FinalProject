@@ -4,9 +4,11 @@ Capture cam;
 PImage curr, prev;
 int threshold = 25;
 ControlP5 control;
+int picNum;
 //Bang takePic;
 
 void setup() {
+  picNum = 1;
   control = new ControlP5(this);
   control.addBang("takePic")
     .setSize(60, 40)
@@ -53,8 +55,10 @@ void draw() {
  }
  public void takePic() {
    cam.stop();
-   curr.save("PhotoBooth.jpg");
+   PImage toBeSaved = prev.copy();
+   toBeSaved.save("PhotoBooth" + picNum + ".jpg");
    cam.start();
+   picNum++;
  }
  void reverseImage() {
   pushMatrix();
