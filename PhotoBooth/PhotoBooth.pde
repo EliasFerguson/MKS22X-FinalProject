@@ -3,6 +3,7 @@ import controlP5.*;
 Capture cam;
 PImage curr, prev;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
+ArrayList<PImage> previews;
 int threshold = 25;
 ControlP5 control;
 int picNum;
@@ -38,6 +39,23 @@ void setup() {
   fill(204, 102, 0);
   rect(0, 480, 640, 60);
   fill(255);
+  preview1 = new PImage(80, 60);
+  preview2 = new PImage(80, 60);
+  preview3 = new PImage(80, 60);
+  preview4 = new PImage(80, 60);
+  preview5 = new PImage(80, 60);
+  preview6 = new PImage(80, 60);
+  preview7 = new PImage(80, 60);
+  preview8 = new PImage(80, 60);
+  previews = new ArrayList<PImage>();
+  previews.add(preview1);
+  previews.add(preview2);
+  previews.add(preview3);
+  previews.add(preview4);
+  previews.add(preview5);
+  previews.add(preview6);
+  previews.add(preview7);
+  previews.add(preview8);
   imageMode(CENTER);
   String[] cameras = Capture.list();
   curr = new PImage(640, 480);
@@ -85,6 +103,11 @@ void draw() {
   image(curr, -curr.width/2, curr.height/2);
   popMatrix();
  }
+ void displayPreviews() {
+   
+ }
+ 
+ 
   
   
  
