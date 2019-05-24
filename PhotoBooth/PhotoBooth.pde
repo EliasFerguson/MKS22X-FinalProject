@@ -36,7 +36,6 @@ void draw() {
     prev = curr;
     if (key == '1') {
      reverseGrayScale();
-     
     }
   }
 }
@@ -52,6 +51,14 @@ void reverseGrayScale() {
   pushMatrix();
   scale(-1, 1);
   curr = grayScale(curr);
+  image(curr, -curr.width/2, curr.height/2 );
+  popMatrix();
+}
+
+void reverseEdgeDetect() {
+  pushMatrix();
+  scale(-1, 1);
+  curr = edgeDetect(curr, threshold);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
