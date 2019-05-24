@@ -105,7 +105,7 @@ void draw() {
  }
  void displayPreviews() {
    int x = 0;
-   for (int i = 0, i < 8; i++) {
+   for (int i = 0; i < 8; i++) {
      image(previews.get(i), x, 480, 80, 60);
      x += 80;
    }
