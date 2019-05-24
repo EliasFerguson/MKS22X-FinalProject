@@ -2,6 +2,7 @@ import processing.video.*;
 import controlP5.*;
 Capture cam;
 PImage curr, prev;
+PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 int threshold = 25;
 ControlP5 control;
 int picNum;
