@@ -15,7 +15,18 @@ void setup() {
     .setLabel("Take Picture")
     .setValue(0)
     ; 
-  
+  control.addSlider("R")
+    .setRange(0, 255)
+    .setSize(250, 10)
+    ;
+  control.addSlider("G")
+    .setRange(0, 255)
+    .setSize(250, 10)
+    ;
+  control.addSlider("B")
+    .setRange(0, 255)
+    .setSize(250, 10)
+    ;
   size(640, 580);
   fill(255);
   imageMode(CENTER);
