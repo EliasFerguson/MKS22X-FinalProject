@@ -37,8 +37,11 @@ void draw() {
     if (key == '1') {
      reverseGrayScale();
     }
-    if (key == '1') {
+    if (key == '2') {
      reverseEdgeDetect();
+    }
+    if (key == '3') {
+     reverseInvert();
     }
   }
 }
@@ -65,6 +68,15 @@ void reverseEdgeDetect() {
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
+
+void reverseInvert() {
+  pushMatrix();
+  scale(-1, 1);
+  curr.filter(INVERT);
+  image(curr, -curr.width/2, curr.height/2 );
+  popMatrix();
+}
+
 
 PImage grayScale(PImage original) {
   PImage Image = new PImage(original.width, original.height);
