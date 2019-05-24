@@ -49,6 +49,9 @@ void draw() {
     if (key == '5') {
      reverseCartoon();
     }
+    if (key == '6') {
+     reverseColored();
+    }
   }
 }
 
@@ -96,6 +99,14 @@ void reverseCartoon() {
   pushMatrix();
   scale(-1, 1);
   curr = cartoonEffect(curr, threshold);
+  image(curr, -curr.width/2, curr.height/2 );
+  popMatrix();
+}
+
+void reverseColored() {
+  pushMatrix();
+  scale(-1, 1);
+  curr = colorEdge(curr, threshold - 10);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -159,6 +170,21 @@ PImage edgeDetect(PImage Image, int threshold) {
     }
   }
   return(edgeImage);
+}
+
+PImage colorEdge(PImage Image, int threshold) {
+  PImage grayImage = grayScale(Image);
+  PImage colEdgeImage = new PImage(grayImage.width, grayImage.height);
+  for (int y=0; y<grayImage.height; y++) {
+    for (int x=0; x<grayImage.width; x++) {
+      if (edginess(x, y, Image) < threshold) {
+        colEdgeImage.set(x, y, color(255));
+      } else {
+        colEdgeImage.set(x, y, Image.get(x, y));
+      }
+    }
+  }
+  return(colEdgeImage);
 }
 
 void thresholdChange() {
