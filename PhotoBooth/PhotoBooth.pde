@@ -46,6 +46,9 @@ void draw() {
     if (key == '4') {
      reversePosterize();
     }
+    if (key == '5') {
+     reverseCartoon();
+    }
   }
 }
 
@@ -89,6 +92,13 @@ void reversePosterize() {
   popMatrix();
 }
 
+void reverseCartoon() {
+  pushMatrix();
+  scale(-1, 1);
+  curr = cartoonEffect(curr, threshold);
+  image(curr, -curr.width/2, curr.height/2 );
+  popMatrix();
+}
 
 PImage grayScale(PImage original) {
   PImage Image = new PImage(original.width, original.height);
@@ -123,6 +133,19 @@ float edginess(int x, int y, PImage Image) {
   return(abs(red(Image.get(x-1, y)) - red(Image.get(x+1, y))) + abs(red(Image.get(x, y-1)) - red(Image.get(x, y+1))));
 }
 
+PImage cartoonEffect(PImage Image, int threshold) {
+  Image = grayScale(Image);
+  PImage cartoonImage = new PImage (Image.width, Image.height);
+  for (int y=0; y<Image.height; y++) {
+    for (int x=0; x<Image.width; x++) {
+      if (edginess(x, y, Image) > threshold) {
+        cartoonImage.set(x, y, color(0));
+      }
+    }
+  }
+  return(cartoonImage);
+}
+
 PImage edgeDetect(PImage Image, int threshold) {
   Image = grayScale(Image);
   PImage edgeImage = new PImage(Image.width, Image.height);
@@ -140,11 +163,11 @@ PImage edgeDetect(PImage Image, int threshold) {
 
 void thresholdChange() {
   if (keyCode == UP) {
-    threshold += 5;
+    threshold += 3;
     keyCode = LEFT;
   }
   if (keyCode == DOWN) {
-    threshold -= 5;
+    threshold -= 3;
     keyCode = RIGHT;
   }
 }
