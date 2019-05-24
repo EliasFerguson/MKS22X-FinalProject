@@ -37,6 +37,9 @@ void draw() {
     if (key == '1') {
      reverseGrayScale();
     }
+    if (key == '1') {
+     reverseEdgeDetect();
+    }
   }
 }
 
