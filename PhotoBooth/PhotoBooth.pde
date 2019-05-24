@@ -8,6 +8,7 @@ void setup() {
   size(640, 480);
   imageMode(CENTER);
   String[] cameras = Capture.list();
+  //frameRate(5);
   curr = new PImage(640, 480);
   prev = new PImage(640, 480);
   if (cameras.length == 0) {
@@ -27,16 +28,16 @@ void draw() {
   thresholdChange();
   if (cam.available()) {
     cam.read();
-    prev = curr;
-    curr = cam;
+    curr = cam.copy();
+    //image(curr,0,0);
+    //reverseImage();
+   imageMode(CENTER);
+   reverseImage();
+   prev = curr;
   }
-  
   if (key == '1') {
-    // EDGE DETECT
-    image(grayscale(cam), 0, 0);
-    
-  }
-  reverseImage();
+      reverseGrayScale();
+    }
 }
 
 void reverseImage() {
@@ -46,13 +47,22 @@ void reverseImage() {
   popMatrix();
 }
 
+void reverseGrayScale() {
+  pushMatrix();
+  scale(-1, 1);
+  grayscale(curr);
+  image(curr, -curr.width/2, curr.height/2);
+  popMatrix();
+}
+
 PImage grayscale(PImage original) {
-  PImage Image = new PImage(original.width, original.height);
+  PImage Image = new PImage(original.width / 2, original.height / 2);
   for (int y=0; y<original.height; y++) {
     for (int x=0; x<original.width; x++) {
       Image.set(x, y, color((red(original.get(x, y)) + green(original.get(x, y)) + blue(original.get(x, y)))/3));
     }
   }
+  reverseImage();
   return(Image);
 }
 
@@ -79,12 +89,12 @@ float edginess(int x, int y, PImage Image) {
   return(abs(red(Image.get(x-1, y)) - red(Image.get(x+1, y))) + abs(red(Image.get(x, y-1)) - red(Image.get(x, y+1))));
 }
 
-void thresholdChange(){
-  if (keyCode == UP){
+void thresholdChange() {
+  if (keyCode == UP) {
     threshold += 5;
     keyCode = LEFT;
   }
-  if (keyCode == DOWN){
+  if (keyCode == DOWN) {
     threshold -= 5;
     keyCode = RIGHT;
   }
