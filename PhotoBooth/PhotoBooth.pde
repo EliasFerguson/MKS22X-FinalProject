@@ -56,6 +56,14 @@ void setup() {
   previews.add(preview6);
   previews.add(preview7);
   previews.add(preview8);
+  preview1 = curr;
+  preview2 = curr;
+  preview3 = curr;
+  preview4 = curr;
+  preview5 = curr;
+  preview6 = curr;
+  preview7 = curr;
+  preview8 = curr;
   imageMode(CENTER);
   String[] cameras = Capture.list();
   curr = new PImage(640, 480);
@@ -81,6 +89,7 @@ void draw() {
     curr = cam;
   }
   reverseImage();
+  displayPreviews();
  }
  void controlEvents(ControlEvent theEvent) {
    if (theEvent.isController()) {
