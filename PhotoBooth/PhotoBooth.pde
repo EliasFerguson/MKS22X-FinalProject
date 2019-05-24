@@ -11,23 +11,31 @@ void setup() {
   control = new ControlP5(this);
   control.addBang("takePic")
     .setSize(60, 40)
-    .setPosition(290, 500)
+    .setPosition(290, 600)
     .setLabel("Take Picture")
     .setValue(0)
     ; 
   control.addSlider("R")
     .setRange(0, 255)
     .setSize(250, 10)
+    .setPosition(400, 670)
+    .setLabel("Red")
     ;
   control.addSlider("G")
     .setRange(0, 255)
     .setSize(250, 10)
+    .setPosition(400, 650)
+    .setLabel("Green")
     ;
   control.addSlider("B")
     .setRange(0, 255)
     .setSize(250, 10)
+    .setPosition(400, 630)
+    .setLabel("Blue")
     ;
-  size(640, 580);
+  size(640, 680);
+  fill(204, 102, 0);
+  rect(0, 480, 640, 100);
   fill(255);
   imageMode(CENTER);
   String[] cameras = Capture.list();
