@@ -52,6 +52,9 @@ void draw() {
     if (key == '6') {
      reverseColored();
     }
+    if (key == '7') {
+     reverseThermal();
+    }
   }
 }
 
@@ -107,6 +110,14 @@ void reverseColored() {
   pushMatrix();
   scale(-1, 1);
   curr = colorEdge(curr, threshold - 10);
+  image(curr, -curr.width/2, curr.height/2 );
+  popMatrix();
+}
+
+void reverseThermal() {
+  pushMatrix();
+  scale(-1, 1);
+  curr = thermalScreen(curr);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -185,6 +196,41 @@ PImage colorEdge(PImage Image, int threshold) {
     }
   }
   return(colEdgeImage);
+}
+
+PImage thermalScreen (PImage Image) {
+  PImage grayImage = grayScale(Image);
+  threshold = 85;
+    PImage tScreen = new PImage(grayImage.width, grayImage.height);
+  for (int y=0; y<grayImage.height; y++) {
+    for (int x=0; x<grayImage.width; x++) {
+      if (brightness(Image.get(x, y)) >= (255-62)) {
+        tScreen.set(x, y, color(255, 0, 0));
+      }
+      if ((brightness(Image.get(x, y)) >= ((255-84)) && (brightness(Image.get(x, y)) < (255-62)))) {
+        tScreen.set(x, y, color(255,165,0));
+      }
+      if ((brightness(Image.get(x, y)) >= (255-112)) && (brightness(Image.get(x, y)) < (255-84))) {
+        tScreen.set(x, y, color(255,255,0));
+      }
+      if ((brightness(Image.get(x, y)) >= (255-140)) && (brightness(Image.get(x, y)) < (255-112))) {
+        tScreen.set(x, y, color(0,255,0));
+      }
+      if ((brightness(Image.get(x, y)) >= (255-168)) && (brightness(Image.get(x, y)) < (255-140))) {
+        tScreen.set(x, y, color(135,206,250));
+      }
+      if ((brightness(Image.get(x, y)) >= (255-196)) && (brightness(Image.get(x, y)) < (255-168))) {
+        tScreen.set(x, y, color(0,0,255));
+      }
+      if ((brightness(Image.get(x, y)) >= (255-224)) && (brightness(Image.get(x, y)) < (255-196))) {
+        tScreen.set(x, y, color(75,0,130));
+      }
+      if ((brightness(Image.get(x, y)) < (255-224))) {
+        tScreen.set(x, y, color(238, 130, 238));
+      }
+    }
+  }
+  return (tScreen);
 }
 
 void thresholdChange() {
