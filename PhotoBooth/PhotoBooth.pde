@@ -43,6 +43,9 @@ void draw() {
     if (key == '3') {
      reverseInvert();
     }
+    if (key == '4') {
+     reversePosterize();
+    }
   }
 }
 
@@ -73,6 +76,15 @@ void reverseInvert() {
   pushMatrix();
   scale(-1, 1);
   curr.filter(INVERT);
+  image(curr, -curr.width/2, curr.height/2 );
+  popMatrix();
+}
+
+void reversePosterize() {
+  pushMatrix();
+  scale(-1, 1);
+  float num = random(2.0,15.0);
+  curr.filter(POSTERIZE, num);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
