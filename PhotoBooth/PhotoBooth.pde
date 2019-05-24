@@ -117,7 +117,7 @@ void reverseColored() {
 void reverseThermal() {
   pushMatrix();
   scale(-1, 1);
-  curr = thermalScreen(curr);
+  curr = thermal1(curr);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -231,6 +231,43 @@ PImage thermalScreen (PImage Image) {
     }
   }
   return (tScreen);
+}
+
+PImage thermal1(PImage Image){
+  PImage thermImage = new PImage(Image.width,Image.height);
+  for (int y=0;y<Image.height;y++){
+    for (int x=0;x<Image.width;x++){
+      float dist = (255 - brightness(Image.get(x,y))) * 6;
+      float red=0;
+      float green=0;
+      float blue=0;
+      if (dist < 255){
+        red = dist;
+      }
+      if (dist >= 255){
+        red = 255;
+        green = dist % 255;
+      }
+      if (dist >= 510){
+        red = 255 - (dist % 255);
+        green = 255;
+      }
+      if (dist >= 765){
+        red = 0;
+        blue = dist % 255;
+      }
+      if (dist >= 1020){
+        green = 255 - (dist % 255);
+        blue = 255;
+      }
+      if (dist >= 1275){
+        green = 0;
+        red = (dist % 255);
+      }
+      thermImage.set(x,y,color(red,green,blue));
+    }
+  }
+  return(thermImage);
 }
 
 void thresholdChange() {
