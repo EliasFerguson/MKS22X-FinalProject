@@ -31,13 +31,14 @@ void draw() {
     curr = cam.copy();
     //image(curr,0,0);
     //reverseImage();
-   imageMode(CENTER);
-   reverseImage();
-   prev = curr;
-  }
-  if (key == '1') {
-      reverseGrayScale();
+    imageMode(CENTER);
+    reverseImage();
+    prev = curr;
+    if (key == '1') {
+     reverseGrayScale();
+     
     }
+  }
 }
 
 void reverseImage() {
@@ -50,19 +51,18 @@ void reverseImage() {
 void reverseGrayScale() {
   pushMatrix();
   scale(-1, 1);
-  grayscale(curr);
-  image(curr, -curr.width/2, curr.height/2);
+  curr = grayScale(curr);
+  image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
 
-PImage grayscale(PImage original) {
-  PImage Image = new PImage(original.width / 2, original.height / 2);
+PImage grayScale(PImage original) {
+  PImage Image = new PImage(original.width, original.height);
   for (int y=0; y<original.height; y++) {
     for (int x=0; x<original.width; x++) {
       Image.set(x, y, color((red(original.get(x, y)) + green(original.get(x, y)) + blue(original.get(x, y)))/3));
     }
   }
-  reverseImage();
   return(Image);
 }
 
