@@ -89,6 +89,21 @@ float edginess(int x, int y, PImage Image) {
   return(abs(red(Image.get(x-1, y)) - red(Image.get(x+1, y))) + abs(red(Image.get(x, y-1)) - red(Image.get(x, y+1))));
 }
 
+PImage edgeDetect(PImage Image, int threshold) {
+  Image = grayScale(Image);
+  PImage edgeImage = new PImage(Image.width, Image.height);
+  for (int y=0; y<Image.height; y++) {
+    for (int x=0; x<Image.width; x++) {
+      if (edginess(x, y, Image) > threshold) {
+        edgeImage.set(x, y, color(0));
+      } else {
+        edgeImage.set(x, y, color(255));
+      }
+    }
+  }
+  return(edgeImage);
+}
+
 void thresholdChange() {
   if (keyCode == UP) {
     threshold += 5;
