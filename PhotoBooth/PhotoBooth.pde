@@ -7,9 +7,11 @@ ArrayList<PImage> previews;
 int threshold = 25;
 ControlP5 control;
 int picNum;
+float strands;
 
 void setup() {
   picNum = 1;
+  strands = random(2.0,15.0);
   control = new ControlP5(this);
   control.addBang("takePic")
     .setSize(60, 40)
@@ -167,8 +169,7 @@ void reverseInvert() {
 void reversePosterize() {
   pushMatrix();
   scale(-1, 1);
-  float num = random(2.0,15.0);
-  curr.filter(POSTERIZE, num);
+  curr.filter(POSTERIZE, strands);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
