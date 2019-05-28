@@ -17,9 +17,6 @@ void setup() {
     .setLabel("Take Picture")
     .setValue(0)
     ; 
-<<<<<<< HEAD
-  size(640, 580);
-=======
   control.addSlider("R")
     .setRange(0, 255)
     .setSize(250, 10)
@@ -39,9 +36,6 @@ void setup() {
     .setLabel("Blue")
     ;
   size(640, 640);
-  fill(204, 102, 0);
-  rect(0, 480, 640, 60);
->>>>>>> userInterface
   fill(255);
   preview1 = new PImage(80, 60);
   preview2 = new PImage(80, 60);
@@ -96,7 +90,6 @@ void draw() {
     imageMode(CENTER);
     reverseImage();
     prev = curr;
-<<<<<<< HEAD
     if (key == '1') {
      reverseGrayScale();
     }
@@ -119,15 +112,10 @@ void draw() {
      reverseThermal();
     }
   }
-}
-
-=======
-    curr = cam.copy();
-  }
+  //curr = cam.copy();
   reverseImage();
   displayPreviews();
  }
->>>>>>> userInterface
  void controlEvents(ControlEvent theEvent) {
    if (theEvent.isController()) {
      println("control event from: " + theEvent.getController().getName());
@@ -146,12 +134,10 @@ void draw() {
  }
 
 void reverseImage() {
-
   pushMatrix();
   scale(-1, 1);
   image(curr, -curr.width/2, curr.height/2);
   popMatrix();
-<<<<<<< HEAD
 }
 
 void reverseGrayScale() {
@@ -369,8 +355,6 @@ void thresholdChange() {
     keyCode = RIGHT;
   }
 }
-=======
- }
 
 
  void displayPreviews() {
@@ -382,10 +366,4 @@ void thresholdChange() {
      popMatrix();
      x += 80;
    }
- }
- 
- 
-  
-  
- 
->>>>>>> userInterface
+}
