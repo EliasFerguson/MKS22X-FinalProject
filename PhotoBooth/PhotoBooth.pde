@@ -8,6 +8,9 @@ int threshold = 25;
 ControlP5 control;
 int picNum;
 float strands;
+int clicks=0;
+color max, mid, low;
+boolean clicksDone = false;
 
 void setup() {
   picNum = 1;
@@ -346,6 +349,26 @@ PImage thermal1(PImage Image){
   return(thermImage);
 }
 
+PImage beach(PImage Image, PImage background, int threshold, color max, color mid, color low) {
+  PImage beached = new PImage(Image.width, Image.height);
+  for (int y=0; y<Image.height; y++) {
+    for (int x=0; x<Image.width; x++) {
+      for (int i=0; i<3; i++) {
+        float distMax = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(max), green(max), blue(max)); 
+        float distMid = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(mid), green(mid), blue(mid));
+        float distLow = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(low), green(low), blue(low));
+        if ((distMax < threshold) || (distMid < threshold) || (distLow < threshold)) {
+          beached.set(x, y, background.get(x, y));
+        } else {
+          beached.set(x, y, Image.get(x, y));
+        }
+      }
+    }
+  }
+  return(beached);
+}
+
+
 void thresholdChange() {
   if (keyCode == UP) {
     threshold += 3;
@@ -357,6 +380,24 @@ void thresholdChange() {
   }
 }
 
+
+void mouseClicked() {
+  if (clicks == 0) {
+    max = cam.get(mouseX, mouseY);
+  }
+  if (clicks == 1) {
+    mid = cam.get(mouseX, mouseY);
+  }
+  if (clicks == 2) {
+    low = cam.get(mouseX, mouseY);
+    clicksDone = true;
+  }
+  if (clicks == 3) {
+    clicksDone = false;
+    clicks = -1;
+  }
+  clicks++;
+}
 
  void displayPreviews() {
    int x = 40;
