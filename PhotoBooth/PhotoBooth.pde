@@ -12,6 +12,7 @@ int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
 
+
 void setup() {
   beach = loadImage("beach.jpeg");
   beach.resize(640, 480);
