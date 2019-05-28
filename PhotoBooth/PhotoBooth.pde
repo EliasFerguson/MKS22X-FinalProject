@@ -118,13 +118,15 @@ void draw() {
     if (key == '7') {
      reverseThermal();
     }
-    if (key == '8') {
+    if (key == '8' && clicksDone) {
      reverseBeach();
   }
   //curr = cam.copy();
   reverseImage();
   displayPreviews();
  }
+}
+ 
  void controlEvents(ControlEvent theEvent) {
    if (theEvent.isController()) {
      println("control event from: " + theEvent.getController().getName());
@@ -208,7 +210,7 @@ void reverseThermal() {
 void reverseBeach() {
   pushMatrix();
   scale(-1, 1);
-  curr = beach(cam, beach, threshold, max, mid, low), 0, 0);
+  curr = beach(cam, beach, threshold, max, mid, low);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
