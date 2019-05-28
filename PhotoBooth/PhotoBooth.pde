@@ -1,7 +1,7 @@
 import processing.video.*;
 import controlP5.*;
 Capture cam;
-PImage curr, prev, beach;
+PImage curr, prev, multi;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 ArrayList<PImage> previews;
 int threshold = 25;
@@ -14,8 +14,8 @@ boolean clicksDone = false;
 
 
 void setup() {
-  beach = loadImage("beach.jpeg");
-  beach.resize(640, 480);
+  multi = loadImage("multi.jpeg");
+  multi.resize(640, 480);
   picNum = 1;
   strands = random(2.0,15.0);
   control = new ControlP5(this);
@@ -120,7 +120,7 @@ void draw() {
      reverseThermal();
     }
     if (key == '8' && clicksDone) {
-     reverseBeach();
+     reversemulti();
   }
   //curr = cam.copy();
   reverseImage();
@@ -208,10 +208,10 @@ void reverseThermal() {
   popMatrix();
 }
 
-void reverseBeach() {
+void reversemulti() {
   pushMatrix();
   scale(-1, 1);
-  curr = beach(cam, beach, threshold, max, mid, low);
+  curr = multi(cam, multi, threshold, max, mid, low);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -364,8 +364,8 @@ PImage thermal1(PImage Image){
   return(thermImage);
 }
 
-PImage beach(PImage Image, PImage replacer, int threshold, color max, color mid, color low) {
-  PImage beached = new PImage(Image.width, Image.height);
+PImage multi(PImage Image, PImage replacer, int threshold, color max, color mid, color low) {
+  PImage multied = new PImage(Image.width, Image.height);
   for (int y=0; y<Image.height; y++) {
     for (int x=0; x<Image.width; x++) {
       for (int i=0; i<3; i++) {
@@ -373,14 +373,14 @@ PImage beach(PImage Image, PImage replacer, int threshold, color max, color mid,
         float distMid = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(mid), green(mid), blue(mid));
         float distLow = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(low), green(low), blue(low));
         if ((distMax < threshold) || (distMid < threshold) || (distLow < threshold)) {
-          beached.set(x, y, replacer.get(x, y));
+          multied.set(x, y, replacer.get(x, y));
         } else {
-          beached.set(x, y, Image.get(x, y));
+          multied.set(x, y, Image.get(x, y));
         }
       }
     }
   }
-  return(beached);
+  return(multied);
 }
 
 
