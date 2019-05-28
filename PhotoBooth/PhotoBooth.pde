@@ -1,7 +1,7 @@
 import processing.video.*;
 import controlP5.*;
 Capture cam;
-PImage curr, prev;
+PImage curr, prev, beach;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 ArrayList<PImage> previews;
 int threshold = 25;
@@ -13,6 +13,8 @@ color max, mid, low;
 boolean clicksDone = false;
 
 void setup() {
+  beach = loadImage("beach.jpeg");
+  beach.resize(640, 480);
   picNum = 1;
   strands = random(2.0,15.0);
   control = new ControlP5(this);
@@ -116,6 +118,8 @@ void draw() {
     if (key == '7') {
      reverseThermal();
     }
+    if (key == '8') {
+     reverseBeach();
   }
   //curr = cam.copy();
   reverseImage();
@@ -197,6 +201,14 @@ void reverseThermal() {
   pushMatrix();
   scale(-1, 1);
   curr = thermalScreen(curr);
+  image(curr, -curr.width/2, curr.height/2 );
+  popMatrix();
+}
+
+void reverseBeach() {
+  pushMatrix();
+  scale(-1, 1);
+  curr = beach(cam, beach, threshold, max, mid, low), 0, 0);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -349,7 +361,7 @@ PImage thermal1(PImage Image){
   return(thermImage);
 }
 
-PImage beach(PImage Image, PImage background, int threshold, color max, color mid, color low) {
+PImage beach(PImage Image, PImage replacer, int threshold, color max, color mid, color low) {
   PImage beached = new PImage(Image.width, Image.height);
   for (int y=0; y<Image.height; y++) {
     for (int x=0; x<Image.width; x++) {
@@ -358,7 +370,7 @@ PImage beach(PImage Image, PImage background, int threshold, color max, color mi
         float distMid = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(mid), green(mid), blue(mid));
         float distLow = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(low), green(low), blue(low));
         if ((distMax < threshold) || (distMid < threshold) || (distLow < threshold)) {
-          beached.set(x, y, background.get(x, y));
+          beached.set(x, y, replacer.get(x, y));
         } else {
           beached.set(x, y, Image.get(x, y));
         }
