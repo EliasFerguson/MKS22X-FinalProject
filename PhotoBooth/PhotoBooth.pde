@@ -113,9 +113,9 @@ void draw() {
   popMatrix();
  }
  void displayPreviews() {
-   int x = 0;
+   int x = 40;
    for (int i = 0; i < 8; i++) {
-     image(previews.get(i), x, 480, 80, 60);
+     image(previews.get(i), x, 510, 80, 60);
      x += 80;
    }
  }
