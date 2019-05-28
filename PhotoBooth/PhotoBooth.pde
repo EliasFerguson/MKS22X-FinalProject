@@ -12,6 +12,7 @@ int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
 
+
 void setup() {
   picNum = 1;
   strands = random(2.0,15.0);
