@@ -113,10 +113,14 @@ void draw() {
   popMatrix();
  }
 
+
  void displayPreviews() {
    int x = 40;
    for (int i = 0; i < 8; i++) {
-     image(curr.copy(), x, 510, 80, 60);
+     pushMatrix();
+     scale(-1, 1);
+     image(curr, -x, 510, 80, 60);
+     popMatrix();
      x += 80;
    }
  }
