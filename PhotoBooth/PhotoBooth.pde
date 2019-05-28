@@ -86,9 +86,10 @@ void draw() {
   if (cam.available()) {
     cam.read();
     prev = curr;
-    curr = cam;
+    curr = cam.copy();
   }
   reverseImage();
+  initiatePreviews();
   displayPreviews();
  }
  void controlEvents(ControlEvent theEvent) {
@@ -111,6 +112,16 @@ void draw() {
   scale(-1, 1);
   image(curr, -curr.width/2, curr.height/2);
   popMatrix();
+ }
+ void initiatePreviews() {
+  preview1 = curr.copy();
+  preview2 = curr.copy();
+  preview3 = curr.copy();
+  preview4 = curr.copy();
+  preview5 = curr.copy();
+  preview6 = curr.copy();
+  preview7 = curr.copy();
+  preview8 = curr.copy();
  }
  void displayPreviews() {
    int x = 40;
