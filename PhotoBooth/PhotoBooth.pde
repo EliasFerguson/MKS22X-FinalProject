@@ -404,7 +404,22 @@ void mouseClicked() {
    for (int i = 0; i < 8; i++) {
      pushMatrix();
      scale(-1, 1);
-     image(curr, -x, 510, 80, 60);
+     if (i == 0) image(grayScale(curr), -x, 510, 80, 60);
+     if (i == 1) image(edgeDetect(curr, threshold), -x, 510, 80, 60);
+     if (i == 2) {
+       PImage putIn = curr.copy();
+       putIn.filter(INVERT);
+       image(putIn, -x, 510, 80, 60);
+     }
+     if (i == 3) {
+       PImage putIn = curr.copy();
+       putIn.filter(POSTERIZE, strands);
+       image(putIn, -x, 510, 80, 60);
+     }
+     if (i == 4) image(cartoonEffect(curr, threshold), -x, 510, 80, 60);
+     if (i == 5) image(colorEdge(curr, threshold - 10), -x, 510, 80, 60);
+     if (i == 6) image(thermalScreen(curr), -x, 510, 80, 60);
+     if (i == 7) image(curr, -x, 510, 80, 60);
      popMatrix();
      x += 80;
    }
