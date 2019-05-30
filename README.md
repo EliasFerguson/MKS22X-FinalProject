@@ -1,8 +1,10 @@
 # MKS22X-FinalProject
 
 DevLog:
-Monday, May 20:
-Elias Ferguson: I began to experiment with getting the Processing screen to display data from the webcam. Vishwaa ultimately achieved this first, and what I did was reverse the displayed image to make it mirror exactly. I created a new branch to begin work on the capture of a photo.
+Monday, May 20: <br>
+Elias Ferguson: I began to experiment with getting the Processing screen to display data from the webcam. Vishwaa ultimately achieved this first, and what I did was reverse the displayed image to make it mirror exactly. I created a new branch to begin work on the capture of a photo. <br>
+Vishwaa Sofat: Created the display and setup such that the camera image could be displayed on the screen. Then worked with Elias to make the reverese function that displays image correctly.
+<br>
 
 Tuesday, May 21:
 Elias Ferguson: Starting to mess with ControlP5, specifically trying to make a Bang to take a picture.
@@ -18,9 +20,3 @@ Elias Ferguson: I am starting with more controlP5 to give the user more autonomy
 
 Monday, May 27:
 Elias Ferguson: I finished the previews, WITHOUT the filters applied. That, however, is the easy part. I merged with the master branch successfully and now the master fully works with a slightly updated user interface.
-
-Tuesday, May 28:
-Filters are now applied to all previews. Going to continue work with ControlP5 and figure out how to make Linux work with this project.
-
-Wednesday, May 29:
-Elias Ferguson: I'm trying to figure out a strange error and have made little progress.
