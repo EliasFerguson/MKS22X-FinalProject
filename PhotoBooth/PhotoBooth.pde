@@ -1,7 +1,7 @@
 import processing.video.*;
 import controlP5.*;
-Capture cam;
-PImage curr, prev, beach;
+Capture cam, camP;
+PImage curr, prev, beach, pCurr, pPrev;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 ArrayList<PImage> previews;
 int threshold = 25;
@@ -45,6 +45,8 @@ void setup() {
     ;
   size(640, 640);
   fill(255);
+  pCurr = new PImage(80, 60);
+  pPrev = new PImage(80, 60);
   preview1 = new PImage(80, 60);
   preview2 = new PImage(80, 60);
   preview3 = new PImage(80, 60);
@@ -84,6 +86,7 @@ void setup() {
       println(cameras[i]);
     }
     cam = new Capture(this, 640, 480);
+    camP = new Capture(this, 80, 60);
     cam.start();
   }
 }
