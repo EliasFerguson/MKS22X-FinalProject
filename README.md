@@ -1,13 +1,15 @@
 # MKS22X-FinalProject
 
-DevLog:
+<b> DevLog: </b>
+
 Monday, May 20: <br>
 Elias Ferguson: I began to experiment with getting the Processing screen to display data from the webcam. Vishwaa ultimately achieved this first, and what I did was reverse the displayed image to make it mirror exactly. I created a new branch to begin work on the capture of a photo. <br>
 Vishwaa Sofat: Created the display and setup such that the camera image could be displayed on the screen. Then worked with Elias to make the reverese function that displays image correctly.
 <br>
 
-Tuesday, May 21:
-Elias Ferguson: Starting to mess with ControlP5, specifically trying to make a Bang to take a picture.
+Tuesday, May 21: <br>
+Elias Ferguson: Starting to mess with ControlP5, specifically trying to make a Bang to take a picture. <br>
+Vishwaa Sofat: Created the first filter: grayscale. Was not able to figure out how to display the updated picture but began debugging. Started writing code for the edgeDetect filter in the meantime. <br>
 
 Wednesday, May 22:
 Elias Ferguson: Got the program to save the current image to the Sketch file, but the camera stops after one photo.
