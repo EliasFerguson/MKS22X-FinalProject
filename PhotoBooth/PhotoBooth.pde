@@ -87,6 +87,7 @@ void setup() {
     }
     cam = new Capture(this, 640, 480);
     camP = new Capture(this, 80, 60);
+    camP.start();
     cam.start();
   }
 }
@@ -95,11 +96,14 @@ void draw() {
   thresholdChange();
   if (cam.available()) {
     cam.read();
+    camP.read();
     curr = cam.copy();
+    pCurr = camP.copy();
     //image(curr,0,0);
     //reverseImage();
     imageMode(CENTER);
     reverseImage();
+    pPrev = pCurr;
     prev = curr;
     if (key == '1') {
      reverseGrayScale();
@@ -422,22 +426,22 @@ void mouseClicked() {
    for (int i = 0; i < 8; i++) {
      pushMatrix();
      scale(-1, 1);
-     if (i == 0) image(grayScale(curr), -x, 510, 80, 60);
-     if (i == 1) image(edgeDetect(curr, threshold), -x, 510, 80, 60);
+     if (i == 0) image(grayScale(pCurr), -x, 510, 80, 60);
+     if (i == 1) image(edgeDetect(pCurr, threshold), -x, 510, 80, 60);
      if (i == 2) {
-       PImage putIn = curr.copy();
+       PImage putIn = pCurr.copy();
        putIn.filter(INVERT);
        image(putIn, -x, 510, 80, 60);
      }
      if (i == 3) {
-       PImage putIn = curr.copy();
+       PImage putIn = pCurr.copy();
        putIn.filter(POSTERIZE, strands);
        image(putIn, -x, 510, 80, 60);
      }
-     if (i == 4) image(cartoonEffect(curr, threshold), -x, 510, 80, 60);
-     if (i == 5) image(colorEdge(curr, threshold - 10), -x, 510, 80, 60);
-     if (i == 6) image(thermalScreen(curr), -x, 510, 80, 60);
-     if (i == 7) image(curr, -x, 510, 80, 60);
+     if (i == 4) image(cartoonEffect(pCurr, threshold), -x, 510, 80, 60);
+     if (i == 5) image(colorEdge(pCurr, threshold - 10), -x, 510, 80, 60);
+     if (i == 6) image(thermalScreen(pCurr), -x, 510, 80, 60);
+     if (i == 7) image(pCurr, -x, 510, 80, 60);
      popMatrix();
      x += 80;
    }
