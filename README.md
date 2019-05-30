@@ -18,3 +18,9 @@ Elias Ferguson: I am starting with more controlP5 to give the user more autonomy
 
 Monday, May 27:
 Elias Ferguson: I finished the previews, WITHOUT the filters applied. That, however, is the easy part. I merged with the master branch successfully and now the master fully works with a slightly updated user interface.
+
+Tuesday, May 28:
+Filters are now applied to all previews. Going to continue work with ControlP5 and figure out how to make Linux work with this project.
+
+Wednesday, May 29:
+Elias Ferguson: I'm trying to figure out a strange error and have made little progress.
