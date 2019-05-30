@@ -124,7 +124,7 @@ void draw() {
   }
   //curr = cam.copy();
   reverseImage();
-  displayPreviews();
+  //displayPreviews();
  }
 }
  
