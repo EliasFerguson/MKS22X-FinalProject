@@ -155,63 +155,56 @@ void reverseImage() {
 void reverseGrayScale() {
   pushMatrix();
   scale(-1, 1);
-  PImage editor = curr;
-  editor = grayScale(curr);
-  image(editor, -editor.width/2, editor.height/2);
+  curr = grayScale(curr);
+  image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
 
 void reverseEdgeDetect() {
   pushMatrix();
   scale(-1, 1);
-  PImage editor = curr;
-  editor = edgeDetect(curr, threshold);
-  image(editor, -editor.width/2, editor.height/2);
+  curr = edgeDetect(curr, threshold);
+  image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
 
 void reverseInvert() {
   pushMatrix();
   scale(-1, 1);
-  PImage editor = curr;
-  editor.filter(INVERT);
-  image(editor, -editor.width/2, editor.height/2);
+  curr.filter(INVERT);
+  image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
 
 void reversePosterize() {
   pushMatrix();
   scale(-1, 1);
-  PImage editor = curr;
-  editor.filter(POSTERIZE, strands);
-  image(editor, -editor.width/2, editor.height/2);
+  curr.filter(POSTERIZE, strands);
+  image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
 
 void reverseCartoon() {
   pushMatrix();
   scale(-1, 1);
-  PImage editor = curr;
-  editor = cartoonEffect(curr, threshold);
-  image(editor, -editor.width/2, editor.height/2);
+  curr = cartoonEffect(curr, threshold);
+  image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
 
 void reverseColored() {
   pushMatrix();
   scale(-1, 1);
-  PImage editor = curr;
-  editor = colorEdge(curr, threshold - 10);
-  image(editor, -editor.width/2, editor.height/2);
+  curr = colorEdge(curr, threshold - 10);
+  image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
 
 void reverseThermal() {
   pushMatrix();
   scale(-1, 1);
-  PImage editor = curr;
-  editor = thermalScreen(curr);
-  image(editor, -editor.width/2, editor.height/2);
+  curr = thermalScreen(curr);
+  image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
 
