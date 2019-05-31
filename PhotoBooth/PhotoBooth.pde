@@ -1,7 +1,7 @@
 import processing.video.*;
 import controlP5.*;
 Capture cam, camP;
-PImage curr, prev, beach, pCurr, pPrev;
+PImage curr, prev, beach, pCurr, pPrev, toBeSaved;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 ArrayList<PImage> previews;
 int threshold = 25;
@@ -16,6 +16,7 @@ boolean clicksDone = false;
 void setup() {
   beach = loadImage("beach.jpeg");
   beach.resize(640, 480);
+  toBeSaved = new PImage(640, 480);
   picNum = 1;
   strands = random(2.0,15.0);
   control = new ControlP5(this);
@@ -146,7 +147,7 @@ void draw() {
  
  public void takePic() {
    cam.stop();
-   PImage toBeSaved = prev.copy();
+   toBeSaved = curr.copy();
    toBeSaved.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
    cam.start();
    picNum++;
