@@ -132,7 +132,7 @@ void draw() {
       if (key == '8' && clicksDone) {
         reversebeach();
       }
-      //reverseImage();
+      reverseImage();
     }
   }
   if (modes) {
@@ -433,7 +433,11 @@ void mouseClicked() {
 }
 
 void displayPreviews() {
-  //size(600, 450);
-  print("bang worked");
-  fill(0);
+  imageMode(CENTER);
+  background(0);
+  pushMatrix();
+  scale(-1, 1);
+  image(grayScale(pCurr), -100, 80, 160, 120);
+  
+  popMatrix();
 }
