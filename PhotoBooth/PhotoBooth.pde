@@ -51,16 +51,16 @@ void setup() {
     ;
   size(640, 640);
   fill(255);
-  pCurr = new PImage(80, 60);
-  pPrev = new PImage(80, 60);
-  preview1 = new PImage(80, 60);
-  preview2 = new PImage(80, 60);
-  preview3 = new PImage(80, 60);
-  preview4 = new PImage(80, 60);
-  preview5 = new PImage(80, 60);
-  preview6 = new PImage(80, 60);
-  preview7 = new PImage(80, 60);
-  preview8 = new PImage(80, 60);
+  pCurr = new PImage(160, 120);
+  pPrev = new PImage(160, 120);
+  preview1 = new PImage(160, 120);
+  preview2 = new PImage(160, 120);
+  preview3 = new PImage(160, 120);
+  preview4 = new PImage(160, 120);
+  preview5 = new PImage(160, 120);
+  preview6 = new PImage(160, 120);
+  preview7 = new PImage(160, 120);
+  preview8 = new PImage(160, 120);
   previews = new ArrayList<PImage>();
   previews.add(preview1);
   previews.add(preview2);
@@ -430,27 +430,6 @@ void mouseClicked() {
 }
 
  void displayPreviews() {
-   int x = 40;
-   for (int i = 0; i < 8; i++) {
-     pushMatrix();
-     scale(-1, 1);
-     if (i == 0) image(grayScale(pCurr), -x, 510, 80, 60);
-     if (i == 1) image(edgeDetect(pCurr, threshold), -x, 510, 80, 60);
-     if (i == 2) {
-       PImage putIn = pCurr.copy();
-       putIn.filter(INVERT);
-       image(putIn, -x, 510, 80, 60);
-     }
-     if (i == 3) {
-       PImage putIn = pCurr.copy();
-       putIn.filter(POSTERIZE, strands);
-       image(putIn, -x, 510, 80, 60);
-     }
-     if (i == 4) image(cartoonEffect(pCurr, threshold), -x, 510, 80, 60);
-     if (i == 5) image(colorEdge(pCurr, threshold - 10), -x, 510, 80, 60);
-     if (i == 6) image(thermalScreen(pCurr), -x, 510, 80, 60);
-     if (i == 7) image(pCurr, -x, 510, 80, 60);
-     popMatrix();
-     x += 80;
-   }
+   
+  
 }
