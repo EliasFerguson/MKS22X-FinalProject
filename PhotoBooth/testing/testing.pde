@@ -1,20 +1,7 @@
 import processing.video.*;
 import controlP5.*;
-
-// Import the library
-import gab.opencv.*;
-
-import java.awt.Rectangle;
-
 Capture cam;
-
-// Library object
-OpenCV opencv;
-
-// Array of faces found
-Rectangle[] faces;
-
-PImage curr, prev, bech;
+PImage curr, prev, beach;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 ArrayList<PImage> previews;
 int threshold = 25;
@@ -27,9 +14,8 @@ boolean clicksDone = false;
 
 
 void setup() {
-  
-  bech = loadImage("bech.jpeg");
-  bech.resize(640, 480);
+  beach = loadImage("beach.jpeg");
+  beach.resize(640, 480);
   picNum = 1;
   strands = random(2.0,15.0);
   control = new ControlP5(this);
@@ -97,26 +83,13 @@ void setup() {
     for (int i = 0; i < cameras.length; i++) {
       println(cameras[i]);
     }
-    cam = new Capture(this, 640, 360);
+    cam = new Capture(this, 640, 480);
     cam.start();
   }
-  
- // Create the OpenCV object
-  opencv = new OpenCV(this, cam.width/2, cam.height/2);
-  
-  // Which "cascade" are we going to use?
-  opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);  
-  //opencv.loadCascade(OpenCV.CASCADE_EYE);  
-  //opencv.loadCascade(OpenCV.CASCADE_NOSE);  
-  
 }
 
 void draw() {
   thresholdChange();
-  
-  // Draw the video
-  //image(cam, 0, 0);
-  
   if (cam.available()) {
     cam.read();
     curr = cam.copy();
@@ -124,9 +97,7 @@ void draw() {
     //reverseImage();
     imageMode(CENTER);
     reverseImage();
-
     prev = curr;
-  
     if (key == '1') {
      reverseGrayScale();
     }
@@ -149,27 +120,13 @@ void draw() {
      reverseThermal();
     }
     if (key == '8' && clicksDone) {
-     reversebech();
+     reversebeach();
   }
   //curr = cam.copy();
   reverseImage();
-  //displayPreviews();
+  displayPreviews();
  }
- 
- scale(2);
- opencv.loadImage(cam);
- noFill();
-  stroke(0, 255, 0);
-  strokeWeight(3);
-  Rectangle[] faces = opencv.detect();
-  println(faces.length);
-
-  for (int i = 0; i < faces.length; i++) {
-    println(faces[i].x + "," + faces[i].y);
-    rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-  }
 }
-
  
  void controlEvents(ControlEvent theEvent) {
    if (theEvent.isController()) {
@@ -251,10 +208,10 @@ void reverseThermal() {
   popMatrix();
 }
 
-void reversebech() {
+void reversebeach() {
   pushMatrix();
   scale(-1, 1);
-  curr = bech(cam, bech, threshold, max, mid, low);
+  curr = beach(cam, beach, threshold, max, mid, low);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -407,8 +364,8 @@ PImage thermal1(PImage Image){
   return(thermImage);
 }
 
-PImage bech(PImage Image, PImage replacer, int threshold, color max, color mid, color low) {
-  PImage beched = new PImage(Image.width, Image.height);
+PImage beach(PImage Image, PImage replacer, int threshold, color max, color mid, color low) {
+  PImage beached = new PImage(Image.width, Image.height);
   for (int y=0; y<Image.height; y++) {
     for (int x=0; x<Image.width; x++) {
       for (int i=0; i<3; i++) {
@@ -416,14 +373,14 @@ PImage bech(PImage Image, PImage replacer, int threshold, color max, color mid, 
         float distMid = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(mid), green(mid), blue(mid));
         float distLow = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(low), green(low), blue(low));
         if ((distMax < threshold) || (distMid < threshold) || (distLow < threshold)) {
-          beched.set(x, y, replacer.get(x, y));
+          beached.set(x, y, replacer.get(x, y));
         } else {
-          beched.set(x, y, Image.get(x, y));
+          beached.set(x, y, Image.get(x, y));
         }
       }
     }
   }
-  return(beched);
+  return(beached);
 }
 
 
@@ -481,8 +438,4 @@ void mouseClicked() {
      popMatrix();
      x += 80;
    }
-}
-
-void captureEvent(Capture cam) {
-  cam.read();
 }
