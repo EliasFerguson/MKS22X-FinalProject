@@ -40,7 +40,7 @@ void setup() {
     .setLabel("Threshold")
     .setValue(4)
     ;
-  previewControl.addBang("camera")
+  previewControl.addBang("regular")
     .setSize(80, 20)
     .setLabel("Back to Current Filter")
     .setPosition(290, 580);
@@ -220,6 +220,89 @@ void reverseInvert() {
   curr.filter(INVERT);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
+}
+public void gray() {
+  gray = true;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void edge() {
+  gray = false;
+  edge = true;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void invert() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = true;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void posterize() {
+  gray = false;
+  edge = false;
+  poster = true;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void regular() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = true;
+  colored = false;
+  thermal = false;
+}
+public void colored() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = true;
+  thermal = false;
+}
+public void thermal() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = true;
+}
+public void cartoon() {
+  gray = true;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void TBD() {
+  
 }
 public void modes() {
   modes = true;
