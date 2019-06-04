@@ -104,7 +104,6 @@ void draw() {
     imageMode(CENTER);
     reverseImage();
     prev = curr;
-    thresholdChange();
     if (cam.available()) {
       if (key == '1') {
         reverseGrayScale();
@@ -134,7 +133,6 @@ void draw() {
     }
   }
   if (modes) {
-    thresholdChange();
     camP.read();
     pCurr = camP.copy();
     pPrev = pCurr;
@@ -187,7 +185,7 @@ public void camera() {
  modes = false; 
 }
 public void threshold(int val) {
-  if (threshold != val) threshold = val;
+  threshold = val;
 }
 void reversePosterize() {
   pushMatrix();
@@ -395,20 +393,6 @@ PImage beach(PImage Image, PImage replacer, int threshold, color max, color mid,
   }
   return(beached);
 }
-
-
-void thresholdChange() {
-  if (keyCode == UP) {
-    threshold += 3;
-    keyCode = LEFT;
-  }
-  if (keyCode == DOWN) {
-    threshold -= 3;
-    keyCode = RIGHT;
-  }
-}
-
-
 void mouseClicked() {
   if (clicks == 0) {
     max = cam.get(mouseX, mouseY);
@@ -434,16 +418,16 @@ void displayPreviews() {
   background(0);
   pushMatrix();
   scale(-1, 1);
-  image(grayScale(pCurr), -120, 80, 160, 120);
-  image(edgeDetect(pCurr, threshold), -320, 80, 160, 120);
+  image(grayScale(pCurr), -120, 80, 160, 120); //GRAY
+  image(edgeDetect(pCurr, threshold), -320, 80, 160, 120); //EDGE
   PImage putIn = pCurr.copy();
   putIn.filter(INVERT);
-  image(putIn, -520, 80, 160, 120);
+  image(putIn, -520, 80, 160, 120); //XRAY
   PImage putIn2 = pCurr.copy();
   putIn2.filter(POSTERIZE, strands);
-  image(putIn2, -120, 280, 160, 120);
-  image(pCurr, -320, 280, 160, 120);
-  image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120);
-  image(thermalScreen(pCurr), -120, 480, 160, 120);
+  image(putIn2, -120, 280, 160, 120); //POSTERIZE
+  image(pCurr, -320, 280, 160, 120); //BASIC
+  image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
+  image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
   popMatrix();
 }
