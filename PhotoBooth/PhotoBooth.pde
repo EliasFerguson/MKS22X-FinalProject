@@ -16,7 +16,6 @@ boolean clicksDone = false;
 void setup() {
   beach = loadImage("beach.jpeg");
   beach.resize(640, 480);
-  toBeSaved = new PImage(640, 480);
   picNum = 1;
   strands = random(2.0,15.0);
   control = new ControlP5(this);
@@ -26,6 +25,12 @@ void setup() {
     .setLabel("Take Picture")
     .setValue(0)
     ; 
+  control.addBang("modes")
+    .setSize(60, 20)
+    .setPosition(10, 500)
+    .setLabel("See Modes")
+    .setValue(0)
+    ;
   control.addSlider("R")
     .setRange(0, 255)
     .setSize(250, 10)
@@ -132,7 +137,6 @@ void draw() {
   }
   //curr = cam.copy();
   reverseImage();
-  displayPreviews();
  }
 }
  
@@ -182,6 +186,9 @@ void reverseInvert() {
   curr.filter(INVERT);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
+}
+public void mode() {
+ displayPreviews(); 
 }
 
 void reversePosterize() {
