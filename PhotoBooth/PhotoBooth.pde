@@ -11,7 +11,7 @@ float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
-boolean modes;
+boolean modes, camera, gray, edge, poster, invert, cartoon, colored, thermal;
 
 
 void setup() {
@@ -41,10 +41,54 @@ void setup() {
     .setValue(4)
     ;
   previewControl.addBang("camera")
-    .setSize(60, 40)
+    .setSize(80, 20)
     .setLabel("Back to Current Filter")
     .setPosition(290, 580);
-   
+  previewControl.addBang("gray")
+    .setLabel("Grayscale")
+    .setSize(60, 20)
+    .setPosition(90, 140)
+    ;
+  previewControl.addBang("edge")
+    .setLabel("Edge-Detect")
+    .setSize(60, 20)
+    .setPosition(290, 140)
+    ;
+  previewControl.addBang("invert")
+    .setLabel("X-RAY")
+    .setSize(60, 20)
+    .setPosition(490, 140)
+    ;
+  previewControl.addBang("posterize")
+    .setLabel("Posterize")
+    .setSize(60, 20)
+    .setPosition(90, 340)
+    ;
+  previewControl.addBang("normal")
+    .setLabel("No Filter")
+    .setSize(60, 20)
+    .setPosition(290, 340)
+    ;
+  previewControl.addBang("colored")
+    .setLabel("Colored Pencil")
+    .setSize(60, 20)
+    .setPosition(490, 340)
+    ;
+  previewControl.addBang("thermal")
+    .setLabel("Thermal")
+    .setSize(60, 20)
+    .setPosition(90, 540)
+    ;
+  previewControl.addBang("cartoon")
+    .setLabel("Cartoon Effect")
+    .setSize(60, 20)
+    .setPosition(290, 540)
+    ;
+  previewControl.addBang("TBD")
+    .setLabel("TBD")
+    .setSize(60, 20)
+    .setPosition(490, 540)
+    ;
   size(640, 640);
   fill(255);
   pCurr = new PImage(160, 120);
@@ -103,7 +147,6 @@ void draw() {
     curr = cam.copy();
     imageMode(CENTER);
     reverseImage();
-    prev = curr;
     if (cam.available()) {
       if (key == '1') {
         reverseGrayScale();
@@ -129,8 +172,8 @@ void draw() {
       if (key == '8' && clicksDone) {
         reversebeach();
       }
-      reverseImage();
     }
+    prev = curr;
   }
   if (modes) {
     camP.read();
@@ -182,7 +225,7 @@ public void modes() {
   modes = true;
 }
 public void camera() {
- modes = false; 
+  modes = false;
 }
 public void threshold(int val) {
   threshold = val;
@@ -429,5 +472,6 @@ void displayPreviews() {
   image(pCurr, -320, 280, 160, 120); //BASIC
   image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
+  image(cartoonEffect(pCurr, threshold), -320, 480, 160, 120); //CARTOON
   popMatrix();
 }
