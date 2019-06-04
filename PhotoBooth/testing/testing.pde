@@ -101,8 +101,8 @@ void setup() {
     cam.start();
   }
   
-    // Create the OpenCV object
-  opencv = new OpenCV(this, cam.width, cam.height);
+ // Create the OpenCV object
+  opencv = new OpenCV(this, cam.width/2, cam.height/2);
   
   // Which "cascade" are we going to use?
   opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);  
@@ -126,12 +126,6 @@ void draw() {
     reverseImage();
 
     prev = curr;
-    
-    // We have to always "load" the camera image into OpenCV 
-    opencv.loadImage(curr);
-  
-    // Detect the faces
-    faces = opencv.detect();
   
     if (key == '1') {
      reverseGrayScale();
@@ -162,18 +156,20 @@ void draw() {
   //displayPreviews();
  }
  
- 
-  // If we find faces, draw them!
-  if (faces != null) {
-    for (int i = 0; i < faces.length; i++) {
-      strokeWeight(2);
-      stroke(255,0,0);
-      noFill();
-      rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-    }
+ scale(2);
+ opencv.loadImage(cam);
+ noFill();
+  stroke(0, 255, 0);
+  strokeWeight(3);
+  Rectangle[] faces = opencv.detect();
+  println(faces.length);
+
+  for (int i = 0; i < faces.length; i++) {
+    println(faces[i].x + "," + faces[i].y);
+    rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
   }
-  
 }
+
  
  void controlEvents(ControlEvent theEvent) {
    if (theEvent.isController()) {
