@@ -33,28 +33,18 @@ void setup() {
     .setPosition(10, 500)
     .setLabel("See Modes")
     ;
-  control.addSlider("R")
-    .setRange(0, 255)
-    .setSize(250, 10)
-    .setPosition(400, 630)
-    .setLabel("Red")
-    ;
-  control.addSlider("G")
-    .setRange(0, 255)
-    .setSize(250, 10)
-    .setPosition(400, 610)
-    .setLabel("Green")
-    ;
-  control.addSlider("B")
-    .setRange(0, 255)
-    .setSize(250, 10)
-    .setPosition(400, 590)
-    .setLabel("Blue")
+  globalControl.addSlider("threshold")
+    .setRange(0, 100)
+    .setSize(100, 10)
+    .setPosition(490, 620)
+    .setLabel("Threshold")
+    .setValue(4)
     ;
   previewControl.addBang("camera")
     .setSize(60, 40)
     .setLabel("Back to Current Filter")
     .setPosition(290, 580);
+   
   size(640, 640);
   fill(255);
   pCurr = new PImage(160, 120);
@@ -195,6 +185,9 @@ public void modes() {
 }
 public void camera() {
  modes = false; 
+}
+public void threshold(int val) {
+  if (threshold != val) threshold = val;
 }
 void reversePosterize() {
   pushMatrix();
