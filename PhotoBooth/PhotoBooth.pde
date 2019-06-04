@@ -51,6 +51,7 @@ void setup() {
     .setPosition(400, 590)
     .setLabel("Blue")
     ;
+  previewControl.addBang("camera");
   size(640, 640);
   fill(255);
   pCurr = new PImage(160, 120);
@@ -102,6 +103,8 @@ void setup() {
 
 void draw() {
   if (!modes) {
+    previewControl.hide();
+    control.show();
     cam.read();
     curr = cam.copy();
     imageMode(CENTER);
@@ -440,7 +443,7 @@ void displayPreviews() {
   PImage putIn2 = pCurr.copy();
   putIn2.filter(POSTERIZE, strands);
   image(putIn2, -120, 280, 160, 120);
-  image(cartoonEffect(pCurr, threshold), -320, 280, 160, 120);
+  image(pCurr, -320, 280, 160, 120);
   image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120);
   image(thermalScreen(pCurr), -120, 480, 160, 120);
   popMatrix();
