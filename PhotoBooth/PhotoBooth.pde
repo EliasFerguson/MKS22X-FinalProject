@@ -51,7 +51,10 @@ void setup() {
     .setPosition(400, 590)
     .setLabel("Blue")
     ;
-  previewControl.addBang("camera");
+  previewControl.addBang("camera")
+    .setSize(60, 40)
+    .setLabel("Back to Current Filter")
+    .setPosition(290, 580);
   size(640, 640);
   fill(255);
   pCurr = new PImage(160, 120);
@@ -105,6 +108,7 @@ void draw() {
   if (!modes) {
     previewControl.hide();
     control.show();
+    background(0);
     cam.read();
     curr = cam.copy();
     imageMode(CENTER);
@@ -189,7 +193,9 @@ void reverseInvert() {
 public void modes() {
   modes = true;
 }
-
+public void camera() {
+ modes = false; 
+}
 void reversePosterize() {
   pushMatrix();
   scale(-1, 1);
