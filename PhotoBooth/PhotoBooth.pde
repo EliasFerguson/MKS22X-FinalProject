@@ -4,8 +4,8 @@ Capture cam, camP;
 PImage curr, prev, beach, pCurr, pPrev, toBeSaved;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 ArrayList<PImage> previews;
-int threshold = 25;
-ControlP5 control;
+int threshold;
+ControlP5 control, previewControl, globalControl;
 int picNum;
 float strands;
 int clicks=0;
@@ -21,6 +21,8 @@ void setup() {
   picNum = 1;
   strands = random(2.0, 15.0);
   control = new ControlP5(this);
+  previewControl = new ControlP5(this);
+  globalControl = new ControlP5(this);
   control.addBang("takePic")
     .setSize(60, 40)
     .setPosition(290, 560)
@@ -107,7 +109,6 @@ void draw() {
     prev = curr;
     thresholdChange();
     if (cam.available()) {
-
       if (key == '1') {
         reverseGrayScale();
       }
@@ -136,19 +137,11 @@ void draw() {
     }
   }
   if (modes) {
+    thresholdChange();
     camP.read();
     pCurr = camP.copy();
     pPrev = pCurr;
     displayPreviews();
-  }
-}
-
-void controlEvents(ControlEvent theEvent) {
-  if (theEvent.isController()) {
-    println("control event from: " + theEvent.getController().getName());
-    /*if (event.isFrom("takePic")) {
-     takePicture(); 
-     }*/
   }
 }
 
@@ -433,11 +426,22 @@ void mouseClicked() {
 }
 
 void displayPreviews() {
+  control.hide();
+  previewControl.show();
   imageMode(CENTER);
   background(0);
   pushMatrix();
   scale(-1, 1);
-  image(grayScale(pCurr), -100, 80, 160, 120);
-  
+  image(grayScale(pCurr), -120, 80, 160, 120);
+  image(edgeDetect(pCurr, threshold), -320, 80, 160, 120);
+  PImage putIn = pCurr.copy();
+  putIn.filter(INVERT);
+  image(putIn, -520, 80, 160, 120);
+  PImage putIn2 = pCurr.copy();
+  putIn2.filter(POSTERIZE, strands);
+  image(putIn2, -120, 280, 160, 120);
+  image(cartoonEffect(pCurr, threshold), -320, 280, 160, 120);
+  image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120);
+  image(thermalScreen(pCurr), -120, 480, 160, 120);
   popMatrix();
 }
