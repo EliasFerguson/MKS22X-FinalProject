@@ -10,7 +10,7 @@ float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
-boolean modes, camera, gray, edge, poster, invert, cartoon, colored, thermal;
+boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal;
 
 void setup() {
   gray = false;
@@ -18,7 +18,7 @@ void setup() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = true;
+  regular = true;
   colored = false;
   thermal = false;
   modes = false;
@@ -46,7 +46,7 @@ void setup() {
     .setLabel("Threshold")
     .setValue(4)
     ;
-  previewControl.addBang("regular")
+  previewControl.addBang("camera")
     .setSize(80, 20)
     .setLabel("Back to Current Filter")
     .setPosition(290, 580);
@@ -70,7 +70,7 @@ void setup() {
     .setSize(60, 20)
     .setPosition(90, 340)
     ;
-  previewControl.addBang("normal")
+  previewControl.addBang("regular")
     .setLabel("No Filter")
     .setSize(60, 20)
     .setPosition(290, 340)
@@ -144,7 +144,7 @@ void draw() {
     cam.read();
     curr = cam.copy();
     imageMode(CENTER);
-    if (camera) {
+    if (regular) {
       reverseImage();
     }
     if (gray) {
@@ -181,10 +181,10 @@ void draw() {
   }
 }
 public void takePic() {
-  /*toBeSaved = curr.copy();
+  toBeSaved = curr.copy();
   PImage saver = createImage(640, 480, RGB);
-  saver = toBeSaved.get(); */
-  curr.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
+  saver = toBeSaved.get();
+  saver.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
   picNum++;
 }
 
@@ -224,7 +224,7 @@ public void gray() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
@@ -235,7 +235,7 @@ public void edge() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
@@ -246,7 +246,7 @@ public void invert() {
   poster = false;
   invert = true;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
@@ -257,7 +257,7 @@ public void posterize() {
   poster = true;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
@@ -268,7 +268,7 @@ public void regular() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = true;
+  regular = true;
   colored = false;
   thermal = false;
   modes = false;
@@ -279,7 +279,7 @@ public void colored() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = true;
   thermal = false;
   modes = false;
@@ -290,7 +290,7 @@ public void thermal() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = true;
   modes = false;
@@ -301,7 +301,7 @@ public void cartoon() {
   poster = false;
   invert = false;
   cartoon = true;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
