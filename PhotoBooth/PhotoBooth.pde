@@ -181,8 +181,10 @@ void draw() {
   }
 }
 public void takePic() {
-  toBeSaved = curr.copy();
-  toBeSaved.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
+  /*toBeSaved = curr.copy();
+  PImage saver = createImage(640, 480, RGB);
+  saver = toBeSaved.get(); */
+  curr.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
   picNum++;
 }
 
