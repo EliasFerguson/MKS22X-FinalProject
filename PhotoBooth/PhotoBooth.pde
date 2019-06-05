@@ -9,7 +9,10 @@ float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
+<<<<<<< HEAD
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal,paint;
+int alpha, red, blue, green;
+
 
 void setup() {
   gray = false;
@@ -28,8 +31,16 @@ void setup() {
   control = new ControlP5(this);
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
+<<<<<<< HEAD
   painter = new ControlP5(this);
   
+=======
+  control.addColorPicker("picker")
+    .setSize(60, 80)
+    .setPosition(0, 580)
+    .setLabel("Paint Color")
+    ;
+>>>>>>> eb4eb5df76be94f55225adb6ddbd1ba545f27da2
   control.addBang("takePic")
     .setSize(60, 40)
     .setPosition(290, 560)
@@ -316,6 +327,12 @@ public void TBD() {
 }
 public void modes() {
   modes = true;
+}
+public void picker(int col) {
+ alpha = int(alpha(col)); 
+ red = int(red(col));
+ green = int(green(col));
+ blue = int(blue(col));
 }
 public void camera() {
   modes = false;
