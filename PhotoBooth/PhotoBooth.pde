@@ -44,7 +44,7 @@ void setup() {
     .setSize(100, 10)
     .setPosition(490, 620)
     .setLabel("Threshold")
-    .setValue(4)
+    .setValue(50)
     ;
   previewControl.addBang("regular")
     .setSize(80, 20)
@@ -94,6 +94,12 @@ void setup() {
     .setLabel("TBD")
     .setSize(60, 20)
     .setPosition(490, 540)
+    ;
+  globalControl.addSlider("strands")
+    .setLabel("Strands")
+    .setPosition(490, 600)
+    .setRange(2, 15)
+    .setValue(2)
     ;
   size(640, 640);
   fill(255);
@@ -182,8 +188,8 @@ void draw() {
 }
 public void takePic() {
   /*toBeSaved = curr.copy();
-  PImage saver = createImage(640, 480, RGB);
-  saver = toBeSaved.get(); */
+   PImage saver = createImage(640, 480, RGB);
+   saver = toBeSaved.get(); */
   curr.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
   picNum++;
 }
@@ -217,6 +223,9 @@ void reverseInvert() {
   curr.filter(INVERT);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
+}
+public void strands(float val) {
+ strands = val;
 }
 public void gray() {
   gray = true;
