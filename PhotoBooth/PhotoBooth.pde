@@ -1,7 +1,10 @@
 import processing.video.*;
 import controlP5.*;
+import java.awt.*;
+import gab.opencv.*;
+
 Capture cam, camP;
-PImage curr, prev, background, pCurr, pPrev, toBeSaved;
+PImage curr, prev, store, background, pCurr, pPrev, toBeSaved;
 int threshold, Cthreshold;
 ControlP5 control, previewControl, globalControl, painter;
 int picNum;
@@ -11,11 +14,12 @@ color max, mid, low;
 boolean clicksDone = false;
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
 int alpha, red, blue, green;
-boolean painting;
+boolean painting, facial;
 PImage canvas;
-
+OpenCV opencv;
 
 void setup() {
+
   painting = false;
   canvas = new PImage(640, 480);
   gray = false;
@@ -29,6 +33,7 @@ void setup() {
   thermal = false;
   modes = false;
   paint = false;
+  facial = false;
   background = loadImage("background.jpeg");
   background.resize(640, 480);
   picNum = 1;
@@ -37,26 +42,37 @@ void setup() {
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
   painter = new ControlP5(this);
+
   painter.addColorPicker("picker")
     .setSize(60, 80)
     .setPosition(0, 580)
     .setLabel("Paint Color")
     ;
+
   control.addBang("takePic")
     .setSize(60, 40)
     .setPosition(290, 560)
     .setLabel("Take Picture")
     ; 
+
   control.addBang("modes")
     .setSize(60, 20)
     .setPosition(10, 500)
     .setLabel("See Modes")
     ;
+
+  control.addBang("facial")
+    .setSize(60, 20)
+    .setPosition(10, 550)
+    .setLabel("Facial Recognition")
+    ;
+
   painter.addBang("painter1")
     .setSize(60, 20)
     .setPosition(290, 500)
     .setLabel("Stop Camera")
     ;
+
   globalControl.addSlider("threshold")
     .setRange(0, 100)
     .setSize(100, 10)
@@ -64,6 +80,7 @@ void setup() {
     .setLabel("Threshold")
     .setValue(40)
     ;
+
   globalControl.addSlider("Cthreshold")
     .setRange(5, 30)
     .setSize(100, 10)
@@ -71,25 +88,30 @@ void setup() {
     .setLabel("Cartoon Threshold")
     .setValue(5)
     ;
+
   previewControl.addBang("camera")
     .setSize(80, 20)
     .setLabel("Back to Current Filter")
     .setPosition(290, 580);
+
   previewControl.addBang("gray")
     .setLabel("Grayscale")
     .setSize(60, 20)
     .setPosition(90, 140)
     ;
+
   previewControl.addBang("edge")
     .setLabel("Edge-Detect")
     .setSize(60, 20)
     .setPosition(290, 140)
     ;
+
   previewControl.addBang("invert")
     .setLabel("X-RAY")
     .setSize(60, 20)
     .setPosition(490, 140)
     ;
+
   previewControl.addBang("posterize")
     .setLabel("Posterize")
     .setSize(60, 20)
@@ -126,12 +148,15 @@ void setup() {
     .setRange(2, 15)
     .setValue(2)
     ;
+
   size(640, 640);
   fill(255);
   background(0);
+
   pCurr = new PImage(160, 120);
   pPrev = new PImage(160, 120);
   imageMode(CENTER);
+
   String[] cameras = Capture.list();
   //frameRate(5);
   curr = new PImage(640, 480);
@@ -146,12 +171,17 @@ void setup() {
     }
     cam = new Capture(this, 640, 480);
     camP = new Capture(this, 640, 480);
+
+    opencv = new OpenCV(this, 640, 480);
+    opencv.loadCascade(OpenCV.CASCADE_EYE);
+
     camP.start();
     cam.start();
   }
 }
 
 void draw() {
+
   if (!modes) {
     background(0);
     previewControl.hide();
@@ -162,6 +192,7 @@ void draw() {
     imageMode(CENTER);
     if (regular) {
       reverseImage();
+      opencv.loadImage(curr);
     }
     if (gray) {
       reverseGrayScale();
@@ -203,6 +234,10 @@ void draw() {
     pPrev = pCurr;
     displayPreviews();
   }
+
+  if (facial) {
+    facial();
+  }
 }
 public void takePic() {
   toBeSaved = curr.copy();
@@ -215,7 +250,7 @@ public void takePic() {
 void reverseImage() {
   pushMatrix();
   scale(-1, 1);
-  image(curr, -curr.width/2, curr.height/2);
+  image(curr, -curr.width/2, curr.height/2);  
   popMatrix();
 }
 
@@ -242,6 +277,21 @@ void reverseInvert() {
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
+
+public void facial() {
+  
+  noFill();
+  stroke(0, 255, 0);
+  strokeWeight(3);
+  Rectangle[] eyes = opencv.detect();
+  println(eyes.length);
+  
+  for (int i = 0; i < eyes.length; i++) {
+    println(eyes[i].x + "," + eyes[i].y);
+    rect(eyes[i].x, eyes[i].y, eyes[i].width, eyes[i].height);
+  }
+}
+
 public void strands(float val) {
   strands = val;
 }
