@@ -180,7 +180,6 @@ void draw() {
     displayPreviews();
   }
 }
-
 public void takePic() {
   toBeSaved = curr.copy();
   toBeSaved.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
