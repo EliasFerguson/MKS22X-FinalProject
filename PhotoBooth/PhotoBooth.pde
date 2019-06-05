@@ -2,7 +2,7 @@ import processing.video.*;
 import controlP5.*;
 Capture cam, camP;
 PImage curr, prev, beach, pCurr, pPrev, toBeSaved;
-int threshold;
+int threshold, Cthreshold;
 ControlP5 control, previewControl, globalControl, painter;
 int picNum;
 float strands;
@@ -46,18 +46,25 @@ void setup() {
     .setPosition(10, 500)
     .setLabel("See Modes")
     ;
-  painter.addToggle("painter")
-    .setSize(60, 20)
-    .setPosition(50, 500)
-    .setLabel("Paint")
-    //.setColorActive(color(127,255,0))
-    ;
+  /*painter.addToggle("painter")
+   .setSize(60, 20)
+   .setPosition(50, 500)
+   .setLabel("Paint")
+   //.setColorActive(color(127,255,0))
+   ;*/
   globalControl.addSlider("threshold")
     .setRange(0, 100)
     .setSize(100, 10)
     .setPosition(490, 620)
     .setLabel("Threshold")
-    .setValue(50)
+    .setValue(40)
+    ;
+  globalControl.addSlider("Cthreshold")
+    .setRange(5, 30)
+    .setSize(100, 10)
+    .setPosition(300, 620)
+    .setLabel("Cartoon Threshold")
+    .setValue(5)
     ;
   previewControl.addBang("camera")
     .setSize(80, 20)
@@ -344,10 +351,7 @@ void reverseCartoon() {
   pushMatrix();
   scale(-1, 1);
   int placeholder = threshold;
-  if (placeholder <  50) {
-    threshold += 50 - (50-placeholder);
-  }
-  curr = cartoonEffect(curr, threshold);
+  curr = cartoonEffect(curr, Cthreshold);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -600,13 +604,14 @@ void displayPreviews() {
   popMatrix();
 }
 
-void thresholdChange(){
-  if (keyCode == UP){
-    threshold += 5;
-    keyCode = LEFT;
-  }
-  if (keyCode == DOWN){
-    threshold -= 5;
-    keyCode = RIGHT;
-  }
-}
+/*void thresholdChange(){
+ if (keyCode == UP){
+ threshold += 5;
+ keyCode = LEFT;
+ }
+ if (keyCode == DOWN){
+ threshold -= 5;
+ keyCode = RIGHT;
+ }
+ }
+ */
