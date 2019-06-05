@@ -11,7 +11,6 @@ int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
 boolean modes, camera, gray, edge, poster, invert, cartoon, colored, thermal;
-//
 
 void setup() {
   gray = false;
@@ -183,10 +182,8 @@ void draw() {
 }
 
 public void takePic() {
-  cam.stop();
   toBeSaved = curr.copy();
   toBeSaved.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
-  cam.start();
   picNum++;
 }
 
