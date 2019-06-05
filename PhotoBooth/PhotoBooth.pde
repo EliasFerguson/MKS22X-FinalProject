@@ -12,7 +12,7 @@ int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
 boolean modes, camera, gray, edge, poster, invert, cartoon, colored, thermal;
-
+//
 
 void setup() {
   modes = false;
