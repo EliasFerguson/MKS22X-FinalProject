@@ -109,7 +109,7 @@ void setup() {
     .setSize(60, 20)
     .setPosition(90, 540)
     ;
-  previewControl.addBang("cartoon")
+  previewControl.addBang("cartoony")
     .setLabel("Cartoon Effect")
     .setSize(60, 20)
     .setPosition(290, 540)
@@ -174,7 +174,7 @@ void draw() {
     if (poster) {
       reversePosterize();
     }
-    if (cartoon) {
+    if (key == '1') {
       reverseCartoon();
     }
     if (colored) {
@@ -193,7 +193,7 @@ void draw() {
      reversePaint();
      } else reverseImage();
      */
-    if (key == '9') {
+    if (cartoon) {
       reverseCartoon();
     }
     prev = curr;
@@ -331,7 +331,7 @@ public void thermal() {
   modes = false;
   paint = false;
 }
-public void cartoon() {
+public void cartoony() {
   gray = false;
   edge = false;
   poster = false;
@@ -460,7 +460,7 @@ PImage cartoonEffect(PImage Image, int threshold) {
       }
     }
   }
-  return(cartoonImage);
+  return cartoonImage;
 }
 
 PImage edgeDetect(PImage Image, int threshold) {
@@ -631,7 +631,7 @@ void displayPreviews() {
   image(pCurr, -320, 280, 160, 120); //BASIC
   image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
-  image(cartoonEffect(pCurr, Cthreshold), -320, 480, 160, 120); //CARTOON
+  image(cartoonEffect(curr, Cthreshold), -320, 480, 160, 120); //CARTOON
   image(pCurr, -520, 480, 160, 120);
   popMatrix();
 }
