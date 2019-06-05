@@ -55,7 +55,6 @@ void setup() {
     .setSize(60, 20)
     .setPosition(290, 500)
     .setLabel("Stop Camera")
-    //.setColorActive(color(127,255,0))
     ;
   globalControl.addSlider("threshold")
     .setRange(0, 100)
@@ -185,10 +184,12 @@ void draw() {
       if (painting) {
         curr = canvas;
         reversePaint();
+      } else reverseImage();
+      if (key == '9') {
+        reverseCartoon();
       }
-      else reverseImage();
+      prev = curr;
     }
-    prev = curr;
   }
   if (modes) {
     painter.hide();
@@ -373,6 +374,10 @@ void reversePosterize() {
 void reverseCartoon() {
   pushMatrix();
   scale(-1, 1);
+  int placeholder = threshold;
+  if (placeholder <  50) {
+    threshold += 50 - (50-placeholder);
+  }
   curr = cartoonEffect(curr, threshold);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
@@ -409,7 +414,6 @@ void reversebeach() {
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
-
 PImage grayScale(PImage original) {
   PImage Image = new PImage(original.width, original.height);
   for (int y=0; y<original.height; y++) {
@@ -472,6 +476,7 @@ PImage edgeDetect(PImage Image, int threshold) {
 }
 
 PImage colorEdge(PImage Image, int threshold) {
+  threshold = threshold - 10;
   PImage grayImage = grayScale(Image);
   PImage colEdgeImage = new PImage(grayImage.width, grayImage.height);
   for (int y=0; y<grayImage.height; y++) {
@@ -597,6 +602,7 @@ void painter1() {
   painting = true;
   canvas = curr.copy();
 }
+
 void paint() {
   if (mousePressed && mouseY <= 470) {
     noStroke();
