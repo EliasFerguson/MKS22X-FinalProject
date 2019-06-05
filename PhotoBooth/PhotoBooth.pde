@@ -9,7 +9,7 @@ float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
-boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint;
+boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
 int alpha, red, blue, green;
 boolean painting;
 PImage canvas;
@@ -19,6 +19,7 @@ void setup() {
   painting = false;
   canvas = new PImage(640, 480);
   gray = false;
+  replacement = false;
   edge = false;
   poster = false;
   invert = false;
@@ -114,8 +115,8 @@ void setup() {
     .setSize(60, 20)
     .setPosition(290, 540)
     ;
-  previewControl.addBang("paintpanel")
-    .setLabel("Paint")
+  previewControl.addBang("setBackground")
+    .setLabel("Backdrop")
     .setSize(60, 20)
     .setPosition(490, 540)
     ;
@@ -174,7 +175,7 @@ void draw() {
     if (poster) {
       reversePosterize();
     }
-    if (key == '1') {
+    if (cartoon) {
       reverseCartoon();
     }
     if (colored) {
@@ -183,7 +184,7 @@ void draw() {
     if (thermal) {
       reverseThermal();
     }
-    if (key == '8' && clicksDone) {
+    if (replacement) {
       reversebackground();
     }
     /* if (paint) {
@@ -193,9 +194,6 @@ void draw() {
      reversePaint();
      } else reverseImage();
      */
-    if (cartoon) {
-      reverseCartoon();
-    }
     prev = curr;
   }
   if (modes) {
@@ -258,6 +256,7 @@ public void gray() {
   thermal = false;
   modes = false;
   paint = false;
+  replacement = false;
 }
 public void edge() {
   gray = false;
@@ -270,6 +269,7 @@ public void edge() {
   thermal = false;
   modes = false;
   paint = false;
+  replacement = false;
 }
 public void invert() {
   gray = false;
@@ -282,6 +282,7 @@ public void invert() {
   thermal = false;
   modes = false;
   paint = false;
+  replacement = false;
 }
 public void posterize() {
   gray = false;
@@ -294,6 +295,7 @@ public void posterize() {
   thermal = false;
   modes = false;
   paint = false;
+  replacement = false;
 }
 public void regular() {
   gray = false;
@@ -306,6 +308,7 @@ public void regular() {
   thermal = false;
   modes = false;
   paint = false;
+  replacement = false;
 }
 public void colored() {
   gray = false;
@@ -315,6 +318,20 @@ public void colored() {
   cartoon = false;
   regular = false;
   colored = true;
+  thermal = false;
+  modes = false;
+  paint = false;
+  replacement = false;
+}
+public void setBackground() {
+  gray = false;
+  replacement = true;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  regular = false;
+  colored = false;
   thermal = false;
   modes = false;
   paint = false;
@@ -330,6 +347,7 @@ public void thermal() {
   thermal = true;
   modes = false;
   paint = false;
+  replacement = false;
 }
 public void cartoony() {
   gray = false;
@@ -342,6 +360,7 @@ public void cartoony() {
   thermal = false;
   modes = false;
   paint = false;
+  replacement = false;
 }
 public void paintpanel() {
   gray = false;
@@ -354,6 +373,7 @@ public void paintpanel() {
   thermal = false;
   modes = false;
   paint = true;
+  replacement = false;
 }
 public void modes() {
   modes = true;
@@ -634,7 +654,7 @@ void displayPreviews() {
   image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
   image(cartoonEffect(pCurr, Cthreshold), -320, 480, 160, 120); //CARTOON
-  image(pCurr, -520, 480, 160, 120);
+  image(background, -520, 480, 160, 120);
   popMatrix();
 }
 
