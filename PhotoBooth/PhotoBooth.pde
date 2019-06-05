@@ -457,13 +457,12 @@ PImage cartoonEffect(PImage Image, int threshold) {
     for (int x=0; x<og.width; x++) {
       if (edginess(x, y, og) > threshold) {
         cartoonImage.set(x, y, color(0));
+      } else {
+        cartoonImage.set(x, y, Image.get(x, y));
       }
-      else{
-        cartoonImage.set(x,y,color((red(og.get(x, y)) + green(og.get(x, y)) + blue(og.get(x, y)))));
     }
   }
-}
-return(cartoonImage);
+  return(cartoonImage);
 }
 
 PImage edgeDetect(PImage Image, int threshold) {
