@@ -186,18 +186,18 @@ void draw() {
     if (key == '8' && clicksDone) {
       reversebackground();
     }
-    if (paint) {
+   /* if (paint) {
       painter.show();
       if (painting) {
         curr = canvas;
         reversePaint();
       } else reverseImage();
+      */
       if (key == '9') {
         reverseCartoon();
       }
       prev = curr;
     }
-  }
   if (modes) {
     painter.hide();
     camP.read();
@@ -381,7 +381,6 @@ void reversePosterize() {
 void reverseCartoon() {
   pushMatrix();
   scale(-1, 1);
-  int placeholder = threshold;
   curr = cartoonEffect(curr, Cthreshold);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
@@ -632,7 +631,7 @@ void displayPreviews() {
   image(pCurr, -320, 280, 160, 120); //BASIC
   image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
-  image(cartoonEffect(pCurr, threshold), -320, 480, 160, 120); //CARTOON
+  image(cartoonEffect(pCurr, Cthreshold), -320, 480, 160, 120); //CARTOON
   image(pCurr, -520, 480, 160, 120);
   popMatrix();
 }
