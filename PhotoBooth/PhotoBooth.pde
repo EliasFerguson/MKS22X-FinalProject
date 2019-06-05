@@ -9,7 +9,7 @@ float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
-boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal;
+boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal,paint;
 
 void setup() {
   gray = false;
@@ -532,6 +532,15 @@ void mouseClicked() {
   }
   clicks++;
 }
+
+void paint(){
+    paint = false;
+    if (mousePressed && mouseY <= 470) {
+       cam.stop();
+       noStroke();
+       ellipse(mouseX, mouseY, 10,10); 
+    }
+  }
 
 void displayPreviews() {
   control.hide();
