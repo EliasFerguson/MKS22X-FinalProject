@@ -3,7 +3,6 @@ import controlP5.*;
 Capture cam, camP;
 PImage curr, prev, beach, pCurr, pPrev, toBeSaved;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
-ArrayList<PImage> previews;
 int threshold;
 ControlP5 control, previewControl, globalControl;
 int picNum;
@@ -15,6 +14,14 @@ boolean modes, camera, gray, edge, poster, invert, cartoon, colored, thermal;
 //
 
 void setup() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = true;
+  colored = false;
+  thermal = false;
   modes = false;
   beach = loadImage("beach.jpeg");
   beach.resize(640, 480);
@@ -91,6 +98,7 @@ void setup() {
     ;
   size(640, 640);
   fill(255);
+  background(0);
   pCurr = new PImage(160, 120);
   pPrev = new PImage(160, 120);
   preview1 = new PImage(160, 120);
@@ -101,15 +109,6 @@ void setup() {
   preview6 = new PImage(160, 120);
   preview7 = new PImage(160, 120);
   preview8 = new PImage(160, 120);
-  previews = new ArrayList<PImage>();
-  previews.add(preview1);
-  previews.add(preview2);
-  previews.add(preview3);
-  previews.add(preview4);
-  previews.add(preview5);
-  previews.add(preview6);
-  previews.add(preview7);
-  previews.add(preview8);
   preview1 = curr;
   preview2 = curr;
   preview3 = curr;
@@ -140,38 +139,38 @@ void setup() {
 
 void draw() {
   if (!modes) {
+    background(0);
     previewControl.hide();
     control.show();
-    background(0);
     cam.read();
     curr = cam.copy();
     imageMode(CENTER);
-    reverseImage();
-    if (cam.available()) {
-      if (key == '1') {
-        reverseGrayScale();
-      }
-      if (key == '2') {
-        reverseEdgeDetect();
-      }
-      if (key == '3') {
-        reverseInvert();
-      }
-      if (key == '4') {
-        reversePosterize();
-      }
-      if (key == '5') {
-        reverseCartoon();
-      }
-      if (key == '6') {
-        reverseColored();
-      }
-      if (key == '7') {
-        reverseThermal();
-      }
-      if (key == '8' && clicksDone) {
-        reversebeach();
-      }
+    if (camera) {
+      reverseImage();
+    }
+    if (gray) {
+      reverseGrayScale();
+    }
+    if (edge) {
+      reverseEdgeDetect();
+    }
+    if (invert) {
+      reverseInvert();
+    }
+    if (poster) {
+      reversePosterize();
+    }
+    if (cartoon) {
+      reverseCartoon();
+    }
+    if (colored) {
+      reverseColored();
+    }
+    if (thermal) {
+      reverseThermal();
+    }
+    if (key == '8' && clicksDone) {
+      reversebeach();
     }
     prev = curr;
   }
@@ -230,6 +229,7 @@ public void gray() {
   camera = false;
   colored = false;
   thermal = false;
+  modes = false;
 }
 public void edge() {
   gray = false;
@@ -240,6 +240,7 @@ public void edge() {
   camera = false;
   colored = false;
   thermal = false;
+  modes = false;
 }
 public void invert() {
   gray = false;
@@ -250,6 +251,7 @@ public void invert() {
   camera = false;
   colored = false;
   thermal = false;
+  modes = false;
 }
 public void posterize() {
   gray = false;
@@ -260,6 +262,7 @@ public void posterize() {
   camera = false;
   colored = false;
   thermal = false;
+  modes = false;
 }
 public void regular() {
   gray = false;
@@ -270,6 +273,7 @@ public void regular() {
   camera = true;
   colored = false;
   thermal = false;
+  modes = false;
 }
 public void colored() {
   gray = false;
@@ -280,6 +284,7 @@ public void colored() {
   camera = false;
   colored = true;
   thermal = false;
+  modes = false;
 }
 public void thermal() {
   gray = false;
@@ -290,19 +295,20 @@ public void thermal() {
   camera = false;
   colored = false;
   thermal = true;
+  modes = false;
 }
 public void cartoon() {
-  gray = true;
+  gray = false;
   edge = false;
   poster = false;
   invert = false;
-  cartoon = false;
+  cartoon = true;
   camera = false;
   colored = false;
   thermal = false;
+  modes = false;
 }
 public void TBD() {
-  
 }
 public void modes() {
   modes = true;
