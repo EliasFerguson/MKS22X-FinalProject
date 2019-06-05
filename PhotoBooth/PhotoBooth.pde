@@ -29,9 +29,9 @@ void setup() {
   control = new ControlP5(this);
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
-  globalControl.addColorPicker("picker")
-    .setSize(60, 100)
-    .setPosition(0, 570)
+  control.addColorPicker("picker")
+    .setSize(60, 80)
+    .setPosition(0, 580)
     .setLabel("Paint Color")
     ;
   control.addBang("takePic")
