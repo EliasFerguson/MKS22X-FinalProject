@@ -37,7 +37,7 @@ Wednesday, May 29:<br>
 Thursday, May 30:
 Elias Ferguson: I tried to fix several bugs, including with the excessive lag and that pictures weren't being saved with the filters applied. I was unsuccessful with all of these bug fixes. I made a new branch to being working on a new User Interface as well.
 
-From May 31-June 3, I was dealing with medical issues and didn't make any commits.
+From May 31-June 3, I was dealing with medical issues and didn't make any commits. -Elias Ferguson
 
 Tuesday, June 4:
-Elias Ferguson: I made up all of my work for the past four days. I made a mode screen to show previews for the different filters. ControlP5 bangs now regulate switches between filters. The most important bug, that filtered photos weren't saved correctly, was fixed. More ControlP5 was added to give the user more autonomy with the Threshold, which affects several filters.
+Elias Ferguson: I made up all of my work for the past four days. I made a mode screen to show previews for the different filters. ControlP5 bangs now regulate switches between filters. The most important bug, that filtered photos weren't saved correctly, was fixed. More ControlP5 was added to give the user more autonomy with the Threshold, which affects several filters. Finished the project.
