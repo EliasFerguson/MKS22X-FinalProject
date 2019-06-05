@@ -10,6 +10,7 @@ int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal;
+int alpha, red, blue, green;
 
 void setup() {
   gray = false;
@@ -28,6 +29,11 @@ void setup() {
   control = new ControlP5(this);
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
+  globalControl.addColorPicker("picker")
+    .setSize(60, 100)
+    .setPosition(0, 570)
+    .setLabel("Paint Color")
+    ;
   control.addBang("takePic")
     .setSize(60, 40)
     .setPosition(290, 560)
@@ -302,6 +308,12 @@ public void TBD() {
 }
 public void modes() {
   modes = true;
+}
+public void picker(int col) {
+ alpha = int(alpha(col)); 
+ red = int(red(col));
+ green = int(green(col));
+ blue = int(blue(col));
 }
 public void camera() {
   modes = false;
