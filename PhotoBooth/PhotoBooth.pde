@@ -634,7 +634,7 @@ void displayPreviews() {
   image(pCurr, -320, 280, 160, 120); //BASIC
   image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
-  image(cartoonEffect(curr, Cthreshold), -320, 480, 160, 120); //CARTOON
+  image(cartoonEffect(pCurr, Cthreshold), -320, 480, 160, 120); //CARTOON
   image(pCurr, -520, 480, 160, 120);
   popMatrix();
 }
