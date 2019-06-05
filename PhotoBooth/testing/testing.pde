@@ -1,62 +1,109 @@
 import processing.video.*;
 import controlP5.*;
-Capture cam;
 import java.awt.*;
 import gab.opencv.*;
-OpenCV opencv;
-PImage curr, prev, bech;
+Capture cam, camP;
+PImage curr, prev, bech, pCurr, pPrev, toBeSaved;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 ArrayList<PImage> previews;
-int threshold = 25;
-ControlP5 control;
+OpenCV opencv;
+int threshold;
+ControlP5 control, previewControl, globalControl;
 int picNum;
 float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
+boolean modes, camera, gray, edge, poster, invert, cartoon, colored, thermal;
 
 
 void setup() {
-  
+  modes = false;
   bech = loadImage("bech.jpeg");
   bech.resize(640, 480);
   picNum = 1;
-  strands = random(2.0,15.0);
+  strands = random(2.0, 15.0);
   control = new ControlP5(this);
+  previewControl = new ControlP5(this);
+  globalControl = new ControlP5(this);
   control.addBang("takePic")
     .setSize(60, 40)
     .setPosition(290, 560)
     .setLabel("Take Picture")
-    .setValue(0)
     ; 
-  control.addSlider("R")
-    .setRange(0, 255)
-    .setSize(250, 10)
-    .setPosition(400, 630)
-    .setLabel("Red")
+  control.addBang("modes")
+    .setSize(60, 20)
+    .setPosition(10, 500)
+    .setLabel("See Modes")
     ;
-  control.addSlider("G")
-    .setRange(0, 255)
-    .setSize(250, 10)
-    .setPosition(400, 610)
-    .setLabel("Green")
+  globalControl.addSlider("threshold")
+    .setRange(0, 100)
+    .setSize(100, 10)
+    .setPosition(490, 620)
+    .setLabel("Threshold")
+    .setValue(4)
     ;
-  control.addSlider("B")
-    .setRange(0, 255)
-    .setSize(250, 10)
-    .setPosition(400, 590)
-    .setLabel("Blue")
+  previewControl.addBang("regular")
+    .setSize(80, 20)
+    .setLabel("Back to Current Filter")
+    .setPosition(290, 580);
+  previewControl.addBang("gray")
+    .setLabel("Grayscale")
+    .setSize(60, 20)
+    .setPosition(90, 140)
+    ;
+  previewControl.addBang("edge")
+    .setLabel("Edge-Detect")
+    .setSize(60, 20)
+    .setPosition(290, 140)
+    ;
+  previewControl.addBang("invert")
+    .setLabel("X-RAY")
+    .setSize(60, 20)
+    .setPosition(490, 140)
+    ;
+  previewControl.addBang("posterize")
+    .setLabel("Posterize")
+    .setSize(60, 20)
+    .setPosition(90, 340)
+    ;
+  previewControl.addBang("normal")
+    .setLabel("No Filter")
+    .setSize(60, 20)
+    .setPosition(290, 340)
+    ;
+  previewControl.addBang("colored")
+    .setLabel("Colored Pencil")
+    .setSize(60, 20)
+    .setPosition(490, 340)
+    ;
+  previewControl.addBang("thermal")
+    .setLabel("Thermal")
+    .setSize(60, 20)
+    .setPosition(90, 540)
+    ;
+  previewControl.addBang("cartoon")
+    .setLabel("Cartoon Effect")
+    .setSize(60, 20)
+    .setPosition(290, 540)
+    ;
+  previewControl.addBang("TBD")
+    .setLabel("TBD")
+    .setSize(60, 20)
+    .setPosition(490, 540)
     ;
   size(640, 640);
   fill(255);
-  preview1 = new PImage(80, 60);
-  preview2 = new PImage(80, 60);
-  preview3 = new PImage(80, 60);
-  preview4 = new PImage(80, 60);
-  preview5 = new PImage(80, 60);
-  preview6 = new PImage(80, 60);
-  preview7 = new PImage(80, 60);
-  preview8 = new PImage(80, 60);
+  pCurr = new PImage(160, 120);
+  pPrev = new PImage(160, 120);
+  preview1 = new PImage(160, 120);
+  preview2 = new PImage(160, 120);
+  preview3 = new PImage(160, 120);
+  preview4 = new PImage(160, 120);
+  preview5 = new PImage(160, 120);
+  preview6 = new PImage(160, 120);
+  preview7 = new PImage(160, 120);
+  preview8 = new PImage(160, 120);
   previews = new ArrayList<PImage>();
   previews.add(preview1);
   previews.add(preview2);
@@ -87,82 +134,84 @@ void setup() {
     for (int i = 0; i < cameras.length; i++) {
       println(cameras[i]);
     }
-    cam = new Capture(this, 640, 480);
+    cam = new Capture(this, 640, 480, 30);
+    camP = new Capture(this, 640, 480, 30);
+
     opencv = new OpenCV(this, 640, 480);
-    opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);   
+    opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);
+
+    camP.start();
     cam.start();
   }
- 
 }
 
 void draw() {
-  thresholdChange();
+
   opencv.loadImage(cam);
-  if (cam.available()) {
+
+
+  if (!modes) {
+    previewControl.hide();
+    control.show();
+    background(0);
     cam.read();
     curr = cam.copy();
-    //image(curr,0,0);
-    //reverseImage();
     imageMode(CENTER);
     reverseImage();
+    if (cam.available()) {
+      if (key == '1') {
+        reverseGrayScale();
+      }
+      if (key == '2') {
+        reverseEdgeDetect();
+      }
+      if (key == '3') {
+        reverseInvert();
+      }
+      if (key == '4') {
+        reversePosterize();
+      }
+      if (key == '5') {
+        reverseCartoon();
+      }
+      if (key == '6') {
+        reverseColored();
+      }
+      if (key == '7') {
+        reverseThermal();
+      }
+      if (key == '8' && clicksDone) {
+        reversebech();
+      }
+    }
     prev = curr;
-    if (key == '1') {
-     reverseGrayScale();
-    }
-    if (key == '2') {
-     reverseEdgeDetect();
-    }
-    if (key == '3') {
-     reverseInvert();
-    }
-    if (key == '4') {
-     reversePosterize();
-    }
-    if (key == '5') {
-     reverseCartoon();
-    }
-    if (key == '6') {
-     reverseColored();
-    }
-    if (key == '7') {
-     reverseThermal();
-    }
-    if (key == '8' && clicksDone) {
-     reversebech();
   }
-  //curr = cam.copy();
-  reverseImage();
-  displayPreviews();
- }
- 
-  noFill();
-  stroke(0, 255, 0);
-  strokeWeight(3);
-  Rectangle[] faces = opencv.detect();
-  println(faces.length);
+  if (modes) {
+    camP.read();
+    pCurr = camP.copy();
+    pPrev = pCurr;
+    displayPreviews();
+  }
+  
+      noFill();
+    stroke(0, 255, 0);
+    strokeWeight(3);
+    Rectangle[] faces = opencv.detect();
+    println(faces.length);
 
-  for (int i = 0; i < faces.length; i++) {
-    println(faces[i].x + "," + faces[i].y);
-    rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-  }
+    for (int i = 0; i < faces.length; i++) {
+      println(faces[i].x + "," + faces[i].y);
+      rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+    }
 }
- 
- void controlEvents(ControlEvent theEvent) {
-   if (theEvent.isController()) {
-     println("control event from: " + theEvent.getController().getName());
-    /*if (event.isFrom("takePic")) {
-     takePicture(); 
-    }*/
-   }
- }
- 
- public void takePic() {
-   cam.stop();
-   PImage toBeSaved = prev.copy();
-   toBeSaved.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
-   cam.start();
-   picNum++;
- }
+
+public void takePic() {
+  cam.stop();
+  toBeSaved = curr.copy();
+  toBeSaved.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
+  cam.start();
+  picNum++;
+}
 
 void reverseImage() {
   pushMatrix();
@@ -194,7 +243,97 @@ void reverseInvert() {
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
-
+public void gray() {
+  gray = true;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void edge() {
+  gray = false;
+  edge = true;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void invert() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = true;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void posterize() {
+  gray = false;
+  edge = false;
+  poster = true;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void regular() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = true;
+  colored = false;
+  thermal = false;
+}
+public void colored() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = true;
+  thermal = false;
+}
+public void thermal() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = true;
+}
+public void cartoon() {
+  gray = true;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  camera = false;
+  colored = false;
+  thermal = false;
+}
+public void TBD() {
+}
+public void modes() {
+  modes = true;
+}
+public void camera() {
+  modes = false;
+}
+public void threshold(int val) {
+  threshold = val;
+}
 void reversePosterize() {
   pushMatrix();
   scale(-1, 1);
@@ -314,29 +453,29 @@ PImage colorEdge(PImage Image, int threshold) {
 PImage thermalScreen (PImage Image) {
   PImage grayImage = grayScale(Image);
   threshold = 85;
-    PImage tScreen = new PImage(grayImage.width, grayImage.height);
+  PImage tScreen = new PImage(grayImage.width, grayImage.height);
   for (int y=0; y<grayImage.height; y++) {
     for (int x=0; x<grayImage.width; x++) {
       if (brightness(Image.get(x, y)) >= (255-62)) {
         tScreen.set(x, y, color(255, 0, 0));
       }
       if ((brightness(Image.get(x, y)) >= ((255-84)) && (brightness(Image.get(x, y)) < (255-62)))) {
-        tScreen.set(x, y, color(255,165,0));
+        tScreen.set(x, y, color(255, 165, 0));
       }
       if ((brightness(Image.get(x, y)) >= (255-112)) && (brightness(Image.get(x, y)) < (255-84))) {
-        tScreen.set(x, y, color(255,255,0));
+        tScreen.set(x, y, color(255, 255, 0));
       }
       if ((brightness(Image.get(x, y)) >= (255-140)) && (brightness(Image.get(x, y)) < (255-112))) {
-        tScreen.set(x, y, color(0,255,0));
+        tScreen.set(x, y, color(0, 255, 0));
       }
       if ((brightness(Image.get(x, y)) >= (255-168)) && (brightness(Image.get(x, y)) < (255-140))) {
-        tScreen.set(x, y, color(135,206,250));
+        tScreen.set(x, y, color(135, 206, 250));
       }
       if ((brightness(Image.get(x, y)) >= (255-196)) && (brightness(Image.get(x, y)) < (255-168))) {
-        tScreen.set(x, y, color(0,0,255));
+        tScreen.set(x, y, color(0, 0, 255));
       }
       if ((brightness(Image.get(x, y)) >= (255-224)) && (brightness(Image.get(x, y)) < (255-196))) {
-        tScreen.set(x, y, color(75,0,130));
+        tScreen.set(x, y, color(75, 0, 130));
       }
       if ((brightness(Image.get(x, y)) < (255-224))) {
         tScreen.set(x, y, color(238, 130, 238));
@@ -346,38 +485,38 @@ PImage thermalScreen (PImage Image) {
   return (tScreen);
 }
 
-PImage thermal1(PImage Image){
-  PImage thermImage = new PImage(Image.width,Image.height);
-  for (int y=0;y<Image.height;y++){
-    for (int x=0;x<Image.width;x++){
-      float dist = (255 - brightness(Image.get(x,y))) * 6;
+PImage thermal1(PImage Image) {
+  PImage thermImage = new PImage(Image.width, Image.height);
+  for (int y=0; y<Image.height; y++) {
+    for (int x=0; x<Image.width; x++) {
+      float dist = (255 - brightness(Image.get(x, y))) * 6;
       float red=0;
       float green=0;
       float blue=0;
-      if (dist < 255){
+      if (dist < 255) {
         red = dist;
       }
-      if (dist >= 255){
+      if (dist >= 255) {
         red = 255;
         green = dist % 255;
       }
-      if (dist >= 510){
+      if (dist >= 510) {
         red = 255 - (dist % 255);
         green = 255;
       }
-      if (dist >= 765){
+      if (dist >= 765) {
         red = 0;
         blue = dist % 255;
       }
-      if (dist >= 1020){
+      if (dist >= 1020) {
         green = 255 - (dist % 255);
         blue = 255;
       }
-      if (dist >= 1275){
+      if (dist >= 1275) {
         green = 0;
         red = (dist % 255);
       }
-      thermImage.set(x,y,color(red,green,blue));
+      thermImage.set(x, y, color(red, green, blue));
     }
   }
   return(thermImage);
@@ -401,20 +540,6 @@ PImage bech(PImage Image, PImage replacer, int threshold, color max, color mid, 
   }
   return(beched);
 }
-
-
-void thresholdChange() {
-  if (keyCode == UP) {
-    threshold += 3;
-    keyCode = LEFT;
-  }
-  if (keyCode == DOWN) {
-    threshold -= 3;
-    keyCode = RIGHT;
-  }
-}
-
-
 void mouseClicked() {
   if (clicks == 0) {
     max = cam.get(mouseX, mouseY);
@@ -432,29 +557,26 @@ void mouseClicked() {
   }
   clicks++;
 }
+//
 
- void displayPreviews() {
-   int x = 40;
-   for (int i = 0; i < 8; i++) {
-     pushMatrix();
-     scale(-1, 1);
-     if (i == 0) image(grayScale(curr), -x, 510, 80, 60);
-     if (i == 1) image(edgeDetect(curr, threshold), -x, 510, 80, 60);
-     if (i == 2) {
-       PImage putIn = curr.copy();
-       putIn.filter(INVERT);
-       image(putIn, -x, 510, 80, 60);
-     }
-     if (i == 3) {
-       PImage putIn = curr.copy();
-       putIn.filter(POSTERIZE, strands);
-       image(putIn, -x, 510, 80, 60);
-     }
-     if (i == 4) image(cartoonEffect(curr, threshold), -x, 510, 80, 60);
-     if (i == 5) image(colorEdge(curr, threshold - 10), -x, 510, 80, 60);
-     if (i == 6) image(thermalScreen(curr), -x, 510, 80, 60);
-     if (i == 7) image(curr, -x, 510, 80, 60);
-     popMatrix();
-     x += 80;
-   }
+void displayPreviews() {
+  control.hide();
+  previewControl.show();
+  imageMode(CENTER);
+  background(0);
+  pushMatrix();
+  scale(-1, 1);
+  image(grayScale(pCurr), -120, 80, 160, 120); //GRAY
+  image(edgeDetect(pCurr, threshold), -320, 80, 160, 120); //EDGE
+  PImage putIn = pCurr.copy();
+  putIn.filter(INVERT);
+  image(putIn, -520, 80, 160, 120); //XRAY
+  PImage putIn2 = pCurr.copy();
+  putIn2.filter(POSTERIZE, strands);
+  image(putIn2, -120, 280, 160, 120); //POSTERIZE
+  image(pCurr, -320, 280, 160, 120); //BASIC
+  image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
+  image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
+  image(cartoonEffect(pCurr, threshold), -320, 480, 160, 120); //CARTOON
+  popMatrix();
 }
