@@ -2,7 +2,6 @@ import processing.video.*;
 import controlP5.*;
 Capture cam, camP;
 PImage curr, prev, beach, pCurr, pPrev, toBeSaved;
-PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 int threshold;
 ControlP5 control, previewControl, globalControl;
 int picNum;
@@ -10,7 +9,7 @@ float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
-boolean modes, camera, gray, edge, poster, invert, cartoon, colored, thermal;
+boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal;
 
 void setup() {
   gray = false;
@@ -18,7 +17,7 @@ void setup() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = true;
+  regular = true;
   colored = false;
   thermal = false;
   modes = false;
@@ -46,7 +45,7 @@ void setup() {
     .setLabel("Threshold")
     .setValue(50)
     ;
-  previewControl.addBang("regular")
+  previewControl.addBang("camera")
     .setSize(80, 20)
     .setLabel("Back to Current Filter")
     .setPosition(290, 580);
@@ -70,7 +69,7 @@ void setup() {
     .setSize(60, 20)
     .setPosition(90, 340)
     ;
-  previewControl.addBang("normal")
+  previewControl.addBang("regular")
     .setLabel("No Filter")
     .setSize(60, 20)
     .setPosition(290, 340)
@@ -106,22 +105,6 @@ void setup() {
   background(0);
   pCurr = new PImage(160, 120);
   pPrev = new PImage(160, 120);
-  preview1 = new PImage(160, 120);
-  preview2 = new PImage(160, 120);
-  preview3 = new PImage(160, 120);
-  preview4 = new PImage(160, 120);
-  preview5 = new PImage(160, 120);
-  preview6 = new PImage(160, 120);
-  preview7 = new PImage(160, 120);
-  preview8 = new PImage(160, 120);
-  preview1 = curr;
-  preview2 = curr;
-  preview3 = curr;
-  preview4 = curr;
-  preview5 = curr;
-  preview6 = curr;
-  preview7 = curr;
-  preview8 = curr;
   imageMode(CENTER);
   String[] cameras = Capture.list();
   //frameRate(5);
@@ -150,7 +133,7 @@ void draw() {
     cam.read();
     curr = cam.copy();
     imageMode(CENTER);
-    if (camera) {
+    if (regular) {
       reverseImage();
     }
     if (gray) {
@@ -187,10 +170,10 @@ void draw() {
   }
 }
 public void takePic() {
-  /*toBeSaved = curr.copy();
-   PImage saver = createImage(640, 480, RGB);
-   saver = toBeSaved.get(); */
-  curr.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
+  toBeSaved = curr.copy();
+  PImage saver = createImage(640, 480, RGB);
+  saver = toBeSaved.get();
+  saver.save(dataPath("") + "/outputImage" + picNum + ".jpg");
   picNum++;
 }
 
@@ -233,7 +216,7 @@ public void gray() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
@@ -244,7 +227,7 @@ public void edge() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
@@ -255,7 +238,7 @@ public void invert() {
   poster = false;
   invert = true;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
@@ -266,7 +249,7 @@ public void posterize() {
   poster = true;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
@@ -277,7 +260,7 @@ public void regular() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = true;
+  regular = true;
   colored = false;
   thermal = false;
   modes = false;
@@ -288,7 +271,7 @@ public void colored() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = true;
   thermal = false;
   modes = false;
@@ -299,7 +282,7 @@ public void thermal() {
   poster = false;
   invert = false;
   cartoon = false;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = true;
   modes = false;
@@ -310,7 +293,7 @@ public void cartoon() {
   poster = false;
   invert = false;
   cartoon = true;
-  camera = false;
+  regular = false;
   colored = false;
   thermal = false;
   modes = false;
