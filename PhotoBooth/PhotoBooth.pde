@@ -451,16 +451,19 @@ float edginess(int x, int y, PImage Image) {
 }
 
 PImage cartoonEffect(PImage Image, int threshold) {
-  Image = grayScale(Image);
-  PImage cartoonImage = new PImage (Image.width, Image.height);
-  for (int y=0; y<Image.height; y++) {
-    for (int x=0; x<Image.width; x++) {
-      if (edginess(x, y, Image) > threshold) {
+  PImage og = grayScale(Image);
+  PImage cartoonImage = new PImage (og.width, og.height);
+  for (int y=0; y<og.height; y++) {
+    for (int x=0; x<og.width; x++) {
+      if (edginess(x, y, og) > threshold) {
         cartoonImage.set(x, y, color(0));
       }
+      else{
+        cartoonImage.set(x,y,color((red(og.get(x, y)) + green(og.get(x, y)) + blue(og.get(x, y)))));
     }
   }
-  return(cartoonImage);
+}
+return(cartoonImage);
 }
 
 PImage edgeDetect(PImage Image, int threshold) {
