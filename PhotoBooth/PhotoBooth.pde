@@ -186,18 +186,18 @@ void draw() {
     if (key == '8' && clicksDone) {
       reversebackground();
     }
-   /* if (paint) {
-      painter.show();
-      if (painting) {
-        curr = canvas;
-        reversePaint();
-      } else reverseImage();
-      */
-      if (key == '9') {
-        reverseCartoon();
-      }
-      prev = curr;
+    /* if (paint) {
+     painter.show();
+     if (painting) {
+     curr = canvas;
+     reversePaint();
+     } else reverseImage();
+     */
+    if (key == '9') {
+      reverseCartoon();
     }
+    prev = curr;
+  }
   if (modes) {
     painter.hide();
     camP.read();
