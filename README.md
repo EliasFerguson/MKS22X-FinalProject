@@ -1,4 +1,14 @@
 # MKS22X-FinalProject
+Instructions:
+This is a photo booth, and is pretty self-explanatory. Here are just a few notes on the various sliders, and where images are saved:
+
+
+
+
+
+
+
+
 
 <b> DevLog: </b>
 
