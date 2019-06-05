@@ -650,7 +650,7 @@ void displayPreviews() {
   PImage putIn2 = pCurr.copy();
   putIn2.filter(POSTERIZE, strands);
   image(putIn2, -120, 280, 160, 120); //POSTERIZE
-  image(pCurr, -320, 280, 160, 120); //BASIC
+  image(pCurr, -320, 280, 160, 120s); //BASIC
   image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
   image(cartoonEffect(pCurr, Cthreshold), -320, 480, 160, 120); //CARTOON
