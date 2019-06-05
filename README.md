@@ -51,10 +51,15 @@ Vishwaa Sofat: Fixed the way posterize functions by making a global variable ins
 Wednesday, May 29:<br>
 <b> GITHUB DID NOT ALLOW US TO COMMIT OR PUSH BECAUSE OF OVERUSING DATA WITH A LIBRARY ZIP FILE. WORK WAS STILL DONE -- REFER TO MAY 30. </b><br>
 
-Thursday, May 30:
-Elias Ferguson: I tried to fix several bugs, including with the excessive lag and that pictures weren't being saved with the filters applied. I was unsuccessful with all of these bug fixes. I made a new branch to being working on a new User Interface as well. I did all the coordinate math and know what I will be doing over the weekend.
+Thursday, May 30:<br>
+Elias Ferguson: I tried to fix several bugs, including with the excessive lag and that pictures weren't being saved with the filters applied. I was unsuccessful with all of these bug fixes. I made a new branch to being working on a new User Interface as well. I did all the coordinate math and know what I will be doing over the weekend.<br>
+Vishwaa Sofat: I worked out of the facial branch mostly from here on out because we had completed our basic and advanced filters. I was able to get eye, nose and facial detection working using openCV but there was extreme lag so I wasn't able to do a lot of testing.<br>
 
-From May 31-June 3, I was dealing with medical issues and didn't make any commits. -Elias Ferguson
+From May 31-June 3, I was dealing with medical issues and didn't make any commits. -Elias Ferguson <br>
 
-Tuesday, June 4:
-Elias Ferguson: I made up all of my work for the past four days. I made a mode screen to show previews for the different filters. ControlP5 bangs now regulate switches between filters. The most important bug, that filtered photos weren't saved correctly, was fixed. More ControlP5 was added to give the user more autonomy with the Threshold, which affects several filters. Finished the project.
+May 31 - June 3:<br>
+Vishwaa Sofat: I tried resolving the issue with lag but couldn't do much because Elias and I had figured out that our previews were causing a lot of the delays. I had to wait until we switched to the mode version to tweak filters that I had worked on as neccessary for previews and pictures. <br>
+
+Tuesday, June 4 - Wednesday, June 5:<br>
+Elias Ferguson: I made up all of my work for the past four days. I made a mode screen to show previews for the different filters. ControlP5 bangs now regulate switches between filters. The most important bug, that filtered photos weren't saved correctly, was fixed. More ControlP5 was added to give the user more autonomy with the Threshold, which affects several filters. Finished the project. <br>
+Vishwaa Sofat: Once Elias had the mode preview set up, I was able to fix bugs with the cartoon and replacement filters. For cartoon, I had to make a new slider and variable along with adding more code to fully inherit the pixels we requied for the filters. For the replacmeent filter, I For cartoon, I also helped out with adjusting the previews for cartoon because it only showed a black scren earlier. Elias and I both attempted paint but weren't able to finish it. I continued working on facial recongnition because I got really obssessed with it and found a way to slightly implement it on our final version. Final Project terminaste!<br>
