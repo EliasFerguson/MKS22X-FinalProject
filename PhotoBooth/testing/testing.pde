@@ -1,7 +1,10 @@
 import processing.video.*;
 import controlP5.*;
 Capture cam;
-PImage curr, prev, beach;
+import java.awt.*;
+import gab.opencv.*;
+OpenCV opencv;
+PImage curr, prev, bech;
 PImage preview1, preview2, preview3, preview4, preview5, preview6, preview7, preview8;
 ArrayList<PImage> previews;
 int threshold = 25;
@@ -14,8 +17,9 @@ boolean clicksDone = false;
 
 
 void setup() {
-  beach = loadImage("beach.jpeg");
-  beach.resize(640, 480);
+  
+  bech = loadImage("bech.jpeg");
+  bech.resize(640, 480);
   picNum = 1;
   strands = random(2.0,15.0);
   control = new ControlP5(this);
@@ -84,12 +88,16 @@ void setup() {
       println(cameras[i]);
     }
     cam = new Capture(this, 640, 480);
+    opencv = new OpenCV(this, 640, 480);
+    opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);   
     cam.start();
   }
+ 
 }
 
 void draw() {
   thresholdChange();
+  opencv.loadImage(cam);
   if (cam.available()) {
     cam.read();
     curr = cam.copy();
@@ -120,12 +128,23 @@ void draw() {
      reverseThermal();
     }
     if (key == '8' && clicksDone) {
-     reversebeach();
+     reversebech();
   }
   //curr = cam.copy();
   reverseImage();
   displayPreviews();
  }
+ 
+  noFill();
+  stroke(0, 255, 0);
+  strokeWeight(3);
+  Rectangle[] faces = opencv.detect();
+  println(faces.length);
+
+  for (int i = 0; i < faces.length; i++) {
+    println(faces[i].x + "," + faces[i].y);
+    rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+  }
 }
  
  void controlEvents(ControlEvent theEvent) {
@@ -208,10 +227,10 @@ void reverseThermal() {
   popMatrix();
 }
 
-void reversebeach() {
+void reversebech() {
   pushMatrix();
   scale(-1, 1);
-  curr = beach(cam, beach, threshold, max, mid, low);
+  curr = bech(cam, bech, threshold, max, mid, low);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -364,8 +383,8 @@ PImage thermal1(PImage Image){
   return(thermImage);
 }
 
-PImage beach(PImage Image, PImage replacer, int threshold, color max, color mid, color low) {
-  PImage beached = new PImage(Image.width, Image.height);
+PImage bech(PImage Image, PImage replacer, int threshold, color max, color mid, color low) {
+  PImage beched = new PImage(Image.width, Image.height);
   for (int y=0; y<Image.height; y++) {
     for (int x=0; x<Image.width; x++) {
       for (int i=0; i<3; i++) {
@@ -373,14 +392,14 @@ PImage beach(PImage Image, PImage replacer, int threshold, color max, color mid,
         float distMid = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(mid), green(mid), blue(mid));
         float distLow = dist(red(Image.get(x, y)), green(Image.get(x, y)), blue(Image.get(x, y)), red(low), green(low), blue(low));
         if ((distMax < threshold) || (distMid < threshold) || (distLow < threshold)) {
-          beached.set(x, y, replacer.get(x, y));
+          beched.set(x, y, replacer.get(x, y));
         } else {
-          beached.set(x, y, Image.get(x, y));
+          beched.set(x, y, Image.get(x, y));
         }
       }
     }
   }
-  return(beached);
+  return(beched);
 }
 
 
