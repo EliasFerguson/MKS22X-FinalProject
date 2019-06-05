@@ -3,7 +3,7 @@ import controlP5.*;
 Capture cam, camP;
 PImage curr, prev, beach, pCurr, pPrev, toBeSaved;
 int threshold;
-ControlP5 control, previewControl, globalControl;
+ControlP5 control, previewControl, globalControl, painter;
 int picNum;
 float strands;
 int clicks=0;
@@ -28,6 +28,8 @@ void setup() {
   control = new ControlP5(this);
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
+  painter = new ControlP5(this);
+  
   control.addBang("takePic")
     .setSize(60, 40)
     .setPosition(290, 560)
@@ -37,6 +39,12 @@ void setup() {
     .setSize(60, 20)
     .setPosition(10, 500)
     .setLabel("See Modes")
+    ;
+  painter.addToggle("painter")
+    .setSize(60,20)
+    .setPosition(50, 500)
+    .setLabel("Paint")
+    //.setColorActive(color(127,255,0))
     ;
   globalControl.addSlider("threshold")
     .setRange(0, 100)
@@ -160,7 +168,12 @@ void draw() {
     if (key == '8' && clicksDone) {
       reversebeach();
     }
+    if (key == '9') {
+      cam.stop();
+      paint();
+    }
     prev = curr;
+    
   }
   if (modes) {
     camP.read();
@@ -168,6 +181,7 @@ void draw() {
     pPrev = pCurr;
     displayPreviews();
   }
+
 }
 public void takePic() {
   toBeSaved = curr.copy();
@@ -324,6 +338,15 @@ void reverseCartoon() {
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
+
+void reversePaint(){
+  pushMatrix();
+  scale(-1, 1);
+  image(curr, -curr.width/2, curr.height/2 );
+  popMatrix();
+  paint();
+}
+  
 
 void reverseColored() {
   pushMatrix();
@@ -534,9 +557,9 @@ void mouseClicked() {
 }
 
 void paint(){
+    cam.stop();
     paint = false;
     if (mousePressed && mouseY <= 470) {
-       cam.stop();
        noStroke();
        ellipse(mouseX, mouseY, 10,10); 
     }
