@@ -9,7 +9,7 @@ float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
-boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal,paint;
+boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint;
 int alpha, red, blue, green;
 
 
@@ -30,7 +30,7 @@ void setup() {
   control = new ControlP5(this);
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
-  painter = new ControlP5(this);a
+  painter = new ControlP5(this);
   control.addColorPicker("picker")
     .setSize(60, 80)
     .setPosition(0, 580)
@@ -47,7 +47,7 @@ void setup() {
     .setLabel("See Modes")
     ;
   painter.addToggle("painter")
-    .setSize(60,20)
+    .setSize(60, 20)
     .setPosition(50, 500)
     .setLabel("Paint")
     //.setColorActive(color(127,255,0))
@@ -175,11 +175,9 @@ void draw() {
       reversebeach();
     }
     if (key == '9') {
-      cam.stop();
-      paint();
+      reverseCartoon();
     }
     prev = curr;
-    
   }
   if (modes) {
     camP.read();
@@ -187,7 +185,6 @@ void draw() {
     pPrev = pCurr;
     displayPreviews();
   }
-
 }
 public void takePic() {
   toBeSaved = curr.copy();
@@ -228,7 +225,7 @@ void reverseInvert() {
   popMatrix();
 }
 public void strands(float val) {
- strands = val;
+  strands = val;
 }
 public void gray() {
   gray = true;
@@ -324,10 +321,10 @@ public void modes() {
   modes = true;
 }
 public void picker(int col) {
- alpha = int(alpha(col)); 
- red = int(red(col));
- green = int(green(col));
- blue = int(blue(col));
+  alpha = int(alpha(col)); 
+  red = int(red(col));
+  green = int(green(col));
+  blue = int(blue(col));
 }
 public void camera() {
   modes = false;
@@ -346,19 +343,23 @@ void reversePosterize() {
 void reverseCartoon() {
   pushMatrix();
   scale(-1, 1);
+  int placeholder = threshold;
+  if (placeholder <  50) {
+    threshold += 50 - (50-placeholder);
+  }
   curr = cartoonEffect(curr, threshold);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
 
-void reversePaint(){
+void reversePaint() {
   pushMatrix();
   scale(-1, 1);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
   paint();
 }
-  
+
 
 void reverseColored() {
   pushMatrix();
@@ -383,7 +384,6 @@ void reversebeach() {
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
-
 PImage grayScale(PImage original) {
   PImage Image = new PImage(original.width, original.height);
   for (int y=0; y<original.height; y++) {
@@ -446,6 +446,7 @@ PImage edgeDetect(PImage Image, int threshold) {
 }
 
 PImage colorEdge(PImage Image, int threshold) {
+  threshold = threshold - 10;
   PImage grayImage = grayScale(Image);
   PImage colEdgeImage = new PImage(grayImage.width, grayImage.height);
   for (int y=0; y<grayImage.height; y++) {
@@ -568,14 +569,14 @@ void mouseClicked() {
   clicks++;
 }
 
-void paint(){
-    cam.stop();
-    paint = false;
-    if (mousePressed && mouseY <= 470) {
-       noStroke();
-       ellipse(mouseX, mouseY, 10,10); 
-    }
+void paint() {
+  cam.stop();
+  paint = false;
+  if (mousePressed && mouseY <= 470) {
+    noStroke();
+    ellipse(mouseX, mouseY, 10, 10);
   }
+}
 
 void displayPreviews() {
   control.hide();
@@ -597,4 +598,15 @@ void displayPreviews() {
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
   image(cartoonEffect(pCurr, threshold), -320, 480, 160, 120); //CARTOON
   popMatrix();
+}
+
+void thresholdChange(){
+  if (keyCode == UP){
+    threshold += 5;
+    keyCode = LEFT;
+  }
+  if (keyCode == DOWN){
+    threshold -= 5;
+    keyCode = RIGHT;
+  }
 }
