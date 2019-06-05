@@ -42,7 +42,7 @@ void setup() {
     ;
   previewControl.addBang("regular")
     .setSize(80, 20)
-    .setLabel("Back to Current Filter")
+    .setLabel("Back to Current Ffrilter")
     .setPosition(290, 580);
   previewControl.addBang("gray")
     .setLabel("Grayscale")

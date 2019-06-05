@@ -138,7 +138,7 @@ void setup() {
     camP = new Capture(this, 640, 480, 30);
 
     opencv = new OpenCV(this, 640, 480);
-    opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);
+    opencv.loadCascade(OpenCV.CASCADE_EYE);
 
     camP.start();
     cam.start();
@@ -157,7 +157,7 @@ void draw() {
     cam.read();
     curr = cam.copy();
     imageMode(CENTER);
-    reverseImage();
+    //reverseImage();
     if (cam.available()) {
       if (key == '1') {
         reverseGrayScale();
@@ -201,7 +201,7 @@ void draw() {
 
     for (int i = 0; i < faces.length; i++) {
       println(faces[i].x + "," + faces[i].y);
-      rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+      ellipse(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
     }
 }
 
