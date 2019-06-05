@@ -9,12 +9,15 @@ float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
-<<<<<<< HEAD
-boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal,paint;
+boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint;
 int alpha, red, blue, green;
+boolean painting;
+PImage canvas;
 
 
 void setup() {
+  painting = false;
+  canvas = new PImage(640, 480);
   gray = false;
   edge = false;
   poster = false;
@@ -24,6 +27,7 @@ void setup() {
   colored = false;
   thermal = false;
   modes = false;
+  paint = false;
   beach = loadImage("beach.jpeg");
   beach.resize(640, 480);
   picNum = 1;
@@ -31,16 +35,12 @@ void setup() {
   control = new ControlP5(this);
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
-<<<<<<< HEAD
   painter = new ControlP5(this);
-  
-=======
-  control.addColorPicker("picker")
+  painter.addColorPicker("picker")
     .setSize(60, 80)
     .setPosition(0, 580)
     .setLabel("Paint Color")
     ;
->>>>>>> eb4eb5df76be94f55225adb6ddbd1ba545f27da2
   control.addBang("takePic")
     .setSize(60, 40)
     .setPosition(290, 560)
@@ -51,10 +51,10 @@ void setup() {
     .setPosition(10, 500)
     .setLabel("See Modes")
     ;
-  painter.addToggle("painter")
-    .setSize(60,20)
-    .setPosition(50, 500)
-    .setLabel("Paint")
+  painter.addBang("painter1")
+    .setSize(60, 20)
+    .setPosition(290, 500)
+    .setLabel("Stop Camera")
     //.setColorActive(color(127,255,0))
     ;
   globalControl.addSlider("threshold")
@@ -108,8 +108,8 @@ void setup() {
     .setSize(60, 20)
     .setPosition(290, 540)
     ;
-  previewControl.addBang("TBD")
-    .setLabel("TBD")
+  previewControl.addBang("paintpanel")
+    .setLabel("Paint")
     .setSize(60, 20)
     .setPosition(490, 540)
     ;
@@ -148,6 +148,7 @@ void draw() {
   if (!modes) {
     background(0);
     previewControl.hide();
+    painter.hide();
     control.show();
     cam.read();
     curr = cam.copy();
@@ -179,20 +180,23 @@ void draw() {
     if (key == '8' && clicksDone) {
       reversebeach();
     }
-    if (key == '9') {
-      cam.stop();
-      paint();
+    if (paint) {
+      painter.show();
+      if (painting) {
+        curr = canvas;
+        reversePaint();
+      }
+      else reverseImage();
     }
     prev = curr;
-    
   }
   if (modes) {
+    painter.hide();
     camP.read();
     pCurr = camP.copy();
     pPrev = pCurr;
     displayPreviews();
   }
-
 }
 public void takePic() {
   toBeSaved = curr.copy();
@@ -233,7 +237,7 @@ void reverseInvert() {
   popMatrix();
 }
 public void strands(float val) {
- strands = val;
+  strands = val;
 }
 public void gray() {
   gray = true;
@@ -245,6 +249,7 @@ public void gray() {
   colored = false;
   thermal = false;
   modes = false;
+  paint = false;
 }
 public void edge() {
   gray = false;
@@ -256,6 +261,7 @@ public void edge() {
   colored = false;
   thermal = false;
   modes = false;
+  paint = false;
 }
 public void invert() {
   gray = false;
@@ -267,6 +273,7 @@ public void invert() {
   colored = false;
   thermal = false;
   modes = false;
+  paint = false;
 }
 public void posterize() {
   gray = false;
@@ -278,6 +285,7 @@ public void posterize() {
   colored = false;
   thermal = false;
   modes = false;
+  paint = false;
 }
 public void regular() {
   gray = false;
@@ -289,6 +297,7 @@ public void regular() {
   colored = false;
   thermal = false;
   modes = false;
+  paint = false;
 }
 public void colored() {
   gray = false;
@@ -300,6 +309,7 @@ public void colored() {
   colored = true;
   thermal = false;
   modes = false;
+  paint = false;
 }
 public void thermal() {
   gray = false;
@@ -311,6 +321,7 @@ public void thermal() {
   colored = false;
   thermal = true;
   modes = false;
+  paint = false;
 }
 public void cartoon() {
   gray = false;
@@ -322,17 +333,28 @@ public void cartoon() {
   colored = false;
   thermal = false;
   modes = false;
+  paint = false;
 }
-public void TBD() {
+public void paintpanel() {
+  gray = false;
+  edge = false;
+  poster = false;
+  invert = false;
+  cartoon = false;
+  regular = false;
+  colored = false;
+  thermal = false;
+  modes = false;
+  paint = true;
 }
 public void modes() {
   modes = true;
 }
 public void picker(int col) {
- alpha = int(alpha(col)); 
- red = int(red(col));
- green = int(green(col));
- blue = int(blue(col));
+  alpha = int(alpha(col)); 
+  red = int(red(col));
+  green = int(green(col));
+  blue = int(blue(col));
 }
 public void camera() {
   modes = false;
@@ -356,14 +378,13 @@ void reverseCartoon() {
   popMatrix();
 }
 
-void reversePaint(){
+void reversePaint() {
   pushMatrix();
   scale(-1, 1);
-  image(curr, -curr.width/2, curr.height/2 );
+  image(canvas, -canvas.width/2, canvas.height/2 );
   popMatrix();
-  paint();
 }
-  
+
 
 void reverseColored() {
   pushMatrix();
@@ -572,15 +593,16 @@ void mouseClicked() {
   }
   clicks++;
 }
-
-void paint(){
-    cam.stop();
-    paint = false;
-    if (mousePressed && mouseY <= 470) {
-       noStroke();
-       ellipse(mouseX, mouseY, 10,10); 
-    }
+void painter1() {
+  painting = true;
+  canvas = curr.copy();
+}
+void paint() {
+  if (mousePressed && mouseY <= 470) {
+    noStroke();
+    ellipse(mouseX, mouseY, 10, 10);
   }
+}
 
 void displayPreviews() {
   control.hide();
@@ -601,5 +623,6 @@ void displayPreviews() {
   image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
   image(cartoonEffect(pCurr, threshold), -320, 480, 160, 120); //CARTOON
+  image(pCurr, -520, 480, 160, 120);
   popMatrix();
 }
