@@ -175,30 +175,6 @@ void draw() {
     }
     prev = curr;
   }
-<<<<<<< HEAD
-  //curr = cam.copy();
-  reverseImage();
-  //displayPreviews();
- }
-}
- 
- void controlEvents(ControlEvent theEvent) {
-   if (theEvent.isController()) {
-     println("control event from: " + theEvent.getController().getName());
-    /*if (event.isFrom("takePic")) {
-     takePicture(); 
-    }*/
-   }
- }
- 
- public void takePic() {
-   cam.stop();
-   PImage toBeSaved = prev.copy();
-   toBeSaved.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
-   cam.start();
-   picNum++;
- }
-=======
   if (modes) {
     camP.read();
     pCurr = camP.copy();
@@ -214,7 +190,6 @@ public void takePic() {
   cam.start();
   picNum++;
 }
->>>>>>> userInterfaceV2
 
 void reverseImage() {
   pushMatrix();
