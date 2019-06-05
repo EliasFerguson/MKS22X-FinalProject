@@ -118,8 +118,8 @@ void setup() {
     for (int i = 0; i < cameras.length; i++) {
       println(cameras[i]);
     }
-    cam = new Capture(this, 640, 480, 30);
-    camP = new Capture(this, 640, 480, 30);
+    cam = new Capture(this, 640, 480);
+    camP = new Capture(this, 640, 480);
     camP.start();
     cam.start();
   }
