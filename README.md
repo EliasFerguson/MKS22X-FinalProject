@@ -1,12 +1,17 @@
 # MKS22X-FinalProject
 Instructions:
-This is a photo booth, and is pretty self-explanatory. Here are just a few notes on the various sliders, and where images are saved:
+This is a photo booth, and is pretty self-explanatory. Just click the buttons to navigate to where you want to go, and if you want to take a picture, then click the button that says "Take Picture"! 
+Here are just a few notes on the various sliders, and where images are saved:
 
+Threshold - This slider affects both Edge-Detect and Colored Pencil. The lower the threshold, the darker/more colorful the resulting image will be.
 
+Cartoon Threshold - This slider ONLY affects the cartoon filter. The lower the number, the darker the image will be.
 
+Strands - Strands only affects the posterize filter. It determines how many mixtures of colors will be used when the image is filtered.
 
+How to Use Backdrop: There is only one backdrop, which is a sunset scene. It is meant to be a BLUE SCREEN, where the user will stand infront of a blue background. Then, he must click THREE TIMES on the blue background, which will then be replaced by the backdrop image.
 
-
+Saved Images: Saved images are placed in a folder marked "data" withtin the sketch folder. Please keep in mind that each time the program is run again, the images are replaced.
 
 
 
