@@ -184,7 +184,7 @@ public void takePic() {
   toBeSaved = curr.copy();
   PImage saver = createImage(640, 480, RGB);
   saver = toBeSaved.get();
-  saver.save("PhotoBoothPhotos/" + "PhotoBooth" + picNum + ".jpg");
+  saver.save(dataPath("") + "/outputImage" + picNum + ".jpg");
   picNum++;
 }
 
