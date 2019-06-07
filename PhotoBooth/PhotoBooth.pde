@@ -709,5 +709,3 @@ void displayPreviews() {
   image(background, -520, 480, 160, 120);
   popMatrix();
 }
-
-//
