@@ -181,65 +181,65 @@ void setup() {
 }
 
 void draw() {
-  cam.read();
-  curr = cam.copy();
+  if (cam.available()) {
+    cam.read();
+    curr = cam.copy();
+    if (!modes) {
+      background(0);
+      previewControl.hide();
+      painter.hide();
+      control.show();
 
-  if (!modes) {
-    background(0);
-    previewControl.hide();
-    painter.hide();
-    control.show();
+      imageMode(CENTER);
+      if (regular) {
+        reverseImage();
+        // opencv.loadImage(curr);
+      }
+      if (gray) {
+        reverseGrayScale();
+      }
+      if (edge) {
+        reverseEdgeDetect();
+      }
+      if (invert) {
+        reverseInvert();
+      }
+      if (poster) {
+        reversePosterize();
+      }
+      if (cartoon) {
+        reverseCartoon();
+      }
+      if (colored) {
+        reverseColored();
+      }
+      if (thermal) {
+        reverseThermal();
+      }
+      if (replacement) {
+        reversebackground();
+      }
+      /* if (paint) {
+       painter.show();
+       if (painting) {
+       curr = canvas;
+       reversePaint();
+       } else reverseImage();
+       */
+    }
+    if (modes) {
+      painter.hide();
+      //camP.read();
+      pCurr = curr.copy();
+      pPrev = pCurr;
+      displayPreviews();
+    }
 
-    imageMode(CENTER);
-    if (regular) {
-      reverseImage();
-     // opencv.loadImage(curr);
-    }
-    if (gray) {
-      reverseGrayScale();
-    }
-    if (edge) {
-      reverseEdgeDetect();
-    }
-    if (invert) {
-      reverseInvert();
-    }
-    if (poster) {
-      reversePosterize();
-    }
-    if (cartoon) {
-      reverseCartoon();
-    }
-    if (colored) {
-      reverseColored();
-    }
-    if (thermal) {
-      reverseThermal();
-    }
-    if (replacement) {
-      reversebackground();
-    }
-    /* if (paint) {
-     painter.show();
-     if (painting) {
-     curr = canvas;
-     reversePaint();
-     } else reverseImage();
-     */
-
-  }
-  if (modes) {
-    painter.hide();
-    //camP.read();
-    pCurr = curr.copy();
-    pPrev = pCurr;
-    displayPreviews();
-  }
-
-  /*if (facial) {
-    facial();
-  }*/
+    /*if (facial) {
+     facial();
+     }*/
     prev = curr;
+  }
 }
 public void takePic() {
   toBeSaved = curr.copy();
@@ -281,19 +281,19 @@ void reverseInvert() {
 }
 
 /*public void facial() {
-  
-  noFill();
-  stroke(0, 255, 0);
-  strokeWeight(3);
-  Rectangle[] eyes = opencv.detect();
-  println(eyes.length);
-  
-  for (int i = 0; i < eyes.length; i++) {
-    println(eyes[i].x + "," + eyes[i].y);
-    rect(eyes[i].x, eyes[i].y, eyes[i].width, eyes[i].height);
-  }
-  
-}*/
+ 
+ noFill();
+ stroke(0, 255, 0);
+ strokeWeight(3);
+ Rectangle[] eyes = opencv.detect();
+ println(eyes.length);
+ 
+ for (int i = 0; i < eyes.length; i++) {
+ println(eyes[i].x + "," + eyes[i].y);
+ rect(eyes[i].x, eyes[i].y, eyes[i].width, eyes[i].height);
+ }
+ 
+ }*/
 
 public void strands(float val) {
   strands = val;
