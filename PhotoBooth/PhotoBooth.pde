@@ -170,25 +170,26 @@ void setup() {
       println(cameras[i]);
     }
     cam = new Capture(this, 640, 480);
-    camP = new Capture(this, 640, 480);
+    //camP = new Capture(this, 640, 480);
 
     opencv = new OpenCV(this, 640, 480);
     opencv.loadCascade(OpenCV.CASCADE_EYE);
 
-    camP.start();
+    //camP.start();
     cam.start();
   }
 }
 
 void draw() {
-
+  cam.read();
+  curr = cam.copy();
+  prev = curr;
   if (!modes) {
     background(0);
     previewControl.hide();
     painter.hide();
     control.show();
-    cam.read();
-    curr = cam.copy();
+
     imageMode(CENTER);
     if (regular) {
       reverseImage();
@@ -225,12 +226,12 @@ void draw() {
      reversePaint();
      } else reverseImage();
      */
-    prev = curr;
+
   }
   if (modes) {
     painter.hide();
-    camP.read();
-    pCurr = camP.copy();
+    //camP.read();
+    pCurr = curr.copy();
     pPrev = pCurr;
     displayPreviews();
   }
