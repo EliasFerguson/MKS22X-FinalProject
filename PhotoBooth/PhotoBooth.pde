@@ -5,7 +5,7 @@ import gab.opencv.*;
 
 Capture cam, camP;
 PImage curr, prev, store, background, pCurr, pPrev, toBeSaved;
-int threshold, Cthreshold;
+int thresholdGlobal, Cthreshold;
 ControlP5 control, previewControl, globalControl, painter;
 int picNum;
 float strands;
@@ -267,7 +267,7 @@ void reverseGrayScale() {
 void reverseEdgeDetect() {
   pushMatrix();
   scale(-1, 1);
-  curr = edgeDetect(curr, threshold);
+  curr = edgeDetect(curr, thresholdGlobal);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -441,7 +441,7 @@ public void camera() {
   modes = false;
 }
 public void threshold(int val) {
-  threshold = val;
+  thresholdGlobal = val;
 }
 void reversePosterize() {
   pushMatrix();
@@ -470,7 +470,7 @@ void reversePaint() {
 void reverseColored() {
   pushMatrix();
   scale(-1, 1);
-  curr = colorEdge(curr, threshold - 10);
+  curr = colorEdge(curr, thresholdGlobal);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -486,7 +486,7 @@ void reverseThermal() {
 void reversebackground() {
   pushMatrix();
   scale(-1, 1);
-  curr = background(cam, background, threshold, max, mid, low);
+  curr = background(cam, background, thresholdGlobal, max, mid, low);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -554,12 +554,12 @@ PImage edgeDetect(PImage Image, int threshold) {
 }
 
 PImage colorEdge(PImage Image, int threshold) {
-  threshold = threshold - 10;
+  int Uthreshold = thresholdGlobal - 10;
   PImage grayImage = grayScale(Image);
   PImage colEdgeImage = new PImage(grayImage.width, grayImage.height);
   for (int y=0; y<grayImage.height; y++) {
     for (int x=0; x<grayImage.width; x++) {
-      if (edginess(x, y, Image) < threshold) {
+      if (edginess(x, y, Image) < Uthreshold) {
         colEdgeImage.set(x, y, color(255));
       } else {
         colEdgeImage.set(x, y, Image.get(x, y));
@@ -571,7 +571,6 @@ PImage colorEdge(PImage Image, int threshold) {
 
 PImage thermalScreen (PImage Image) {
   PImage grayImage = grayScale(Image);
-  threshold = 85;
   PImage tScreen = new PImage(grayImage.width, grayImage.height);
   for (int y=0; y<grayImage.height; y++) {
     for (int x=0; x<grayImage.width; x++) {
@@ -696,7 +695,7 @@ void displayPreviews() {
   pushMatrix();
   scale(-1, 1);
   image(grayScale(pCurr), -120, 80, 160, 120); //GRAY
-  image(edgeDetect(pCurr, threshold), -320, 80, 160, 120); //EDGE
+  image(edgeDetect(pCurr, thresholdGlobal), -320, 80, 160, 120); //EDGE
   PImage putIn = pCurr.copy();
   putIn.filter(INVERT);
   image(putIn, -520, 80, 160, 120); //XRAY
@@ -704,7 +703,7 @@ void displayPreviews() {
   putIn2.filter(POSTERIZE, strands);
   image(putIn2, -120, 280, 160, 120); //POSTERIZE
   image(pCurr, -320, 280, 160, 120); //BASIC
-  image(colorEdge(pCurr, threshold - 10), -520, 280, 160, 120); //COLOREDGE
+  image(colorEdge(pCurr, thresholdGlobal), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
   image(cartoonEffect(pCurr, Cthreshold), -320, 480, 160, 120); //CARTOON
   image(background, -520, 480, 160, 120);
