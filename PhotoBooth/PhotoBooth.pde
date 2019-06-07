@@ -172,8 +172,8 @@ void setup() {
     cam = new Capture(this, 640, 480);
     //camP = new Capture(this, 640, 480);
 
-    opencv = new OpenCV(this, 640, 480);
-    opencv.loadCascade(OpenCV.CASCADE_EYE);
+    //opencv = new OpenCV(this, 640, 480);
+    //opencv.loadCascade(OpenCV.CASCADE_EYE);
 
     //camP.start();
     cam.start();
@@ -183,7 +183,7 @@ void setup() {
 void draw() {
   cam.read();
   curr = cam.copy();
-  prev = curr;
+
   if (!modes) {
     background(0);
     previewControl.hide();
@@ -193,7 +193,7 @@ void draw() {
     imageMode(CENTER);
     if (regular) {
       reverseImage();
-      opencv.loadImage(curr);
+     // opencv.loadImage(curr);
     }
     if (gray) {
       reverseGrayScale();
@@ -236,9 +236,10 @@ void draw() {
     displayPreviews();
   }
 
-  if (facial) {
+  /*if (facial) {
     facial();
-  }
+  }*/
+    prev = curr;
 }
 public void takePic() {
   toBeSaved = curr.copy();
@@ -279,7 +280,7 @@ void reverseInvert() {
   popMatrix();
 }
 
-public void facial() {
+/*public void facial() {
   
   noFill();
   stroke(0, 255, 0);
@@ -291,7 +292,8 @@ public void facial() {
     println(eyes[i].x + "," + eyes[i].y);
     rect(eyes[i].x, eyes[i].y, eyes[i].width, eyes[i].height);
   }
-}
+  
+}*/
 
 public void strands(float val) {
   strands = val;
