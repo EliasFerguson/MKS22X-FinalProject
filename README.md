@@ -9,11 +9,9 @@ Cartoon Threshold - This slider ONLY affects the cartoon filter. The lower the n
 
 Strands - Strands only affects the posterize filter. It determines how many mixtures of colors will be used when the image is filtered.
 
-How to Use Backdrop: There is only one backdrop, which is a sunset scene. It is meant to be a BLUE SCREEN, where the user will stand infront of a blue background. Then, he must click THREE TIMES on the blue background, which will then be replaced by the backdrop image.
+How to Use Backdrop: There is only one backdrop, which is a sunset scene. It is meant to be a COLOR REPLACEMENT SCREEN, where the user will stand infront of a uniformly colored background, such as a blue wall. Then, they must click THREE TIMES on that background, which will then be replaced by the backdrop image.
 
 Saved Images: Saved images are placed in a folder marked "data" withtin the sketch folder. Please keep in mind that each time the program is run again, the images are replaced.
-
-
 
 <b> DevLog: </b>
 
@@ -63,3 +61,6 @@ Vishwaa Sofat: I tried resolving the issue with lag but couldn't do much because
 Tuesday, June 4 - Wednesday, June 5:<br>
 Elias Ferguson: I made up all of my work for the past four days. I made a mode screen to show previews for the different filters. ControlP5 bangs now regulate switches between filters. The most important bug, that filtered photos weren't saved correctly, was fixed. More ControlP5 was added to give the user more autonomy with the Threshold, which affects several filters. Finished the project. <br>
 Vishwaa Sofat: Once Elias had the mode preview set up, I was able to fix bugs with the cartoon and replacement filters. For cartoon, I had to make a new slider and variable along with adding more code to fully inherit the pixels we requied for the filters. For the replacmeent filter, I For cartoon, I also helped out with adjusting the previews for cartoon because it only showed a black scren earlier. Elias and I both attempted paint but weren't able to finish it. I continued working on facial recongnition because I got really obssessed with it and found a way to slightly implement it on our final version. Final Project terminaste!<br>
+
+Friday, June 7: <br>
+Elias Ferguson and Vishwaa Sofat: Went to CS office during 6th period to look at bug that didn't allow access to camera and gave a message suggesting the device was busy and being used. Modified code to no longer use two Capture but instead make a copy of the main Capture (cam), which would allow us to display different images for our displays but stemming from the same main image. This did not resolve any issues. We went to the CS Dojo/office after 10th period until around 5:30. We compared old versions that worked on the school computers and were able to resolve the bug. Elias later pushed code that we were certain worked on the computers at school based on our testing. <br>
