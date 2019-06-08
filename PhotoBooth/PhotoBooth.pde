@@ -11,6 +11,7 @@ int picNum;
 float strands;
 int clicks=0;
 color max, mid, low;
+int hdiff, sdiff, bdiff;
 boolean clicksDone = false;
 float brightness, saturation, hue; //the contrast level of the image
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
@@ -73,8 +74,8 @@ void setup() {
     .setPosition(290, 500)
     .setLabel("Stop Camera")
     ;
-    
- 
+
+
 
   globalControl.addSlider("threshold")
     .setRange(0, 100)
@@ -148,19 +149,19 @@ void setup() {
   globalControl.addSlider("Brightness")
     .setLabel("Brightness")
     .setPosition(490, 540)
-    .setRange(0, 255)
+    .setRange(-255, 255)
     .setValue(brightness)    
     ;
   globalControl.addSlider("Saturation")
     .setLabel("Saturation")
     .setPosition(490, 560)
-    .setRange(0, 255)
+    .setRange(-255, 255)
     .setValue(saturation)    
     ;
   globalControl.addSlider("Hue")
     .setLabel("Hue")
     .setPosition(490, 580)
-    .setRange(0, 255)
+    .setRange(-255, 255)
     .setValue(hue)    
     ;
   globalControl.addSlider("strands")
@@ -212,6 +213,7 @@ void draw() {
       control.show();
 
       imageMode(CENTER);
+      update(curr);
       if (regular) {
         reverseImage();
         // opencv.loadImage(curr);
@@ -679,6 +681,52 @@ PImage background(PImage Image, PImage replacer, int threshold, color max, color
   }
   return(backgrounded);
 }
+
+int bdiff(){
+  if (brightness > 70) bdiff = 70; 
+  if (brightness < -60) bdiff = -60;
+  return int(bdiff);
+}
+
+int sdiff (){
+  if (saturation > 70) sdiff = 130; 
+  if (saturation < -255) sdiff = -130;
+  return int(sdiff);
+}
+
+PImage contrast(PImage img, float contrast){
+  PImage edit = img.copy();
+  colorMode(RGB); //red, green, blue colorMode 
+  edit.loadPixels();
+  if (contrast > 128) contrast = 128; //ateusts the parameter, values obtained through testing
+  if (contrast < -128) contrast = -128;
+  for (int i = 0; i < edit.pixels.length; i++){
+    color current_color = edit.pixels[i];
+    
+    //the algorithm for this was obtained from online 
+    float factor = (259.0 * (contrast + 255)) / (255 * (259 - contrast)); //factor to multiply each rgb component of the color by
+    float newRed = (factor * (red(current_color)   - 128.0) + 128);
+    float newBlue = (factor * (blue(current_color)   - 128.0) + 128);
+    float newGreen = (factor * (green(current_color)   - 128) + 128);
+    
+    edit.pixels[i] = color(newRed, newGreen, newBlue);
+  }
+  edit.updatePixels();
+  return edit;
+}
+
+PImage update (PImage img) {
+  PImage copy = img.copy();
+  colorMode(HSB);
+  copy.loadPixels();
+  for (int i = 0; i < copy.pixels.length; i++) {
+    color current_color = copy.pixels[i]; //stores original color of pixel 
+    copy.pixels[i] = color(hue, saturation, brightness);
+  }
+  println("updated");
+  return copy;
+}
+
 void mouseClicked() {
   if (clicks == 0) {
     max = cam.get(mouseX, mouseY);
