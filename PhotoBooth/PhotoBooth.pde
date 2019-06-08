@@ -682,49 +682,36 @@ PImage background(PImage Image, PImage replacer, int threshold, color max, color
   return(backgrounded);
 }
 
-int bdiff(){
+void bdiff(){
   if (brightness > 70) bdiff = 70; 
   if (brightness < -60) bdiff = -60;
-  return int(bdiff);
+
 }
 
-int sdiff (){
+void sdiff (){
   if (saturation > 70) sdiff = 130; 
   if (saturation < -255) sdiff = -130;
-  return int(sdiff);
 }
 
-PImage contrast(PImage img, float contrast){
-  PImage edit = img.copy();
-  colorMode(RGB); //red, green, blue colorMode 
-  edit.loadPixels();
-  if (contrast > 128) contrast = 128; //ateusts the parameter, values obtained through testing
-  if (contrast < -128) contrast = -128;
-  for (int i = 0; i < edit.pixels.length; i++){
-    color current_color = edit.pixels[i];
+PImage saturate(PImage img){
+  PImage copy = img.copy(); //creates a copy of the image 
+  colorMode(HSB); //hue, saturation, brightness colorMode 
+  copy.loadPixels(); //loads all the pixels 
+  sdiff();
+  for (int i = 0; i < copy.pixels.length; i++){ //loops through all the pixels 
+    color current = copy.pixels[i]; //stores original color of pixel 
+    float current_h = hue(current); //original hue of pixel, doesn't change 
+    float current_s = saturation(current); //original saturation of pixel, will change
+    float current_b = brightness(current); //original brightness of pixel, doesn't change
     
-    //the algorithm for this was obtained from online 
-    float factor = (259.0 * (contrast + 255)) / (255 * (259 - contrast)); //factor to multiply each rgb component of the color by
-    float newRed = (factor * (red(current_color)   - 128.0) + 128);
-    float newBlue = (factor * (blue(current_color)   - 128.0) + 128);
-    float newGreen = (factor * (green(current_color)   - 128) + 128);
-    
-    edit.pixels[i] = color(newRed, newGreen, newBlue);
+    copy.pixels[i] = color(current_h, current_s + sdiff, current_b); //sets pixel to new color 
   }
-  edit.updatePixels();
-  return edit;
+  copy.updatePixels(); //updates all the pixels 
+  return copy; //returns copy 
 }
 
-PImage update (PImage img) {
-  PImage copy = img.copy();
-  colorMode(HSB);
-  copy.loadPixels();
-  for (int i = 0; i < copy.pixels.length; i++) {
-    color current_color = copy.pixels[i]; //stores original color of pixel 
-    copy.pixels[i] = color(hue, saturation, brightness);
-  }
-  println("updated");
-  return copy;
+void update (PImage img) {
+  saturate(img);
 }
 
 void mouseClicked() {
