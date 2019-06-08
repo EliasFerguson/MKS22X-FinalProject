@@ -710,8 +710,27 @@ PImage saturate(PImage img){
   return copy; //returns copy 
 }
 
+PImage bright(PImage img){
+  PImage copy = img.copy();
+  colorMode(HSB);
+  copy.loadPixels();
+  bdiff();
+  for (int i = 0; i < copy.pixels.length; i++){
+    color current = copy.pixels[i];
+    float current_h = hue(current);
+    float current_s = saturation(current);
+    float current_b = brightness(current); //only the brightness of the image will be modified 
+    
+    
+    copy.pixels[i] = color(current_h, current_s, current_b + bdiff);
+  }
+  copy.updatePixels();
+  return copy;
+}
+
 void update (PImage img) {
   saturate(img);
+  bright(img);
 }
 
 void mouseClicked() {
