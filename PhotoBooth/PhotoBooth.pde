@@ -12,6 +12,7 @@ float strands;
 int clicks=0;
 color max, mid, low;
 boolean clicksDone = false;
+float brightness, saturation, hue; //the contrast level of the image
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
 int alpha, red, blue, green;
 boolean painting, facial;
@@ -72,6 +73,8 @@ void setup() {
     .setPosition(290, 500)
     .setLabel("Stop Camera")
     ;
+    
+ 
 
   globalControl.addSlider("threshold")
     .setRange(0, 100)
@@ -140,7 +143,25 @@ void setup() {
   previewControl.addBang("setBackground")
     .setLabel("Backdrop")
     .setSize(60, 20)
+    .setPosition(490, 520)
+    ;
+  globalControl.addSlider("Brightness")
+    .setLabel("Brightness")
     .setPosition(490, 540)
+    .setRange(0, 255)
+    .setValue(brightness)    
+    ;
+  globalControl.addSlider("Saturation")
+    .setLabel("Saturation")
+    .setPosition(490, 560)
+    .setRange(0, 255)
+    .setValue(saturation)    
+    ;
+  globalControl.addSlider("Hue")
+    .setLabel("Hue")
+    .setPosition(490, 580)
+    .setRange(0, 255)
+    .setValue(hue)    
     ;
   globalControl.addSlider("strands")
     .setLabel("Strands")
