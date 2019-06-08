@@ -11,7 +11,8 @@ int picNum;
 float strands;
 int clicks=0;
 color max, mid, low;
-int hdiff, sdiff, bdiff;
+PGraphics brush;
+int hdiff, sdiff, bdiff, angle;
 boolean clicksDone = false;
 float brightness, saturation, hue; //the contrast level of the image
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
@@ -199,6 +200,9 @@ void setup() {
 
     //camP.start();
     cam.start();
+
+    noStroke();
+    fill(0, 102);
   }
 }
 
@@ -214,6 +218,7 @@ void draw() {
 
       imageMode(CENTER);
       update(curr);
+      flowers();
       if (regular) {
         reverseImage();
         // opencv.loadImage(curr);
@@ -301,6 +306,22 @@ void reverseInvert() {
   curr.filter(INVERT);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
+}
+
+void flowers() {
+  if (mousePressed == true) {
+    cam.stop();
+    angle += 5;
+    float val = cos(radians(angle)) * 12.0;
+    for (int a = 0; a < 360; a += 75) {
+      float xoff = cos(radians(a)) * val;
+      float yoff = sin(radians(a)) * val;
+      fill(0);
+      ellipse(mouseX + xoff, mouseY + yoff, val, val);
+    }
+    fill(255);
+    ellipse(mouseX, mouseY, 2, 2);
+  }
 }
 
 /*public void facial() {
@@ -682,46 +703,45 @@ PImage background(PImage Image, PImage replacer, int threshold, color max, color
   return(backgrounded);
 }
 
-void bdiff(){
+void bdiff() {
   if (brightness > 70) bdiff = 70; 
   if (brightness < -60) bdiff = -60;
-
 }
 
-void sdiff (){
+void sdiff () {
   if (saturation > 70) sdiff = 130; 
   if (saturation < -255) sdiff = -130;
 }
 
-PImage saturate(PImage img){
+PImage saturate(PImage img) {
   PImage copy = img.copy(); //creates a copy of the image 
   colorMode(HSB); //hue, saturation, brightness colorMode 
   copy.loadPixels(); //loads all the pixels 
   sdiff();
-  for (int i = 0; i < copy.pixels.length; i++){ //loops through all the pixels 
+  for (int i = 0; i < copy.pixels.length; i++) { //loops through all the pixels 
     color current = copy.pixels[i]; //stores original color of pixel 
     float current_h = hue(current); //original hue of pixel, doesn't change 
     float current_s = saturation(current); //original saturation of pixel, will change
     float current_b = brightness(current); //original brightness of pixel, doesn't change
-    
-    copy.pixels[i] = color(current_h, current_s + sdiff, current_b); //sets pixel to new color 
+
+    copy.pixels[i] = color(current_h, current_s + sdiff, current_b); //sets pixel to new color
   }
   copy.updatePixels(); //updates all the pixels 
-  return copy; //returns copy 
+  return copy; //returns copy
 }
 
-PImage bright(PImage img){
+PImage bright(PImage img) {
   PImage copy = img.copy();
   colorMode(HSB);
   copy.loadPixels();
   bdiff();
-  for (int i = 0; i < copy.pixels.length; i++){
+  for (int i = 0; i < copy.pixels.length; i++) {
     color current = copy.pixels[i];
     float current_h = hue(current);
     float current_s = saturation(current);
     float current_b = brightness(current); //only the brightness of the image will be modified 
-    
-    
+
+
     copy.pixels[i] = color(current_h, current_s, current_b + bdiff);
   }
   copy.updatePixels();
@@ -729,8 +749,8 @@ PImage bright(PImage img){
 }
 
 void update (PImage img) {
-  saturate(img);
-  bright(img);
+  curr = saturate(img);
+  curr = bright(img);
 }
 
 void mouseClicked() {
