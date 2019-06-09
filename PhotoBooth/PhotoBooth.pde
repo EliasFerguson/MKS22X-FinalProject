@@ -828,6 +828,7 @@ void mouseClicked() {
 void paint() {
   if (mousePressed && mouseY <= 470) {
     noStroke();
+    fill(red, green, blue, alpha);
     ellipse(mouseX, mouseY, 10, 10);
   }
 }
