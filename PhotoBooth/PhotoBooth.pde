@@ -99,45 +99,45 @@ void setup() {
   previewControl.addBang("gray")
     .setLabel("Grayscale")
     .setSize(60, 20)
-    .setPosition(90, 140)
+    .setPosition(90, 120)
     ;
 
   previewControl.addBang("edge")
     .setLabel("Edge-Detect")
     .setSize(60, 20)
-    .setPosition(290, 140)
+    .setPosition(290, 120)
     ;
 
   previewControl.addBang("invert")
     .setLabel("X-RAY")
     .setSize(60, 20)
-    .setPosition(490, 140)
+    .setPosition(490, 120)
     ;
 
   previewControl.addBang("posterize")
     .setLabel("Posterize")
     .setSize(60, 20)
-    .setPosition(90, 340)
+    .setPosition(90, 320)
     ;
   previewControl.addBang("regular")
     .setLabel("No Filter")
     .setSize(60, 20)
-    .setPosition(290, 340)
+    .setPosition(290, 320)
     ;
   previewControl.addBang("colored")
     .setLabel("Colored Pencil")
     .setSize(60, 20)
-    .setPosition(490, 340)
+    .setPosition(490, 320)
     ;
   previewControl.addBang("thermal")
     .setLabel("Thermal")
     .setSize(60, 20)
-    .setPosition(90, 540)
+    .setPosition(90, 520)
     ;
   previewControl.addBang("cartoony")
     .setLabel("Cartoon Effect")
     .setSize(60, 20)
-    .setPosition(290, 540)
+    .setPosition(290, 520)
     ;
   previewControl.addBang("setBackground")
     .setLabel("Backdrop")
