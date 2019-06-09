@@ -222,7 +222,6 @@ void draw() {
       previewControl.hide();
       editor.hide();
       control.show();
-
       imageMode(CENTER);
       update(curr);
       pointilize(curr);
@@ -255,14 +254,8 @@ void draw() {
       if (replacement) {
         reversebackground();
       }
-      if (editing) {
-        editor.show();
-        control.hide();
-        if (painting) {
-         paint(); 
-        }
-      }
     }
+
     if (modes) {
       editor.hide();
       //camP.read();
@@ -275,6 +268,14 @@ void draw() {
      facial();
      }*/
     prev = curr;
+  }
+  if (editing) {
+    editing = true;
+    editor.show();
+    control.hide();
+    if (painting) {
+      paint();
+    }
   }
 }
 public void takePic() {
@@ -803,7 +804,6 @@ void mouseClicked() {
 
 void paint() {
   if (mousePressed && mouseY <= 470) {
-    print("its working, sort of");
     noStroke();
     ellipse(mouseX, mouseY, 10, 10);
   }
@@ -842,12 +842,11 @@ public void saturationIn(float si) {
 }
 
 public void escape() {
- editing = false;
- cam.start();
+  editing = false;
+  cam.start();
 }
 
 public void startPaint(boolean in) {
-  print(in);
   if (in) painting = true;
-  painting = false;
+  else painting = false;
 }
