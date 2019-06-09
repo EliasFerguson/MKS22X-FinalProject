@@ -349,13 +349,13 @@ void reverseInvert() {
 }
 
 void flowers() {
-  if (mousePressed == true) {
+  if (mousePressed == true && mouseY <= 470) {
     angle += 5;
     float val = cos(radians(angle)) * 12.0;
     for (int a = 0; a < 360; a += 75) {
       float xoff = cos(radians(a)) * val;
       float yoff = sin(radians(a)) * val;
-      fill(0);
+      fill(red, green, blue, alpha);
       ellipse(mouseX + xoff, mouseY + yoff, val, val);
     }
     fill(255);
