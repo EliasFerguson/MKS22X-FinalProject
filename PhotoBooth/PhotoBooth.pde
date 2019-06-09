@@ -143,19 +143,19 @@ void setup() {
     .setSize(60, 20)
     .setPosition(490, 520)
     ;
-  globalControl.addSlider("Brightness")
+  globalControl.addSlider("brightnessIn")
     .setLabel("Brightness")
     .setPosition(340, 600)
     .setRange(-255, 255)
     .setValue(brightness)    
     ;
-  globalControl.addSlider("Saturation")
+  globalControl.addSlider("saturationIn")
     .setLabel("Saturation")
     .setPosition(340, 620)
     .setRange(-255, 255)
     .setValue(saturation)    
     ;
-  globalControl.addSlider("Hue")
+  globalControl.addSlider("hueIn")
     .setLabel("Hue")
     .setPosition(150, 600)
     .setRange(-255, 255)
@@ -824,4 +824,13 @@ void displayPreviews() {
   image(cartoonEffect(pCurr, Cthreshold), -320, 480, 160, 120); //CARTOON
   image(background, -520, 480, 160, 120);
   popMatrix();
+}
+public void brightnessIn(float bi) {
+  brightness = bi;
+}
+public void hueIn(float hi) {
+ hue = hi; 
+}
+public void saturationIn(float si) {
+  saturation = si;
 }
