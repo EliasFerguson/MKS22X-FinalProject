@@ -18,11 +18,12 @@ boolean clicksDone = false;
 float brightness, saturation, hue; //the contrast level of the image
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
 int alpha, red, blue, green;
-boolean painting, facial, editing;
+boolean painting, facial, editing, flowering;
 PImage canvas;
 OpenCV opencv;
 
 void setup() {
+  flowering = false;
   editing = false;
   painting = false;
   canvas = new PImage(640, 480);
@@ -46,6 +47,11 @@ void setup() {
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
   editor = new ControlP5(this);
+  editor.addToggle("startFlower")
+    .setSize(40,20)
+    .setLabel("Flower Trail")
+    .setPosition(60, 540)
+    ;
   editor.addToggle("startPaint")
     .setSize(40, 20)
     .setLabel("Paint")
@@ -270,11 +276,13 @@ void draw() {
     prev = curr;
   }
   if (editing) {
-    editing = true;
     editor.show();
     control.hide();
     if (painting) {
       paint();
+    }
+    if (flowering) {
+     flowers(); 
     }
   }
 }
@@ -325,7 +333,6 @@ void reverseInvert() {
 
 void flowers() {
   if (mousePressed == true) {
-    cam.stop();
     angle += 5;
     float val = cos(radians(angle)) * 12.0;
     for (int a = 0; a < 360; a += 75) {
@@ -337,7 +344,6 @@ void flowers() {
     fill(255);
     ellipse(mouseX, mouseY, 2, 2);
   }
-  cam.start();
 }
 
 /*public void facial() {
@@ -848,4 +854,8 @@ public void escape() {
 
 public void startPaint(boolean in) {
   painting = in;
+}
+
+public void startFlower(boolean in) {
+  flowering = in;
 }
