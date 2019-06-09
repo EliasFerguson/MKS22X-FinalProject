@@ -341,6 +341,8 @@ void reverseInvert() {
 }
 
 void flowers() {
+  noStroke();
+  fill(0, 102);
   if (mousePressed == true) {
     angle += 5;
     float val = cos(radians(angle)) * 12.0;
@@ -350,7 +352,7 @@ void flowers() {
       fill(0);
       ellipse(mouseX + xoff, mouseY + yoff, val, val);
     }
-    fill(255);
+    fill(color(red, blue, green));
     ellipse(mouseX, mouseY, 2, 2);
   }
 }
