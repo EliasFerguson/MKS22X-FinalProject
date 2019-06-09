@@ -285,7 +285,7 @@ public void takePic() {
 public void saveImage() {
   toBeSaved = curr.copy();
   PImage saver = createImage(640, 480, RGB);
-  saver = toBeSaved.get();
+  saver = get(0, 0, 640, 480);
   saver.save(dataPath("") + "/outputImage" + picNum + ".jpg");
   picNum++;
   editing = false;
