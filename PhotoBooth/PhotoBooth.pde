@@ -831,3 +831,8 @@ public void hueIn(float hi) {
 public void saturationIn(float si) {
   saturation = si;
 }
+
+public void escape() {
+ editing = false;
+ cam.start();
+}
