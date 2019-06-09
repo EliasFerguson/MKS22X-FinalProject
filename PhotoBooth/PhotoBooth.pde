@@ -19,7 +19,7 @@ float brightness, saturation, hue; //the contrast level of the image
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
 int alpha, red, blue, green;
 boolean painting, facial, editing, flowering, pointying;
-PImage canvas;
+PImage canvas, original;
 OpenCV opencv;
 
 void setup() {
@@ -28,6 +28,7 @@ void setup() {
   painting = false;
   pointying = false;
   canvas = new PImage(640, 480);
+  original = new PImage(640, 480);
   gray = false;
   replacement = false;
   edge = false;
@@ -48,6 +49,11 @@ void setup() {
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
   editor = new ControlP5(this);
+  editor.addBang("revert")
+    .setSize(40, 20)
+    .setLabel("Revert to Original")
+    .setPosition(550, 500)
+    ;
   editor.addToggle("startPoint")
     .setSize(40, 20)
     .setLabel("Pointilize")
@@ -291,13 +297,15 @@ void draw() {
       flowers();
     }
     if (pointying) {
-      pointilize(get(0, 0, 640, 480));
+      //pointilize(get(0, 0, 640, 480));
+      pointilize(curr);
     }
   }
 }
 public void takePic() {
   cam.stop();
   editing = true;
+  original = curr;
 }
 public void saveImage() {
   toBeSaved = curr.copy();
@@ -341,13 +349,13 @@ void reverseInvert() {
 }
 
 void flowers() {
-  if (mousePressed == true) {
+  if (mousePressed == true && mouseY <= 470) {
     angle += 5;
     float val = cos(radians(angle)) * 12.0;
     for (int a = 0; a < 360; a += 75) {
       float xoff = cos(radians(a)) * val;
       float yoff = sin(radians(a)) * val;
-      fill(0);
+      fill(red, green, blue, alpha);
       ellipse(mouseX + xoff, mouseY + yoff, val, val);
     }
     fill(255);
@@ -820,6 +828,7 @@ void mouseClicked() {
 void paint() {
   if (mousePressed && mouseY <= 470) {
     noStroke();
+    fill(red, green, blue, alpha);
     ellipse(mouseX, mouseY, 10, 10);
   }
 }
@@ -869,5 +878,11 @@ public void startFlower(boolean in) {
   flowering = in;
 }
 public void startPoint(boolean in) {
- pointying = in; 
+  pointying = in;
+}
+public void revert() {
+  pushMatrix();
+  scale(-1, 1);
+  image(original, -320, 240);
+  popMatrix();
 }
