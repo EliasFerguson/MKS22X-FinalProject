@@ -95,11 +95,6 @@ void setup() {
     .setValue(5)
     ;
 
-  previewControl.addBang("camera")
-    .setSize(80, 20)
-    .setLabel("Back to Current Filter")
-    .setPosition(290, 580);
-
   previewControl.addBang("gray")
     .setLabel("Grayscale")
     .setSize(60, 20)
@@ -490,9 +485,6 @@ public void picker(int col) {
   red = int(red(col));
   green = int(green(col));
   blue = int(blue(col));
-}
-public void camera() {
-  modes = false;
 }
 public void threshold(int val) {
   thresholdGlobal = val;
