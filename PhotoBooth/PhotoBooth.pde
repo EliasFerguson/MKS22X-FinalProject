@@ -847,6 +847,5 @@ public void escape() {
 }
 
 public void startPaint(boolean in) {
-  if (in) painting = true;
-  else painting = false;
+  painting = in;
 }
