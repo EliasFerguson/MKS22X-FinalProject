@@ -55,7 +55,7 @@ void setup() {
 
   control.addBang("takePic")
     .setSize(60, 40)
-    .setPosition(290, 560)
+    .setPosition(290, 500)
     .setLabel("Take Picture")
     ; 
 
@@ -90,7 +90,7 @@ void setup() {
   globalControl.addSlider("Cthreshold")
     .setRange(5, 30)
     .setSize(100, 10)
-    .setPosition(0, 620)
+    .setPosition(150, 620)
     .setLabel("Cartoon Threshold")
     .setValue(5)
     ;
@@ -145,19 +145,19 @@ void setup() {
     ;
   globalControl.addSlider("Brightness")
     .setLabel("Brightness")
-    .setPosition(490, 540)
+    .setPosition(340, 600)
     .setRange(-255, 255)
     .setValue(brightness)    
     ;
   globalControl.addSlider("Saturation")
     .setLabel("Saturation")
-    .setPosition(490, 560)
+    .setPosition(340, 620)
     .setRange(-255, 255)
     .setValue(saturation)    
     ;
   globalControl.addSlider("Hue")
     .setLabel("Hue")
-    .setPosition(490, 580)
+    .setPosition(150, 600)
     .setRange(-255, 255)
     .setValue(hue)    
     ;
