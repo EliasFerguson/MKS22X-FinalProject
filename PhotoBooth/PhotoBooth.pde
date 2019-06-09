@@ -53,12 +53,12 @@ void setup() {
     ;
   editor.addBang("escape")
     .setSize(30, 20)
-    .setPosition(10, 610)
+    .setPosition(10, 600)
     .setLabel("Scrap Current Image")
     ;
   editor.addColorPicker("picker")
     .setSize(60, 80)
-    .setPosition(0, 580)
+    .setPosition(0, 480)
     .setLabel("Paint Color")
     ;
 
@@ -192,12 +192,10 @@ void setup() {
       println(cameras[i]);
     }
     cam = new Capture(this, 640, 480);
-    //camP = new Capture(this, 640, 480);
 
     //opencv = new OpenCV(this, 640, 480);
     //opencv.loadCascade(OpenCV.CASCADE_EYE);
 
-    //camP.start();
     cam.start();
 
     if (mousePressed) {
@@ -281,6 +279,7 @@ public void saveImage() {
   saver = toBeSaved.get();
   saver.save(dataPath("") + "/outputImage" + picNum + ".jpg");
   picNum++;
+  editing = false;
   cam.start();
 }
 
