@@ -3,10 +3,10 @@ import controlP5.*;
 import java.awt.*;
 import gab.opencv.*;
 
-Capture cam, camP;
+Capture cam;
 PImage curr, prev, store, background, pCurr, pPrev, toBeSaved;
 int thresholdGlobal, Cthreshold;
-ControlP5 control, previewControl, globalControl, painter;
+ControlP5 control, previewControl, globalControl, editor;
 int picNum;
 float strands;
 int clicks=0;
@@ -18,12 +18,12 @@ boolean clicksDone = false;
 float brightness, saturation, hue; //the contrast level of the image
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
 int alpha, red, blue, green;
-boolean painting, facial;
+boolean painting, facial, editing;
 PImage canvas;
 OpenCV opencv;
 
 void setup() {
-
+  editing = false;
   painting = false;
   canvas = new PImage(640, 480);
   gray = false;
@@ -45,9 +45,18 @@ void setup() {
   control = new ControlP5(this);
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
-  painter = new ControlP5(this);
-
-  painter.addColorPicker("picker")
+  editor = new ControlP5(this);
+  editor.addBang("saveImage") 
+    .setSize(60, 40)
+    .setPosition(290, 500)
+    .setLabel("Save Current Image")
+    ;
+  editor.addBang("escape")
+    .setSize(30, 20)
+    .setPosition(10, 610)
+    .setLabel("Scrap Current Image")
+    ;
+  editor.addColorPicker("picker")
     .setSize(60, 80)
     .setPosition(0, 580)
     .setLabel("Paint Color")
@@ -70,14 +79,6 @@ void setup() {
     .setPosition(10, 550)
     .setLabel("Facial Recognition")
     ;
-
-  painter.addBang("painter1")
-    .setSize(60, 20)
-    .setPosition(290, 500)
-    .setLabel("Stop Camera")
-    ;
-
-
 
   globalControl.addSlider("threshold")
     .setRange(0, 100)
@@ -171,8 +172,8 @@ void setup() {
   size(640, 640);
   fill(255);
   background(0);
-  
-  
+
+
 
   pCurr = new PImage(160, 120);
   pPrev = new PImage(160, 120);
@@ -199,12 +200,12 @@ void setup() {
     //camP.start();
     cam.start();
 
-    if (mousePressed){
-   //need for flowers
-    /*noStroke();
-    fill(0, 102);*/
-    // need for pointilie
-    //smooth();
+    if (mousePressed) {
+      //need for flowers
+      /*noStroke();
+       fill(0, 102);*/
+      // need for pointilie
+      //smooth();
     }
   }
 }
@@ -216,7 +217,7 @@ void draw() {
     if (!modes) {
       background(0);
       previewControl.hide();
-      painter.hide();
+      editor.hide();
       control.show();
 
       imageMode(CENTER);
@@ -251,16 +252,13 @@ void draw() {
       if (replacement) {
         reversebackground();
       }
-      /* if (paint) {
-       painter.show();
-       if (painting) {
-       curr = canvas;
-       reversePaint();
-       } else reverseImage();
-       */
+      if (editing) {
+        editor.show();
+        control.hide();
+      }
     }
     if (modes) {
-      painter.hide();
+      editor.hide();
       //camP.read();
       pCurr = curr.copy();
       pPrev = pCurr;
@@ -274,11 +272,16 @@ void draw() {
   }
 }
 public void takePic() {
+  cam.stop();
+  editing = true;
+}
+public void saveImage() {
   toBeSaved = curr.copy();
   PImage saver = createImage(640, 480, RGB);
   saver = toBeSaved.get();
   saver.save(dataPath("") + "/outputImage" + picNum + ".jpg");
   picNum++;
+  cam.start();
 }
 
 void reverseImage() {
@@ -760,17 +763,17 @@ void pointilize(PImage img) {
   int x = int(random(img.width));
   int y = int(random(img.height));
   int loc = x + y*img.width;
-  
+
   // Look up the RGB color in the source image
   loadPixels();
   float r = red(img.pixels[loc]);
   float g = green(img.pixels[loc]);
   float b = blue(img.pixels[loc]);
   noStroke();
-  
+
   // Draw an ellipse at that location with that color
-  fill(r,g,b,100);
-  ellipse(x,y,pointillize,pointillize);
+  fill(r, g, b, 100);
+  ellipse(x, y, pointillize, pointillize);
 }
 
 void mouseClicked() {
@@ -789,11 +792,6 @@ void mouseClicked() {
     clicks = -1;
   }
   clicks++;
-}
-
-void painter1() {
-  painting = true;
-  canvas = curr.copy();
 }
 
 void paint() {
@@ -829,7 +827,7 @@ public void brightnessIn(float bi) {
   brightness = bi;
 }
 public void hueIn(float hi) {
- hue = hi; 
+  hue = hi;
 }
 public void saturationIn(float si) {
   saturation = si;
