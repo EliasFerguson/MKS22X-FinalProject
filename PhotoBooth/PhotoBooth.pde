@@ -46,6 +46,11 @@ void setup() {
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
   editor = new ControlP5(this);
+  editor.addToggle("startPaint")
+    .setSize(40, 20)
+    .setLabel("Paint")
+    .setPosition(0, 540)
+    ;
   editor.addBang("saveImage") 
     .setSize(60, 40)
     .setPosition(290, 500)
@@ -93,7 +98,7 @@ void setup() {
     .setSize(100, 10)
     .setPosition(150, 620)
     .setLabel("Cartoon Threshold")
-    .setValue(5)
+    .setValue(15)
     ;
 
   previewControl.addBang("gray")
@@ -166,7 +171,7 @@ void setup() {
     .setLabel("Strands")
     .setPosition(490, 600)
     .setRange(2, 15)
-    .setValue(2)
+    .setValue(7)
     ;
 
   size(640, 640);
@@ -253,6 +258,9 @@ void draw() {
       if (editing) {
         editor.show();
         control.hide();
+        if (painting) {
+         paint(); 
+        }
       }
     }
     if (modes) {
@@ -795,6 +803,7 @@ void mouseClicked() {
 
 void paint() {
   if (mousePressed && mouseY <= 470) {
+    print("its working, sort of");
     noStroke();
     ellipse(mouseX, mouseY, 10, 10);
   }
@@ -835,4 +844,10 @@ public void saturationIn(float si) {
 public void escape() {
  editing = false;
  cam.start();
+}
+
+public void startPaint(boolean in) {
+  print(in);
+  if (in) painting = true;
+  painting = false;
 }
