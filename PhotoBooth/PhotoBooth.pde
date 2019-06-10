@@ -15,7 +15,7 @@ color max, mid, low;
 PGraphics brush;
 int hdiff, sdiff, bdiff, angle;
 boolean clicksDone = false;
-float brightness, saturation, hue; //the contrast level of the image
+float brightness, saturation, hue, contrast; //the contrast level of the image
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
 int alpha, red, blue, green;
 boolean painting, facial, editing, flowering, pointying;
@@ -76,7 +76,7 @@ void setup() {
     ;
   editor.addBang("escape")
     .setSize(30, 20)
-    .setPosition(10, 600)
+    .setPosition(10, 580)
     .setLabel("Scrap Current Image")
     ;
   editor.addColorPicker("picker")
@@ -173,6 +173,12 @@ void setup() {
     .setRange(-255, 255)
     .setValue(brightness)    
     ;
+  globalControl.addSlider("contrastIn")
+    .setLabel("Contrast")
+    .setPosition(0, 620)
+    .setRange(-255, 255)
+    .setValue(contrast)    
+    ;
   globalControl.addSlider("saturationIn")
     .setLabel("Saturation")
     .setPosition(340, 620)
@@ -233,15 +239,14 @@ void draw() {
   if (cam.available()) {
     cam.read();
     curr = cam.copy();
+    update(curr);
     if (!modes) {
       background(0);
       previewControl.hide();
       editor.hide();
       control.show();
       imageMode(CENTER);
-      update(curr);
-      //pointilize(curr);
-      //flowers();
+
       if (regular) {
         reverseImage();
         // opencv.loadImage(curr);
@@ -787,20 +792,20 @@ PImage bright(PImage img) {
   return copy;
 }
 
-PImage contrast(PImage img, float contrast){
+PImage contrast(PImage img, float contrast) {
   PImage copy = img.copy();
   colorMode(RGB); //red, green, blue colorMode 
   copy.loadPixels();
-  
-  for (int i = 0; i < copy.pixels.length; i++){
+
+  for (int i = 0; i < copy.pixels.length; i++) {
     color current_color = copy.pixels[i];
-    
+
     //the algorithm for this was obtained from online 
     float factor = (259.0 * (contrast + 255)) / (255 * (259 - contrast)); //factor to multiply each rgb component of the color by
     float newRed = (factor * (red(current_color)   - 128.0) + 128);
     float newBlue = (factor * (blue(current_color)   - 128.0) + 128);
     float newGreen = (factor * (green(current_color)   - 128) + 128);
-    
+
     copy.pixels[i] = color(newRed, newGreen, newBlue);
   }
   copy.updatePixels();
@@ -813,10 +818,10 @@ void update (PImage img) {
 }
 
 void pointilize(PImage img) {
-  
- // background(0);
+
+  // background(0);
   smooth();
-  
+
   // Pick a random point
   int x = int(random(img.width));
   int y = int(random(img.height));
@@ -890,6 +895,9 @@ public void hueIn(float hi) {
 }
 public void saturationIn(float si) {
   saturation = si;
+}
+public void contrastIn(float ci) {
+  contrast = ci;
 }
 
 public void escape() {
