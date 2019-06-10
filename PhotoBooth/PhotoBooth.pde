@@ -111,13 +111,13 @@ void setup() {
     .setValue(40)
     ;
 
-  globalControl.addSlider("Cthreshold")
+  /*globalControl.addSlider("Cthreshold")
     .setRange(5, 30)
     .setSize(100, 10)
     .setPosition(150, 620)
     .setLabel("Cartoon Threshold")
     .setValue(15)
-    ;
+    ; */
 
   previewControl.addBang("gray")
     .setLabel("Grayscale")
@@ -538,7 +538,7 @@ void reversePosterize() {
 void reverseCartoon() {
   pushMatrix();
   scale(-1, 1);
-  curr = cartoonEffect(curr, Cthreshold);
+  curr = cartoonEffect(curr, thresholdGlobal/4 + 5);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -753,10 +753,12 @@ void sdiff () {
   if (saturation < -255) sdiff = -255;
 }
 
+/*
 void cdiff() {
   if (contrast > 128) contrast = 128; //ateusts the parameter, values obtained through testing
   if (contrast < -128) contrast = -128;
 }
+*/
 
 PImage saturate(PImage img) {
   PImage copy = img.copy(); //creates a copy of the image 
@@ -792,7 +794,12 @@ PImage bright(PImage img) {
   return copy;
 }
 
+<<<<<<< HEAD
 PImage contrast(PImage img, float contrast) {
+=======
+/*
+PImage contrast(PImage img, float contrast){
+>>>>>>> 39505053c75fe4c913920c1729959c658b64b937
   PImage copy = img.copy();
   colorMode(RGB); //red, green, blue colorMode 
   copy.loadPixels();
@@ -811,6 +818,8 @@ PImage contrast(PImage img, float contrast) {
   copy.updatePixels();
   return copy;
 }
+
+*/
 
 void update (PImage img) {
   curr = saturate(img);
@@ -883,10 +892,11 @@ void displayPreviews() {
   image(pCurr, -320, 280, 160, 120); //BASIC
   image(colorEdge(pCurr, thresholdGlobal), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
-  image(cartoonEffect(pCurr, Cthreshold), -320, 480, 160, 120); //CARTOON
+  image(cartoonEffect(pCurr, thresholdGlobal/4 + 5), -320, 480, 160, 120); //CARTOON
   image(background, -520, 480, 160, 120);
   popMatrix();
 }
+
 public void brightnessIn(float bi) {
   brightness = bi;
 }
