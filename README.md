@@ -63,8 +63,10 @@ Vishwaa Sofat: Once Elias had the mode preview set up, I was able to fix bugs wi
 Friday, June 7: <br>
 Elias Ferguson and Vishwaa Sofat: Went to CS office during 6th period to look at bug that didn't allow access to camera and gave a message suggesting the device was busy and being used. Modified code to no longer use two Capture but instead make a copy of the main Capture (cam), which would allow us to display different images for our displays but stemming from the same main image. This did not resolve any issues. We went to the CS Dojo/office after 10th period until around 5:30. We compared old versions that worked on the school computers and were able to resolve the bug. Elias later pushed code that we were certain worked on the computers at school based on our testing. <br>
 
-Saturday, June 8:
-Elias Ferguson: I made it so that after a photo is taken it isn't saved right away. An edit screen was implemented, where the user can choose to scrap or to save the photo, as well as edit it in various ways. I almost fully successfully implemented paint() as well, but the problem is that when the image is saved the paint disappears. I'll address that issue tomorrow.
+Saturday, June 8: <br>
+Elias Ferguson: I made it so that after a photo is taken it isn't saved right away. An edit screen was implemented, where the user can choose to scrap or to save the photo, as well as edit it in various ways. I almost fully successfully implemented paint() as well, but the problem is that when the image is saved the paint disappears. I'll address that issue tomorrow. <br>
+Vishwaa Sofat: I created methods that allowed the user to change the brightness, saturation and hue using the HSB mode in processing. The variables for these methods were connected to sliders and get methods that changed the values. I also created a flower trail feature, based on mouse coordinates and angles created by movement, that would be added to our editing mode. This is an extension of the paint method that Elias and I had previosuly written. I also added the pointilize feature, which recreates the images through circles based on colors found at random locations. This feature is to also be added to our editing mode.
 
 Sunday: June 9:
 Elias Ferguson: Paint and flowers work well, as does pointilize. The images are saved with them on it now. We successfully implemented pixel changing based on saturation, hue, and brightness sliders. It all works well. Deleted some sliders in favor of one slider. Fixed ThermalScreen.
+
