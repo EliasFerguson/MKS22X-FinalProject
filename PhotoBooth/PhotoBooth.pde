@@ -94,7 +94,7 @@ void setup() {
   control.addBang("modes")
     .setSize(60, 20)
     .setPosition(10, 500)
-    .setLabel("See Modes")
+    .setLabel("See Filters")
     ;
 
   control.addBang("facial")
@@ -225,7 +225,6 @@ void setup() {
 
 void draw() {
   if (cam.available()) {
-    globalControl.show();
     cam.read();
     curr = cam.copy();
     update(curr);
@@ -280,7 +279,6 @@ void draw() {
     prev = curr;
   }
   if (editing) {
-    globalControl.hide();
     editor.show();
     control.hide();
     if (painting) {
@@ -295,11 +293,13 @@ void draw() {
     }
   }
 }
+
 public void takePic() {
   cam.stop();
   editing = true;
   original = curr;
 }
+
 public void saveImage() {
   toBeSaved = curr.copy();
   PImage saver = createImage(640, 480, RGB);
@@ -372,10 +372,6 @@ public void facial() {
  
  }
 
-/*public void strands(float val) {
-  strands = val;
-}*/
-
 public void gray() {
   gray = true;
   edge = false;
@@ -389,6 +385,7 @@ public void gray() {
   paint = false;
   replacement = false;
 }
+
 public void edge() {
   gray = false;
   edge = true;
@@ -402,6 +399,7 @@ public void edge() {
   paint = false;
   replacement = false;
 }
+
 public void invert() {
   gray = false;
   edge = false;
@@ -415,6 +413,7 @@ public void invert() {
   paint = false;
   replacement = false;
 }
+
 public void posterize() {
   gray = false;
   edge = false;
@@ -428,6 +427,7 @@ public void posterize() {
   paint = false;
   replacement = false;
 }
+
 public void regular() {
   gray = false;
   edge = false;
@@ -441,6 +441,7 @@ public void regular() {
   paint = false;
   replacement = false;
 }
+
 public void colored() {
   gray = false;
   edge = false;
@@ -454,6 +455,7 @@ public void colored() {
   paint = false;
   replacement = false;
 }
+
 public void setBackground() {
   gray = false;
   replacement = true;
@@ -467,6 +469,7 @@ public void setBackground() {
   modes = false;
   paint = false;
 }
+
 public void thermal() {
   gray = false;
   edge = false;
@@ -480,6 +483,7 @@ public void thermal() {
   paint = false;
   replacement = false;
 }
+
 public void cartoony() {
   gray = false;
   edge = false;
@@ -493,6 +497,7 @@ public void cartoony() {
   paint = false;
   replacement = false;
 }
+
 public void paintpanel() {
   gray = false;
   edge = false;
@@ -506,18 +511,22 @@ public void paintpanel() {
   paint = true;
   replacement = false;
 }
+
 public void modes() {
   modes = true;
 }
+
 public void picker(int col) {
   alpha = int(alpha(col)); 
   red = int(red(col));
   green = int(green(col));
   blue = int(blue(col));
 }
+
 public void threshold(int val) {
   thresholdGlobal = val;
 }
+
 void reversePosterize() {
   pushMatrix();
   scale(-1, 1);
@@ -540,7 +549,6 @@ void reversePaint() {
   image(canvas, -canvas.width/2, canvas.height/2 );
   popMatrix();
 }
-
 
 void reverseColored() {
   pushMatrix();
@@ -574,7 +582,6 @@ PImage grayScale(PImage original) {
   }
   return(Image);
 }
-
 
 float edginess(int x, int y, PImage Image) {
   if ((x == 0) && (y == 0)) {
@@ -735,46 +742,10 @@ PImage background(PImage Image, PImage replacer, int threshold, color max, color
   return(backgrounded);
 }
 
-void bdiff() {
- // bdiff = 
-}
-
-void sdiff () {
-  if (saturation > 70) sdiff = 70; 
-  if (saturation < -255) sdiff = -255;
-}
-
-/*
-void cdiff() {
-  if (contrast > 128) contrast = 128; //ateusts the parameter, values obtained through testing
-  if (contrast < -128) contrast = -128;
-}
-*/
-
-PImage saturate(PImage img) {
-  PImage copy = img.copy(); //creates a copy of the image 
-  colorMode(HSB); //hue, saturation, brightness colorMode 
-  copy.loadPixels(); //loads all the pixels 
-  sdiff();
-  for (int i = 0; i < copy.pixels.length; i++) { //loops through all the pixels 
-    color current = copy.pixels[i]; //stores original color of pixel 
-    float current_h = hue(current); //original hue of pixel, doesn't change 
-    float current_s = saturation(current); //original saturation of pixel, will change
-    float current_b = brightness(current); //original brightness of pixel, doesn't change
-
-    copy.pixels[i] = color(current_h, current_s + sdiff, current_b); //sets pixel to new color
-  }
-  copy.updatePixels(); //updates all the pixels 
-  return copy; //returns copy
-}
-
 PImage changeAspects(PImage img) {
   PImage copy = img.copy();
   colorMode(HSB);
   copy.loadPixels();
-  /* bdiff();
-  hdiff();
-  sdiff(); */
   for (int i = 0; i < copy.pixels.length; i++) {
     color current = copy.pixels[i];
     float current_h = hue(current);
@@ -788,14 +759,11 @@ PImage changeAspects(PImage img) {
 }
 
 void update (PImage img) {
-
   curr = changeAspects(img);
-
 }
 
 void pointilize(PImage img) {
 
-  // background(0);
   smooth();
 
   // Pick a random point
@@ -867,12 +835,15 @@ void displayPreviews() {
 public void brightnessIn(int bi) {
   brightness = bi;
 }
+
 public void hueIn(int hi) {
   hue = hi;
 }
+
 public void saturationIn(int si) {
   saturation = si;
 }
+
 public void contrastIn(int ci) {
   contrast = ci;
 }
@@ -889,15 +860,18 @@ public void startPaint(boolean in) {
 public void startFlower(boolean in) {
   flowering = in;
 }
+
 public void startPoint(boolean in) {
   pointying = in;
 }
+
 public void revert() {
   pushMatrix();
   scale(-1, 1);
   image(original, -320, 240);
   popMatrix();
 }
+
 public void zero() {
   hue = 0;
   brightness = 0;
