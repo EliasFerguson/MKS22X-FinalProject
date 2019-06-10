@@ -53,7 +53,7 @@ You may go to any filter at any time, so try them all!
 *How to Use Backdrop: <br>
 There is only one backdrop, which is a sunset scene. It is meant to be a COLOR REPLACEMENT SCREEN, where the user will stand infront of a uniformly colored background, such as a blue wall. Then, they must click THREE TIMES on that background, which will then be replaced by the backdrop image.
 
-<b> Editing and Saving Mode </b>
+<b> Editing and Saving Mode </b> <br>
 You will enter this mode after you have pressed the "Take Picture" button. At this point you may edit the picture with one of our editing options and decide whether you would like to save it or not.
 
 Editing Options:
