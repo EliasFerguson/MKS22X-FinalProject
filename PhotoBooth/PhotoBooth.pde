@@ -10,7 +10,7 @@ ControlP5 control, previewControl, globalControl, editor;
 int picNum;
 float strands;
 int clicks=0;
-int pointillize = 5;
+int pointillize = 22;
 color max, mid, low;
 PGraphics brush;
 int hdiff, sdiff, bdiff, angle;
@@ -744,8 +744,13 @@ void bdiff() {
 }
 
 void sdiff () {
-  if (saturation > 70) sdiff = 130; 
-  if (saturation < -255) sdiff = -130;
+  if (saturation > 70) sdiff = 70; 
+  if (saturation < -255) sdiff = -255;
+}
+
+void cdiff() {
+  if (contrast > 128) contrast = 128; //ateusts the parameter, values obtained through testing
+  if (contrast < -128) contrast = -128;
 }
 
 PImage saturate(PImage img) {
@@ -776,8 +781,27 @@ PImage bright(PImage img) {
     float current_s = saturation(current);
     float current_b = brightness(current); //only the brightness of the image will be modified 
 
-
     copy.pixels[i] = color(current_h, current_s, current_b + bdiff);
+  }
+  copy.updatePixels();
+  return copy;
+}
+
+PImage contrast(PImage img, float contrast){
+  PImage copy = img.copy();
+  colorMode(RGB); //red, green, blue colorMode 
+  copy.loadPixels();
+  
+  for (int i = 0; i < copy.pixels.length; i++){
+    color current_color = copy.pixels[i];
+    
+    //the algorithm for this was obtained from online 
+    float factor = (259.0 * (contrast + 255)) / (255 * (259 - contrast)); //factor to multiply each rgb component of the color by
+    float newRed = (factor * (red(current_color)   - 128.0) + 128);
+    float newBlue = (factor * (blue(current_color)   - 128.0) + 128);
+    float newGreen = (factor * (green(current_color)   - 128) + 128);
+    
+    copy.pixels[i] = color(newRed, newGreen, newBlue);
   }
   copy.updatePixels();
   return copy;
@@ -806,7 +830,7 @@ void pointilize(PImage img) {
   noStroke();
 
   // Draw an ellipse at that location with that color
-  fill(r, g, b, 100);
+  fill(r, g, b, 150);
   ellipse(640 - x, y, pointillize, pointillize);
 }
 
