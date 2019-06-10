@@ -51,7 +51,7 @@ void setup() {
   editor = new ControlP5(this);
   editor.addBang("revert")
     .setSize(40, 20)
-    .setLabel("Revert to Original")
+    .setLabel("RESET")
     .setPosition(550, 500)
     ;
   editor.addToggle("startPoint")
@@ -72,17 +72,17 @@ void setup() {
   editor.addBang("saveImage") 
     .setSize(60, 40)
     .setPosition(290, 500)
-    .setLabel("Save Current Image")
+    .setLabel("Save Image")
     ;
   editor.addBang("escape")
     .setSize(30, 20)
     .setPosition(10, 580)
-    .setLabel("Scrap Current Image")
+    .setLabel("Delete Image")
     ;
   editor.addColorPicker("picker")
     .setSize(60, 80)
     .setPosition(0, 480)
-    .setLabel("Paint Color")
+    .setLabel("Color Picker")
     ;
 
   control.addBang("takePic")
