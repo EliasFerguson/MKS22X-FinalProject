@@ -654,6 +654,7 @@ PImage colorEdge(PImage Image, int threshold) {
 }
 
 PImage thermalScreen (PImage Image) {
+  colorMode(RGB);
   PImage grayImage = grayScale(Image);
   PImage tScreen = new PImage(grayImage.width, grayImage.height);
   for (int y=0; y<grayImage.height; y++) {
@@ -794,9 +795,6 @@ PImage bright(PImage img) {
   return copy;
 }
 
-<<<<<<< HEAD
-PImage contrast(PImage img, float contrast) {
-=======
 /*
 PImage contrast(PImage img, float contrast){
 >>>>>>> 39505053c75fe4c913920c1729959c658b64b937
