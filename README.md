@@ -69,4 +69,9 @@ Vishwaa Sofat: I created methods that allowed the user to change the brightness,
 
 Sunday: June 9: <br>
 Elias Ferguson: Paint and flowers work well, as does pointilize. The images are saved with them on it now. We successfully implemented pixel changing based on saturation, hue, and brightness sliders. It all works well. Deleted some sliders in favor of one slider. Fixed ThermalScreen. <br>
+Vishwaa Sofat: Set up proportions to get rid of Cthreshold and strands slider to make layout nearter. Set up those variables based on threshold slider. Redesigned layout for controls to mae it neater and easier to use for users. Changed CP5 control names to fit design. Fixed facial recognitions output by reversing x values based on screen size. Also, fixed pointlize to reverse x values based on screen size. Helped Elias fix hue, brightness and saturation based on implementation the day before.
 
+<br>
+<br>
+
+<b> WE MADE IT! </b>
