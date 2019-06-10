@@ -533,7 +533,7 @@ void reversePosterize() {
 void reverseCartoon() {
   pushMatrix();
   scale(-1, 1);
-  curr = cartoonEffect(curr, Cthreshold);
+  curr = cartoonEffect(curr, thresholdGlobal/4 + 5);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -878,7 +878,7 @@ void displayPreviews() {
   image(pCurr, -320, 280, 160, 120); //BASIC
   image(colorEdge(pCurr, thresholdGlobal), -520, 280, 160, 120); //COLOREDGE
   image(thermalScreen(pCurr), -120, 480, 160, 120); //THERMAL
-  image(cartoonEffect(pCurr, Cthreshold), -320, 480, 160, 120); //CARTOON
+  image(cartoonEffect(pCurr, thresholdGlobal/4 + 5), -320, 480, 160, 120); //CARTOON
   image(background, -520, 480, 160, 120);
   popMatrix();
 }
