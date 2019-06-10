@@ -44,14 +44,14 @@ void setup() {
   background = loadImage("background.jpeg");
   background.resize(640, 480);
   picNum = 1;
-  strands = random(2.0, 15.0);
+  //strands = random(2.0, 15.0);
   control = new ControlP5(this);
   previewControl = new ControlP5(this);
   globalControl = new ControlP5(this);
   editor = new ControlP5(this);
   editor.addBang("revert")
     .setSize(40, 20)
-    .setLabel("Revert to Original")
+    .setLabel("RESET")
     .setPosition(550, 500)
     ;
   editor.addToggle("startPoint")
@@ -72,17 +72,17 @@ void setup() {
   editor.addBang("saveImage") 
     .setSize(60, 40)
     .setPosition(290, 500)
-    .setLabel("Save Current Image")
+    .setLabel("Save Image")
     ;
   editor.addBang("escape")
     .setSize(30, 20)
     .setPosition(10, 580)
-    .setLabel("Scrap Current Image")
+    .setLabel("Delete Image")
     ;
   editor.addColorPicker("picker")
     .setSize(60, 80)
     .setPosition(0, 480)
-    .setLabel("Paint Color")
+    .setLabel("Color Picker")
     ;
 
   control.addBang("takePic")
@@ -180,17 +180,10 @@ void setup() {
     ;
   globalControl.addSlider("hueIn")
     .setLabel("Hue")
-    .setPosition(200, 620)
+    .setPosition(490, 600)
     .setRange(-255, 255)
     .setValue(hue)    
     .plugTo(hue)
-    ;
-  globalControl.addSlider("strands")
-    .setLabel("Strands")
-    .setPosition(490, 600)
-    .setRange(2, 15)
-    .setValue(7)
-    .plugTo(strands)
     ;
 
   size(640, 640);
@@ -215,8 +208,8 @@ void setup() {
     }
     cam = new Capture(this, 640, 480);
 
-    //opencv = new OpenCV(this, 640, 480);
-    //opencv.loadCascade(OpenCV.CASCADE_EYE);
+    opencv = new OpenCV(this, 640, 480);
+    opencv.loadCascade(OpenCV.CASCADE_EYE);
 
     cam.start();
 
@@ -244,7 +237,7 @@ void draw() {
 
       if (regular) {
         reverseImage();
-        // opencv.loadImage(curr);
+         opencv.loadImage(curr);
       }
       if (gray) {
         reverseGrayScale();
@@ -362,7 +355,7 @@ void flowers() {
   }
 }
 
-/*public void facial() {
+public void facial() {
  
  noFill();
  stroke(0, 255, 0);
@@ -375,11 +368,12 @@ void flowers() {
  rect(640-eyes[i].x, eyes[i].y, eyes[i].width, eyes[i].height);
  }
  
- }*/
+ }
 
-public void strands(float val) {
+/*public void strands(float val) {
   strands = val;
-}
+}*/
+
 public void gray() {
   gray = true;
   edge = false;
@@ -525,7 +519,7 @@ public void threshold(int val) {
 void reversePosterize() {
   pushMatrix();
   scale(-1, 1);
-  curr.filter(POSTERIZE, strands);
+  curr.filter(POSTERIZE, thresholdGlobal/8+3);
   image(curr, -curr.width/2, curr.height/2 );
   popMatrix();
 }
@@ -791,32 +785,10 @@ PImage changeAspects(PImage img) {
   return copy;
 }
 
-/*
-PImage contrast(PImage img, float contrast){
->>>>>>> 39505053c75fe4c913920c1729959c658b64b937
-  PImage copy = img.copy();
-  colorMode(RGB); //red, green, blue colorMode 
-  copy.loadPixels();
-
-  for (int i = 0; i < copy.pixels.length; i++) {
-    color current_color = copy.pixels[i];
-
-    //the algorithm for this was obtained from online 
-    float factor = (259.0 * (contrast + 255)) / (255 * (259 - contrast)); //factor to multiply each rgb component of the color by
-    float newRed = (factor * (red(current_color)   - 128.0) + 128);
-    float newBlue = (factor * (blue(current_color)   - 128.0) + 128);
-    float newGreen = (factor * (green(current_color)   - 128) + 128);
-
-    copy.pixels[i] = color(newRed, newGreen, newBlue);
-  }
-  copy.updatePixels();
-  return copy;
-}
-
-*/
-
 void update (PImage img) {
+
   curr = changeAspects(img);
+
 }
 
 void pointilize(PImage img) {
@@ -880,7 +852,7 @@ void displayPreviews() {
   putIn.filter(INVERT);
   image(putIn, -520, 80, 160, 120); //XRAY
   PImage putIn2 = pCurr.copy();
-  putIn2.filter(POSTERIZE, strands);
+  putIn2.filter(POSTERIZE, thresholdGlobal/8+3);
   image(putIn2, -120, 280, 160, 120); //POSTERIZE
   image(pCurr, -320, 280, 160, 120); //BASIC
   image(colorEdge(pCurr, thresholdGlobal), -520, 280, 160, 120); //COLOREDGE
