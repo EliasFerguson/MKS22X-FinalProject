@@ -10,7 +10,7 @@ ControlP5 control, previewControl, globalControl, editor;
 int picNum;
 float strands;
 int clicks=0;
-int pointillize = 22;
+int pointillize = 18;
 color max, mid, low;
 PGraphics brush;
 int hdiff, sdiff, bdiff, angle;
@@ -797,9 +797,9 @@ void pointilize(PImage img) {
   smooth();
 
   // Pick a random point
-  int x = int(random(img.width));
-  int y = int(random(img.height));
-  int loc = x + y*img.width;
+  int x = int(random(img.width - pointillize/2 ));
+  int y = int(random(img.height - pointillize/2));
+  int loc = x + y*(img.width -  pointillize/2);
 
   // Look up the RGB color in the source image
   loadPixels();
