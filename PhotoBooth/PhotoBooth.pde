@@ -173,12 +173,14 @@ void setup() {
     .setRange(-255, 255)
     .setValue(brightness)    
     ;
+    /*
   globalControl.addSlider("contrastIn")
     .setLabel("Contrast")
     .setPosition(0, 620)
     .setRange(-255, 255)
     .setValue(contrast)    
     ;
+    */
   globalControl.addSlider("saturationIn")
     .setLabel("Saturation")
     .setPosition(340, 620)
@@ -187,7 +189,7 @@ void setup() {
     ;
   globalControl.addSlider("hueIn")
     .setLabel("Hue")
-    .setPosition(150, 600)
+    .setPosition(490, 600)
     .setRange(-255, 255)
     .setValue(hue)    
     ;
