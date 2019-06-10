@@ -111,13 +111,13 @@ void setup() {
     .setValue(40)
     ;
 
-  globalControl.addSlider("Cthreshold")
+  /*globalControl.addSlider("Cthreshold")
     .setRange(5, 30)
     .setSize(100, 10)
     .setPosition(150, 620)
     .setLabel("Cartoon Threshold")
     .setValue(15)
-    ;
+    ; */
 
   previewControl.addBang("gray")
     .setLabel("Grayscale")
@@ -748,10 +748,12 @@ void sdiff () {
   if (saturation < -255) sdiff = -255;
 }
 
+/*
 void cdiff() {
   if (contrast > 128) contrast = 128; //ateusts the parameter, values obtained through testing
   if (contrast < -128) contrast = -128;
 }
+*/
 
 PImage saturate(PImage img) {
   PImage copy = img.copy(); //creates a copy of the image 
@@ -787,6 +789,7 @@ PImage bright(PImage img) {
   return copy;
 }
 
+/*
 PImage contrast(PImage img, float contrast){
   PImage copy = img.copy();
   colorMode(RGB); //red, green, blue colorMode 
@@ -806,6 +809,8 @@ PImage contrast(PImage img, float contrast){
   copy.updatePixels();
   return copy;
 }
+
+*/
 
 void update (PImage img) {
   curr = saturate(img);
@@ -882,6 +887,7 @@ void displayPreviews() {
   image(background, -520, 480, 160, 120);
   popMatrix();
 }
+
 public void brightnessIn(float bi) {
   brightness = bi;
 }
