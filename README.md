@@ -3,11 +3,9 @@ Instructions:
 This is a photo booth, and is pretty self-explanatory. Just click the buttons to navigate to where you want to go, and if you want to take a picture, then click the button that says "Take Picture"! 
 Here are just a few notes on the various sliders, and where images are saved:
 
-Threshold - This slider affects both Edge-Detect and Colored Pencil. The lower the threshold, the darker/more colorful the resulting image will be.
+Threshold - This slider affects both Edge-Detect, Colored Pencil, Cartoon, and Posterize. The threshold changes what the image will look like, test it out to see the differences between high and low.
 
-Cartoon Threshold - This slider ONLY affects the cartoon filter. The lower the number, the darker the image will be.
-
-Strands - Strands only affects the posterize filter. It determines how many mixtures of colors will be used when the image is filtered.
+Brightness, Hue and Saturation: These sliders all change different aspects of the image. Try them out - if you don't like the changes just click on "Zero Sliders" to revert back to the original.
 
 How to Use Backdrop: There is only one backdrop, which is a sunset scene. It is meant to be a COLOR REPLACEMENT SCREEN, where the user will stand infront of a uniformly colored background, such as a blue wall. Then, they must click THREE TIMES on that background, which will then be replaced by the backdrop image.
 
@@ -67,3 +65,6 @@ Elias Ferguson and Vishwaa Sofat: Went to CS office during 6th period to look at
 
 Saturday, June 8:
 Elias Ferguson: I made it so that after a photo is taken it isn't saved right away. An edit screen was implemented, where the user can choose to scrap or to save the photo, as well as edit it in various ways. I almost fully successfully implemented paint() as well, but the problem is that when the image is saved the paint disappears. I'll address that issue tomorrow.
+
+Sunday: June 9:
+Elias Ferguson: Paint and flowers work well, as does pointilize. The images are saved with them on it now. We successfully implemented pixel changing based on saturation, hue, and brightness sliders. It all works well. Deleted some sliders in favor of one slider. Fixed ThermalScreen.
