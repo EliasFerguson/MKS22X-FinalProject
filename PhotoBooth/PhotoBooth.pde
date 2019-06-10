@@ -745,8 +745,7 @@ PImage background(PImage Image, PImage replacer, int threshold, color max, color
 }
 
 void bdiff() {
-  if (brightness > 70) bdiff = 70; 
-  if (brightness < -60) bdiff = -60;
+ // bdiff = 
 }
 
 void sdiff () {
@@ -778,18 +777,20 @@ PImage saturate(PImage img) {
   return copy; //returns copy
 }
 
-PImage bright(PImage img) {
+PImage changeAspects(PImage img) {
   PImage copy = img.copy();
   colorMode(HSB);
   copy.loadPixels();
-  bdiff();
+  /* bdiff();
+  hdiff();
+  sdiff(); */
   for (int i = 0; i < copy.pixels.length; i++) {
     color current = copy.pixels[i];
     float current_h = hue(current);
     float current_s = saturation(current);
     float current_b = brightness(current); //only the brightness of the image will be modified 
 
-    copy.pixels[i] = color(current_h, current_s, current_b + bdiff);
+    copy.pixels[i] = color(current_h + hue, current_s + saturation, current_b + brightness);
   }
   copy.updatePixels();
   return copy;
@@ -820,8 +821,7 @@ PImage contrast(PImage img, float contrast){
 */
 
 void update (PImage img) {
-  curr = saturate(img);
-  curr = bright(img);
+  curr = changeAspects(img);
 }
 
 void pointilize(PImage img) {
