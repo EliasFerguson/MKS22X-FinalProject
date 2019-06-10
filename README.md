@@ -67,3 +67,6 @@ Elias Ferguson and Vishwaa Sofat: Went to CS office during 6th period to look at
 
 Saturday, June 8:
 Elias Ferguson: I made it so that after a photo is taken it isn't saved right away. An edit screen was implemented, where the user can choose to scrap or to save the photo, as well as edit it in various ways. I almost fully successfully implemented paint() as well, but the problem is that when the image is saved the paint disappears. I'll address that issue tomorrow.
+
+Sunday: June 9:
+Elias Ferguson: Paint and flowers work well, as does pointilize. The images are saved with them on it now. We successfully implemented pixel changing based on saturation, hue, and brightness sliders. It all works well. Deleted some sliders in favor of one slider. Fixed ThermalScreen.
