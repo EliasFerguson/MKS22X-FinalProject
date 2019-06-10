@@ -29,6 +29,25 @@ Take Picture: Well, you guessed it! This button captures the image.
 
 See Filters: This will lead you to our filters display mode, where you can pick one of our many filters.
 
+Facial Recognition: This button uses the OpenCV library to create a rectangle or ellipse where your eyes are detected.
+
+<b> Display Mode </b>
+
+You enter this mode by pressing the "See Filters" button, as mentioned above.
+
+It will take you to previews of each filter. We have created six filters on our own and used two from Processing's built in methods but tweaked them to fit our taste. In total we have eight filters:
+
+0. No Filter (Orginial Image)
+1. GrayScale
+2. EdgeDetect
+3. X-Ray
+4. Posterize
+5. Colored Pencil
+6. Thermal
+7. Cartoon Effect
+8. Backdrop
+
+You may go to any filter at any time, so try them all!
 
 -- 
 
