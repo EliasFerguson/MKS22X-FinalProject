@@ -377,7 +377,7 @@ void flowers() {
  
  for (int i = 0; i < eyes.length; i++) {
  println(eyes[i].x + "," + eyes[i].y);
- rect(eyes[i].x, eyes[i].y, eyes[i].width, eyes[i].height);
+ rect(640-eyes[i].x, eyes[i].y, eyes[i].width, eyes[i].height);
  }
  
  }*/
