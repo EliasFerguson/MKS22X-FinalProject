@@ -1,6 +1,7 @@
 # MKS22X-FinalProject
 <br>
 Group Members: Elias Ferguson and Vishwaa Sofat <br>
+
 Project Description:
 Our project is an effort to recreate the photo booth found on Apple computers. The controls are pretty self-explanatory and the you should be able to just click the buttons to navigate to where you want to go or what you want to do.
 
@@ -126,5 +127,4 @@ Vishwaa Sofat: Set up proportions to get rid of Cthreshold and strands slider to
 
 <br>
 <br>
-
 <b> WE MADE IT! </b>
