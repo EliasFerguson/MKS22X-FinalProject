@@ -15,7 +15,7 @@ color max, mid, low;
 PGraphics brush;
 int hdiff, sdiff, bdiff, angle;
 boolean clicksDone = false;
-float brightness, saturation, hue, contrast; //the contrast level of the image
+int brightness, saturation, hue, contrast; //the contrast level of the image
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
 int alpha, red, blue, green;
 boolean painting, facial, editing, flowering, pointying;
@@ -895,16 +895,16 @@ void displayPreviews() {
   popMatrix();
 }
 
-public void brightnessIn(float bi) {
+public void brightnessIn(int bi) {
   brightness = bi;
 }
-public void hueIn(float hi) {
+public void hueIn(int hi) {
   hue = hi;
 }
-public void saturationIn(float si) {
+public void saturationIn(int si) {
   saturation = si;
 }
-public void contrastIn(float ci) {
+public void contrastIn(int ci) {
   contrast = ci;
 }
 
