@@ -1,11 +1,39 @@
 # MKS22X-FinalProject
-Instructions:
-This is a photo booth, and is pretty self-explanatory. Just click the buttons to navigate to where you want to go, and if you want to take a picture, then click the button that says "Take Picture"! 
-Here are just a few notes on the various sliders, and where images are saved:
+<br>
+Group Members: Elias Ferguson and Vishwaa Sofat
+<br>
+Project Description:
+Our project is an effort to recreate the photo booth found on Apple computers. The controls are pretty self-explanatory and the you should be able to just click the buttons to navigate to where you want to go or what you want to do.
 
-Threshold - This slider affects both Edge-Detect, Colored Pencil, Cartoon, and Posterize. The threshold changes what the image will look like, test it out to see the differences between high and low.
+Instructions:<br>
+1. Clone the repository. <br>
+2. CD into the PhotoBooth folder. <br>
+3. Open the PhotoBooth.pde file. <br>
+4. Make sure you have all the neccessary libraries downloaded: OpenCV, Processing Video and controlP5. <br>
+5. Click the "run" button. <br>
 
-Brightness, Hue and Saturation: These sliders all change different aspects of the image. Try them out - if you don't like the changes just click on "Zero Sliders" to revert back to the original.
+At this point you should be able to see a picture of yourself on the screen. Move around. Raise your hand(s) and you'll see the camera display whatever you do! <br>
+
+<b> Picture Taking Mode: <b>
+
+In this mode you can take a picture, mess around with the brightness, hue and saturation, and try out one of our filters.<br>
+
+<br>
+
+What does each slider/button do? <br>
+
+Threshold - This slider affects the following filters: Edge-Detect, Colored Pencil, Cartoon, and Posterize. The threshold changes what the image will look like, test it out to see the differences between high and low.
+
+Brightness, Hue and Saturation: These sliders all change different aspects of the image, based on processing.org documentation. If you don't like the changes just click on "Reset Sliders" to revert back to the original.
+
+Reset Sliders: This button sets brightness, hue and saturation to 0 to display the orginal image. 
+
+Take Picture: Well, you guessed it! This button captures the image.
+
+See Filters: This will lead you to our filters display mode, where you can pick one of our many filters.
+
+
+-- 
 
 How to Use Backdrop: There is only one backdrop, which is a sunset scene. It is meant to be a COLOR REPLACEMENT SCREEN, where the user will stand infront of a uniformly colored background, such as a blue wall. Then, they must click THREE TIMES on that background, which will then be replaced by the backdrop image.
 
