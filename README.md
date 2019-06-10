@@ -45,15 +45,24 @@ It will take you to previews of each filter. We have created six filters on our 
 5. Colored Pencil
 6. Thermal
 7. Cartoon Effect
-8. Backdrop
+8. Backdrop*
 
 You may go to any filter at any time, so try them all!
 
--- 
+*How to Use Backdrop: <br>
+There is only one backdrop, which is a sunset scene. It is meant to be a COLOR REPLACEMENT SCREEN, where the user will stand infront of a uniformly colored background, such as a blue wall. Then, they must click THREE TIMES on that background, which will then be replaced by the backdrop image.
 
-How to Use Backdrop: There is only one backdrop, which is a sunset scene. It is meant to be a COLOR REPLACEMENT SCREEN, where the user will stand infront of a uniformly colored background, such as a blue wall. Then, they must click THREE TIMES on that background, which will then be replaced by the backdrop image.
+<b> Editing and Saving Mode </b>
+You will enter this mode after you have pressed the "Take Picture" button. At this point you may edit the picture with one of our editing options and decide whether you would like to save it or not.
 
-Saved Images: Saved images are placed in a folder marked "data" withtin the sketch folder. Please keep in mind that each time the program is run again, the images are replaced.
+Editing Options:
+1. Paint Mode*
+2. Flower Trail Mode*
+3. Pointilize Mode
+
+If you are not happy with your editing, you may click the "RESET" button to go back to original image you captured. If you don't like the image you captured, you may delete it using the "DELETE" button. If you love the picture you see on the screen, you can click the "Take Picture" button. Saved images are placed in a folder marked "data" withtin the sketch folder. Please keep in mind that each time the program is run again, the images are replaced.
+
+*You must choose a color from the color picker provided in the display to use paint and flower trail. They are originally set to clear so you will not see the correct changes you desire.
 
 <b> DevLog: </b>
 
