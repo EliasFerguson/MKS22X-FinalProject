@@ -15,7 +15,7 @@ color max, mid, low;
 PGraphics brush;
 int hdiff, sdiff, bdiff, angle;
 boolean clicksDone = false;
-float brightness, saturation, hue, contrast; //the contrast level of the image
+int brightness, saturation, hue, contrast; //the contrast level of the image
 boolean modes, regular, gray, edge, poster, invert, cartoon, colored, thermal, paint, replacement;
 int alpha, red, blue, green;
 boolean painting, facial, editing, flowering, pointying;
@@ -654,6 +654,7 @@ PImage colorEdge(PImage Image, int threshold) {
 }
 
 PImage thermalScreen (PImage Image) {
+  colorMode(RGB);
   PImage grayImage = grayScale(Image);
   PImage tScreen = new PImage(grayImage.width, grayImage.height);
   for (int y=0; y<grayImage.height; y++) {
@@ -744,8 +745,7 @@ PImage background(PImage Image, PImage replacer, int threshold, color max, color
 }
 
 void bdiff() {
-  if (brightness > 70) bdiff = 70; 
-  if (brightness < -60) bdiff = -60;
+ // bdiff = 
 }
 
 void sdiff () {
@@ -777,24 +777,32 @@ PImage saturate(PImage img) {
   return copy; //returns copy
 }
 
-PImage bright(PImage img) {
+PImage changeAspects(PImage img) {
   PImage copy = img.copy();
   colorMode(HSB);
   copy.loadPixels();
-  bdiff();
+  /* bdiff();
+  hdiff();
+  sdiff(); */
   for (int i = 0; i < copy.pixels.length; i++) {
     color current = copy.pixels[i];
     float current_h = hue(current);
     float current_s = saturation(current);
     float current_b = brightness(current); //only the brightness of the image will be modified 
 
-    copy.pixels[i] = color(current_h, current_s, current_b + bdiff);
+    copy.pixels[i] = color(current_h + hue, current_s + saturation, current_b + brightness);
   }
   copy.updatePixels();
   return copy;
 }
 
+<<<<<<< HEAD
 PImage contrast(PImage img) {
+=======
+/*
+PImage contrast(PImage img, float contrast){
+>>>>>>> 39505053c75fe4c913920c1729959c658b64b937
+>>>>>>> 1153d758e047d950ecfeb78c748ed95fadbfb754
   PImage copy = img.copy();
   colorMode(RGB); //red, green, blue colorMode 
   copy.loadPixels();
@@ -815,9 +823,13 @@ PImage contrast(PImage img) {
 }
 
 void update (PImage img) {
+<<<<<<< HEAD
   curr = saturate(img);
   curr = bright(img);
   curr = contrast(img);
+=======
+  curr = changeAspects(img);
+>>>>>>> 1153d758e047d950ecfeb78c748ed95fadbfb754
 }
 
 void pointilize(PImage img) {
@@ -891,16 +903,16 @@ void displayPreviews() {
   popMatrix();
 }
 
-public void brightnessIn(float bi) {
+public void brightnessIn(int bi) {
   brightness = bi;
 }
-public void hueIn(float hi) {
+public void hueIn(int hi) {
   hue = hi;
 }
-public void saturationIn(float si) {
+public void saturationIn(int si) {
   saturation = si;
 }
-public void contrastIn(float ci) {
+public void contrastIn(int ci) {
   contrast = ci;
 }
 
