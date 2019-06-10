@@ -220,8 +220,8 @@ void setup() {
     }
     cam = new Capture(this, 640, 480);
 
-    //opencv = new OpenCV(this, 640, 480);
-    //opencv.loadCascade(OpenCV.CASCADE_EYE);
+    opencv = new OpenCV(this, 640, 480);
+    opencv.loadCascade(OpenCV.CASCADE_EYE);
 
     cam.start();
 
@@ -249,7 +249,7 @@ void draw() {
 
       if (regular) {
         reverseImage();
-        // opencv.loadImage(curr);
+         opencv.loadImage(curr);
       }
       if (gray) {
         reverseGrayScale();
@@ -367,7 +367,7 @@ void flowers() {
   }
 }
 
-/*public void facial() {
+public void facial() {
  
  noFill();
  stroke(0, 255, 0);
@@ -380,7 +380,7 @@ void flowers() {
  rect(640-eyes[i].x, eyes[i].y, eyes[i].width, eyes[i].height);
  }
  
- }*/
+ }
 
 public void strands(float val) {
   strands = val;
@@ -794,12 +794,7 @@ PImage bright(PImage img) {
   return copy;
 }
 
-<<<<<<< HEAD
-PImage contrast(PImage img, float contrast) {
-=======
-/*
-PImage contrast(PImage img, float contrast){
->>>>>>> 39505053c75fe4c913920c1729959c658b64b937
+PImage contrast(PImage img) {
   PImage copy = img.copy();
   colorMode(RGB); //red, green, blue colorMode 
   copy.loadPixels();
@@ -819,11 +814,10 @@ PImage contrast(PImage img, float contrast){
   return copy;
 }
 
-*/
-
 void update (PImage img) {
   curr = saturate(img);
   curr = bright(img);
+  curr = contrast(img);
 }
 
 void pointilize(PImage img) {
