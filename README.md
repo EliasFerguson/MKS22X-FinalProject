@@ -67,6 +67,6 @@ Saturday, June 8: <br>
 Elias Ferguson: I made it so that after a photo is taken it isn't saved right away. An edit screen was implemented, where the user can choose to scrap or to save the photo, as well as edit it in various ways. I almost fully successfully implemented paint() as well, but the problem is that when the image is saved the paint disappears. I'll address that issue tomorrow. <br>
 Vishwaa Sofat: I created methods that allowed the user to change the brightness, saturation and hue using the HSB mode in processing. The variables for these methods were connected to sliders and get methods that changed the values. I also created a flower trail feature, based on mouse coordinates and angles created by movement, that would be added to our editing mode. This is an extension of the paint method that Elias and I had previosuly written. I also added the pointilize feature, which recreates the images through circles based on colors found at random locations. This feature is to also be added to our editing mode.
 
-Sunday: June 9:
-Elias Ferguson: Paint and flowers work well, as does pointilize. The images are saved with them on it now. We successfully implemented pixel changing based on saturation, hue, and brightness sliders. It all works well. Deleted some sliders in favor of one slider. Fixed ThermalScreen.
+Sunday: June 9: <br>
+Elias Ferguson: Paint and flowers work well, as does pointilize. The images are saved with them on it now. We successfully implemented pixel changing based on saturation, hue, and brightness sliders. It all works well. Deleted some sliders in favor of one slider. Fixed ThermalScreen. <br>
 
