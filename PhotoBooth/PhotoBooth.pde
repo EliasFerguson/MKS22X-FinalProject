@@ -109,16 +109,8 @@ void setup() {
     .setPosition(490, 620)
     .setLabel("Threshold")
     .setValue(40)
+    .plugTo(thresholdGlobal)
     ;
-
-  /*globalControl.addSlider("Cthreshold")
-    .setRange(5, 30)
-    .setSize(100, 10)
-    .setPosition(150, 620)
-    .setLabel("Cartoon Threshold")
-    .setValue(15)
-    ; */
-
   previewControl.addBang("gray")
     .setLabel("Grayscale")
     .setSize(60, 20)
@@ -167,38 +159,32 @@ void setup() {
     .setSize(60, 20)
     .setPosition(490, 520)
     ;
+  globalControl.addBang("zero")
+    .setLabel(" Reset Sliders")
+    .setPosition(275, 600)
+    .setSize(60, 10)
+    ;
   globalControl.addSlider("brightnessIn")
     .setLabel("Brightness")
     .setPosition(340, 600)
     .setRange(-255, 255)
     .setValue(brightness)    
     ;
-    /*
-  globalControl.addSlider("contrastIn")
-    .setLabel("Contrast")
-    .setPosition(0, 620)
-    .setRange(-255, 255)
-    .setValue(contrast)    
-    ;
-    */
+
   globalControl.addSlider("saturationIn")
     .setLabel("Saturation")
     .setPosition(340, 620)
     .setRange(-255, 255)
-    .setValue(saturation)    
+    .setValue(saturation) 
+    .plugTo(saturation)
     ;
   globalControl.addSlider("hueIn")
     .setLabel("Hue")
     .setPosition(490, 600)
     .setRange(-255, 255)
     .setValue(hue)    
+    .plugTo(hue)
     ;
- /* globalControl.addSlider("strands")
-    .setLabel("Strands")
-    .setPosition(490, 600)
-    .setRange(2, 15)
-    .setValue(7)
-    ; */
 
   size(640, 640);
   fill(255);
@@ -909,4 +895,9 @@ public void revert() {
   scale(-1, 1);
   image(original, -320, 240);
   popMatrix();
+}
+public void zero() {
+  hue = 0;
+  brightness = 0;
+  saturation = 0;
 }
