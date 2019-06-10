@@ -1,12 +1,11 @@
 # MKS22X-FinalProject
-<br>
-Group Members: Elias Ferguson and Vishwaa Sofat 
-<br>
 
-Project Description: <br>
-Our project is an effort to recreate the photo booth found on Apple computers. The controls are pretty self-explanatory and the you should be able to just click the buttons to navigate to where you want to go or what you want to do. The program will access the front-facing camera and the Capture class to take pictures of the user when a button is clicked. The main parts of the project will be the several filters that the user can apply and editing abiltiies. The photos taken are reviewable and saveable, should the user wish to do so. We have also used the controlP5 library to create different toggles for the user to control their PhotoBooth experience. We also got the chance to experiment with OpenCV to test facial recognition. The big data structure we used were arrays.
+Group Members: Elias Ferguson and Vishwaa Sofat <br> <br>
 
-Instructions:<br>
+<b> Project Description:</b> <br>
+Our project is an effort to recreate the photo booth found on Apple computers. The controls are pretty self-explanatory and the you should be able to just click the buttons to navigate to where you want to go or what you want to do. The program will access the front-facing camera and the Capture class to take pictures of the user when a button is clicked. The main parts of the project will be the several filters that the user can apply and editing abiltiies. The photos taken are reviewable and saveable, should the user wish to do so. We have also used the controlP5 library to create different toggles for the user to control their PhotoBooth experience. We also got the chance to experiment with OpenCV to test facial recognition. The big data structure we used were arrays. <br>
+
+<br> Instructions: </b> <br>
 1. Clone the repository. <br>
 2. CD into the PhotoBooth folder. <br>
 3. Open the PhotoBooth.pde file. <br>
