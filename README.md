@@ -13,7 +13,7 @@ Instructions:<br>
 
 At this point you should be able to see a picture of yourself on the screen. Move around. Raise your hand(s) and you'll see the camera display whatever you do! <br>
 
-<b> Picture Taking Mode: <b>
+<b> Picture Taking Mode: </b>
 
 In this mode you can take a picture, mess around with the brightness, hue and saturation, and try out one of our filters.<br>
 
