@@ -225,6 +225,7 @@ void setup() {
 
 void draw() {
   if (cam.available()) {
+    globalControl.show();
     cam.read();
     curr = cam.copy();
     update(curr);
@@ -279,6 +280,7 @@ void draw() {
     prev = curr;
   }
   if (editing) {
+    globalControl.hide();
     editor.show();
     control.hide();
     if (painting) {
